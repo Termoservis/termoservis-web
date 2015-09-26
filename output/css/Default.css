@@ -1,0 +1,127 @@
+.PageVersionButton {
+	font-size: 1.2em;
+	display: inline-block;
+	padding: 12px;
+	cursor: pointer;
+}
+	.PageVersionButton.Selected {
+		background: #F23838;
+		color: white;
+		font-weight: bold;
+	}
+
+.HeaderText {
+	height: 80px;
+	cursor: default;
+
+	-ms-text-shadow: 0 0 7px #DDD;
+	text-shadow: 0 0 7px #DDD;
+}
+
+.TopLine {
+	width: 100%;
+	background: #F23838;
+	padding-top: 5px;
+}
+
+.LogoDetail {
+	/* Details on creating triangle */
+	/* http://jonrohan.me/guide/css/creating-triangles-in-css/ */
+	
+	position: relative; 
+	float: left; 
+	left: 175px;
+	top: 10px;
+	
+	border-color: transparent transparent transparent #F23838;
+	border-style: solid;
+	border-width: 12.5px 5px 7.5px 15px;
+	width: 0;
+	height: 0;
+}
+
+.FacebookLink {
+	display: inline-block;
+	position: relative;
+	float: right;
+	top: 13.5px;
+	right: 15px;
+}
+	.FacebookLink > a > img {
+		filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+		-webkit-filter: grayscale(1);
+	}
+	.FacebookLink:hover > a > img {
+		-webkit-filter: grayscale(0);
+		filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=0);
+	}
+
+#SecondaryMenu {
+	border-top: 0;
+	width: 100%;
+	font-size: 80%;
+}
+	#SecondaryMenu > ul > li {
+		padding: 10px 16px;
+	}
+		#SecondaryMenu > ul > li:first-child {
+			padding-left: 0;
+			margin-left: -24px;
+		}
+
+.ContentContainer {
+	padding: 20px 40px 30px 40px;
+	border-top: 1px solid #DDD;
+}
+	.ContentContainer p {
+		text-align: justify;
+	}
+
+.Secondary {
+	padding: 0;
+}
+
+.Section {
+	width: 232px;
+	height: 39px;
+	padding: 15px 50px 0 20px;
+	margin-left: -51px;
+	
+	color: white;
+	font-weight: 600;
+	
+	background-image: url("../Resources/Images/Section.png");
+	background-repeat: no-repeat;
+}
+
+footer .PageDetails {
+	font-size: 0.9em;
+	padding-top: 10px;
+	text-align: center;
+	color: #AAAAAA;
+}
+	footer .PageDetails a {
+		color: #BBBBBB;
+	}
+		footer .PageDetails a:hover {
+			color: #F23838;
+			transition-duration: 0.2s;
+		}
+
+.Links {
+	color: #666666;
+	padding: 10px 30px;
+}
+
+.ClearBoth {
+	clear: both;
+}
+
+
+.AboutEmp img {
+	width: 128px;
+}
+
+.ItemList li {
+	margin: 5px 0;
+}
