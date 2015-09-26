@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="129dd33c-9da4-4450-a8d6-437a8bb1928b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/content/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/content/style/_termoservis.scss" />
-    </list>
+    <list default="true" id="129dd33c-9da4-4450-a8d6-437a8bb1928b" name="Default" comment="" />
     <ignored path="termoservis-web.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
