@@ -1,0 +1,366 @@
+Crashlog created at 2015-09-26 20:51:20 +0200
+
+===== MESSAGE:
+
+Sass::SyntaxError: Undefined variable: "$small-and-up".
+
+===== COMPILATION STACK:
+
+  (empty)
+
+===== STACK TRACE:
+
+  0. content/style/_navbar.scss:21
+  1. content/style/materialize.scss:18
+  2. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/script/tree/variable.rb:49:in `_perform'
+  3. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/script/tree/node.rb:50:in `perform'
+  4. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/script/tree/interpolation.rb:100:in `_perform'
+  5. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/script/tree/node.rb:50:in `perform'
+  6. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
+  7. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:534:in `map'
+  8. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
+  9. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
+  10. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
+  11. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `visit'
+  12. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+  13. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `block in with_base'
+  14. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:115:in `with_frame'
+  15. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `with_base'
+  16. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `visit'
+  17. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
+  18. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:430:in `map'
+  19. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
+  20. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+  21. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
+  22. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `visit'
+  23. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+  24. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `block in with_base'
+  25. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:115:in `with_frame'
+  26. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `with_base'
+  27. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `visit'
+  28. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:325:in `block (2 levels) in visit_import'
+  29. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:325:in `map'
+  30. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:325:in `block in visit_import'
+  31. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:88:in `block in with_import'
+  32. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:115:in `with_frame'
+  33. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:88:in `with_import'
+  34. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
+  35. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `visit'
+  36. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+  37. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `block in with_base'
+  38. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:115:in `with_frame'
+  39. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `with_base'
+  40. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `visit'
+  41. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+  42. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:52:in `map'
+  43. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+  44. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+  45. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+  46. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+  47. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+  48. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+  49. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `visit'
+  50. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:157:in `visit'
+  51. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:8:in `visit'
+  52. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/root_node.rb:36:in `css_tree'
+  53. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/root_node.rb:20:in `render'
+  54. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/engine.rb:268:in `render'
+  55. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/filters/sass.rb:19:in `run'
+  56. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/filter.rb:117:in `setup_and_run'
+  57. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/result_data/item_rep.rb:334:in `filter'
+  58. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/item_rep_proxy.rb:45:in `filter'
+  59. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/rule_context.rb:59:in `filter'
+  60. C:/Users/Aleksandar Toplek/Documents/GitHub/termoservis-web/Rules:34:in `block in parse'
+  61. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/rule.rb:68:in `instance_eval'
+  62. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/rule.rb:68:in `apply_to'
+  63. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:385:in `compile_rep'
+  64. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:341:in `block in compile_reps'
+  65. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:334:in `loop'
+  66. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:334:in `compile_reps'
+  67. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:87:in `run'
+  68. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:57:in `compile'
+  69. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:65:in `block in recompile'
+  70. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:63:in `chdir'
+  71. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:63:in `recompile'
+  72. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:28:in `run_on_changes'
+  73. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:82:in `block in _supervise'
+  74. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:79:in `catch'
+  75. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:79:in `_supervise'
+  76. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:61:in `block (3 levels) in run_on_changes'
+  77. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:56:in `each'
+  78. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:56:in `block (2 levels) in run_on_changes'
+  79. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:119:in `block (2 levels) in _run_group_plugins'
+  80. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:117:in `each'
+  81. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:117:in `block in _run_group_plugins'
+  82. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:116:in `catch'
+  83. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:116:in `_run_group_plugins'
+  84. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:54:in `block in run_on_changes'
+  85. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:53:in `each'
+  86. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:53:in `run_on_changes'
+  87. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/internals/queue.rb:23:in `process'
+  88. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/commander.rb:43:in `start'
+  89. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/cli/environments/valid.rb:16:in `start_guard'
+  90. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/cli.rb:113:in `start'
+  91. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/command.rb:27:in `run'
+  92. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/invocation.rb:126:in `invoke_command'
+  93. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor.rb:359:in `dispatch'
+  94. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/base.rb:440:in `start'
+  95. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/aruba_adapter.rb:32:in `execute'
+  96. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/aruba_adapter.rb:19:in `execute!'
+  97. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/bin/guard:11:in `<top (required)>'
+  98. C:/tools/ruby21/bin/guard:23:in `load'
+
+===== VERSION INFORMATION:
+
+nanoc 3.7.5 © 2007-2015 Denis Defreyne.
+Running ruby 2.1.6 (2015-04-13) on x64-mingw32 with RubyGems 2.4.8.
+
+===== INSTALLED GEMS:
+
+  adsf 1.2.0
+  bundler 1.10.6
+  celluloid 0.16.0
+  chunky_png 1.3.3
+  coderay 1.1.0
+  colored 1.2
+  compass 1.0.3
+  compass-core 1.0.3
+  compass-import-once 1.0.5
+  cri 2.6.1
+  ffi 1.9.6
+  formatador 0.2.5
+  guard 2.11.1
+  guard-nanoc 1.0.3
+  hitimes 1.2.2
+  kramdown 1.5.0
+  listen 2.8.5
+  lumberjack 1.0.9
+  method_source 0.8.2
+  multi_json 1.10.1
+  nanoc 3.7.5
+  nenv 0.2.0
+  notiffany 0.0.4
+  pry 0.10.1
+  rack 1.6.0
+  rb-fsevent 0.9.4
+  rb-inotify 0.9.5
+  rouge 1.7.7
+  sass 3.4.11
+  shellany 0.0.1
+  slop 3.6.0
+  thor 0.19.1
+  timers 4.0.1
+  wdm 0.1.0
+  win32console 1.3.2
+
+===== ENVIRONMENT:
+
+ALLUSERSPROFILE => "C:\\ProgramData"
+ANDROID_NDK_PATH => "C:\\Users\\Aleksandar Toplek\\Documents\\Android\\ndk\\android-ndk-r10d"
+APPDATA => "C:\\Users\\Aleksandar Toplek\\AppData\\Roaming"
+BUNDLE_BIN_PATH => "C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/bundler-1.10.6/bin/bundle"
+BUNDLE_GEMFILE => "C:/Users/Aleksandar Toplek/Documents/GitHub/termoservis-web/Gemfile"
+COLUMNS => "120"
+COMPUTERNAME => "ALEKSANDARPC"
+ChocolateyInstall => "C:\\ProgramData\\chocolatey"
+ChocolateyPath => "C:\\Chocolatey"
+ComSpec => "C:\\WINDOWS\\system32\\cmd.exe"
+CommonProgramFiles => "C:\\Program Files\\Common Files"
+CommonProgramFiles(x86) => "C:\\Program Files (x86)\\Common Files"
+CommonProgramW6432 => "C:\\Program Files\\Common Files"
+DNX_HOME => "%USERPROFILE%\\.dnx"
+FTSDK_DIR => "C:\\Program Files\\Microsoft SDKs\\Kinect\\Developer Toolkit v1.8.0\\"
+GEM_HOME => "C:/tools/ruby21/lib/ruby/gems/2.1.0"
+GEM_PATH => "C:/tools/ruby21/lib/ruby/gems/2.1.0;C:/Users/Aleksandar Toplek/.gem/ruby/2.1.0"
+GNGSDKPATH => "C:\\G-Core-SDK"
+GTK_BASEPATH => "C:\\Program Files (x86)\\GtkSharp\\2.12\\"
+GUARD_NOTIFIERS => "---\n- :name: :terminal_title\n  :options: {}\n"
+GUARD_NOTIFY_ACTIVE => "true"
+GUARD_NOTIFY_PID => "12636"
+HOME => "C:/Users/Aleksandar Toplek"
+HOMEDRIVE => "C:"
+HOMEPATH => "\\Users\\Aleksandar Toplek"
+KINECTSDK10_DIR => "C:\\Program Files\\Microsoft SDKs\\Kinect\\v1.8\\"
+KINECT_TOOLKIT_DIR => "C:\\Program Files\\Microsoft SDKs\\Kinect\\Developer Toolkit v1.8.0\\"
+LINES => "3000"
+LOCALAPPDATA => "C:\\Users\\Aleksandar Toplek\\AppData\\Local"
+LOGONSERVER => "\\\\MicrosoftAccount"
+MANPATH => "C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/kramdown-1.5.0/man"
+NUMBER_OF_PROCESSORS => "8"
+OS => "Windows_NT"
+PATHEXT => ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.RB;.RBW;.CPL"
+PROCESSOR_ARCHITECTURE => "AMD64"
+PROCESSOR_IDENTIFIER => "Intel64 Family 6 Model 60 Stepping 3, GenuineIntel"
+PROCESSOR_LEVEL => "6"
+PROCESSOR_REVISION => "3c03"
+PROMPT => "$P$G"
+PSModulePath => "C:\\Users\\Aleksandar Toplek\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\;C:\\Program Files (x86)\\Microsoft SQL Server\\120\\Tools\\PowerShell\\Modules\\;C:\\Program Files (x86)\\Microsoft SDKs\\Azure\\PowerShell\\ServiceManagement"
+PUBLIC => "C:\\Users\\Public"
+Path => "C:/tools/ruby21/lib/ruby/gems/2.1.0/bin;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\tools\\nuget\\;C:\\tools\\ruby21\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Users\\Aleksandar Toplek\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\120\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\120\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files (x86)\\Microsoft SQL Server\\120\\DTS\\Binn\\;C:\\Program Files\\Microsoft\\Web Platform Installer\\;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Git\\cmd;C:\\Program Files (x86)\\Microsoft SDKs\\Azure\\CLI\\wbin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;C:\\Program Files (x86)\\Skype\\Phone\\;C:\\Program Files (x86)\\Brackets\\command;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files (x86)\\Microsoft Emulator Manager\\1.0\\;C:\\ProgramData\\chocolatey\\bin;C:\\Users\\Aleksandar Toplek\\AppData\\Roaming\\npm;C:\\Users\\Aleksandar Toplek\\AppData\\Local\\Code\\bin;C:\\libjpeg-turbo64\\bin;C:\\Program Files (x86)\\Microsoft VS Code\\bin"
+ProgramData => "C:\\ProgramData"
+ProgramFiles => "C:\\Program Files"
+ProgramFiles(x86) => "C:\\Program Files (x86)"
+ProgramW6432 => "C:\\Program Files"
+RUBYLIB => "C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/bundler-1.10.6/lib"
+RUBYOPT => "-rbundler/setup"
+SystemDrive => "C:"
+SystemRoot => "C:\\WINDOWS"
+TEMP => "C:\\Users\\ALEKSA~1\\AppData\\Local\\Temp"
+TMP => "C:\\Users\\ALEKSA~1\\AppData\\Local\\Temp"
+TelerikWPFDir => "C:\\Program Files (x86)\\Telerik\\UI for WPF Q2 2015\\"
+USER => "Aleksandar Toplek"
+USERDOMAIN => "ALEKSANDARPC"
+USERDOMAIN_ROAMINGPROFILE => "ALEKSANDARPC"
+USERNAME => "Aleksandar Toplek"
+USERPROFILE => "C:\\Users\\Aleksandar Toplek"
+VS110COMNTOOLS => "C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\"
+VS120COMNTOOLS => "C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\"
+VS140COMNTOOLS => "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\"
+VSSDK140Install => "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\"
+_ORIGINAL_GEM_PATH => "C:/tools/ruby21/lib/ruby/gems/2.1.0;C:/Users/Aleksandar Toplek/.gem/ruby/2.1.0"
+windir => "C:\\WINDOWS"
+
+===== GEMFILE.LOCK:
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    adsf (1.2.0)
+      rack (>= 1.0.0)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
+    chunky_png (1.3.3)
+    coderay (1.1.0)
+    colored (1.2)
+    compass (1.0.3)
+      chunky_png (~> 1.2)
+      compass-core (~> 1.0.2)
+      compass-import-once (~> 1.0.5)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+      sass (>= 3.3.13, < 3.5)
+    compass-core (1.0.3)
+      multi_json (~> 1.0)
+      sass (>= 3.3.0, < 3.5)
+    compass-import-once (1.0.5)
+      sass (>= 3.2, < 3.5)
+    cri (2.6.1)
+      colored (~> 1.2)
+    ffi (1.9.6-x64-mingw32)
+    ffi (1.9.6-x86-mingw32)
+    formatador (0.2.5)
+    guard (2.11.1)
+      formatador (>= 0.2.4)
+      listen (~> 2.7)
+      lumberjack (~> 1.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.9.12)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
+    guard-nanoc (1.0.3)
+      guard (~> 2.8)
+      nanoc (~> 3.6)
+    hitimes (1.2.2)
+    hitimes (1.2.2-x86-mingw32)
+    kramdown (1.5.0)
+    listen (2.8.5)
+      celluloid (>= 0.15.2)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+    lumberjack (1.0.9)
+    method_source (0.8.2)
+    multi_json (1.10.1)
+    nanoc (3.7.5)
+      cri (~> 2.3)
+    nenv (0.2.0)
+    notiffany (0.0.4)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
+    pry (0.10.1-x64-mingw32)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+      win32console (~> 1.3)
+    pry (0.10.1-x86-mingw32)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+      win32console (~> 1.3)
+    rack (1.6.0)
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.5)
+      ffi (>= 0.5.0)
+    rouge (1.7.7)
+    sass (3.4.11)
+    shellany (0.0.1)
+    slop (3.6.0)
+    thor (0.19.1)
+    timers (4.0.1)
+      hitimes
+    wdm (0.1.0)
+    win32console (1.3.2)
+    win32console (1.3.2-x86-mingw32)
+
+PLATFORMS
+  x64-mingw32
+  x86-mingw32
+
+DEPENDENCIES
+  adsf
+  compass
+  guard-nanoc
+  kramdown
+  nanoc
+  rouge
+  wdm
+  win32console
+
+===== LOAD PATHS:
+
+  0. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/wdm-0.1.0/lib
+  1. C:/tools/ruby21/lib/ruby/gems/2.1.0/extensions/x64-mingw32/2.1.0/wdm-0.1.0
+  2. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/rouge-1.7.7/lib
+  3. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/kramdown-1.5.0/lib
+  4. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib
+  5. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib
+  6. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib
+  7. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib
+  8. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/pry-0.10.1-x64-mingw32/lib
+  9. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/win32console-1.3.2/lib
+  10. C:/tools/ruby21/lib/ruby/gems/2.1.0/extensions/x64-mingw32/2.1.0/win32console-1.3.2
+  11. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/slop-3.6.0/lib
+  12. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/method_source-0.8.2/lib
+  13. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/notiffany-0.0.4/lib
+  14. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/shellany-0.0.1/lib
+  15. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nenv-0.2.0/lib
+  16. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/lumberjack-1.0.9/lib
+  17. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/listen-2.8.5/lib
+  18. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/formatador-0.2.5/lib
+  19. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/cri-2.6.1/lib
+  20. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/compass-1.0.3/lib
+  21. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/rb-inotify-0.9.5/lib
+  22. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/ffi-1.9.6-x64-mingw32/lib
+  23. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/rb-fsevent-0.9.4/lib
+  24. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/compass-import-once-1.0.5/lib
+  25. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/compass-core-1.0.3/lib
+  26. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib
+  27. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/multi_json-1.10.1/lib
+  28. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/colored-1.2/lib
+  29. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/coderay-1.1.0/lib
+  30. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/chunky_png-1.3.3/lib
+  31. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/celluloid-0.16.0/lib
+  32. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/timers-4.0.1/lib
+  33. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/hitimes-1.2.2/lib
+  34. C:/tools/ruby21/lib/ruby/gems/2.1.0/extensions/x64-mingw32/2.1.0/hitimes-1.2.2
+  35. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/adsf-1.2.0/lib
+  36. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/rack-1.6.0/lib
+  37. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/bundler-1.10.6/lib
+  38. C:/tools/ruby21/lib/ruby/site_ruby/2.1.0
+  39. C:/tools/ruby21/lib/ruby/site_ruby/2.1.0/x64-msvcrt
+  40. C:/tools/ruby21/lib/ruby/site_ruby
+  41. C:/tools/ruby21/lib/ruby/vendor_ruby/2.1.0
+  42. C:/tools/ruby21/lib/ruby/vendor_ruby/2.1.0/x64-msvcrt
+  43. C:/tools/ruby21/lib/ruby/vendor_ruby
+  44. C:/tools/ruby21/lib/ruby/2.1.0
+  45. C:/tools/ruby21/lib/ruby/2.1.0/x64-mingw32

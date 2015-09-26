@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bring your ideas to life. Make something everyone can play on their computer, tablet, phone and console.">
+    <meta name="keywords" content="termoservis, servis, plinska, trošilo, ovlašteni, bojler, peč, vaillant, junkers, viessmann, bosch, puštanje, pogon, čakovec, međimurje, popravak, greška, kamenac, čišćenje" />
+    <meta name="author" content="Termoservis" />
+    <meta name="msvalidate.01" content="001C40C53280B95BAB5F1B14123BDD86" />
+
+    <title>TERMOSERVIS - Ovlašteni servis plinskih trošila</title>
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <!-- CSS selector support -->
+    <!--[if (gte IE 6)&(lte IE 8)]>
+    <script type="text/javascript" src="js/selectivizr-min.js"></script>
+    <![endif]-->
+
+    <!-- Styles -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/style/materialize.css" media="screen,projection">
+
+    <!-- you don't need to keep this, but it's cool for stats! -->
+    <meta name="generator" content="nanoc <%= Nanoc::VERSION %>">
+</head>
+<body>
+
+    <noscript>
+        <div class="white-text red center-align truncate"><p>Da bi ova stranica radila, potrebno je omogućiti izvršavanje skripti.</p></div>
+    </noscript>
+
+    <div class="top-line"></div>
+
+    <!-- Other company links -->
+    <ul class="company-select">
+        <li class="active"><a href="#">Servisi i popravci</a></li>
+        <li><a href="#">Montaža</a></li>
+    </ul>
+
+    <!-- Logo -->
+    <div class="container">
+        <div class="row">
+            <div class="logo col s12">
+                <a href="/"><img src="images/Termoservis.png" alt="Termoservis Logo" /></a>
+                <div>ČAKOVEC</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="left hide-on-small-and-down">
+                    <li class="active"><a href="/">POČETNA</a></li>
+                    <li><a href="/usluge">USLUGE</a></li>
+                    <li><a href="/onama">O NAMA</a></li>
+                    <li><a href="/savjeti">SAVJETI</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-menu">
+                    <li class="active"><a href="/">POČETNA</a></li>
+                    <li><a href="/usluge">USLUGE</a></li>
+                    <li><a href="/onama">O NAMA</a></li>
+                    <li><a href="/savjeti">SAVJETI</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <%= yield %>
+
+    <!-- Cookies notice -->
+    <div>
+        <div class="cookies-notice grey-text darken-text-1 center-align">
+            <span><span>Zbog poboljšanja korisničkog iskustva koristimo internetske kolačiće.</span> <a href="http://aboutcookies.org/">Više informacija</a></span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+
+                </div>
+                <div class="col l6 s12">
+                    <h5 class="white-text">Sadržaj</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" class="grey-text text-lighten-3" href="/">Početna</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/usluge">Usluge</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/onama">O nama</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/savjeti">Savjeti</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2012-2015 TERMOSERVIS
+                <small><a class="grey-text text-lighten-3 right" target="_blank" href="http://toplek.net/">Design by Aleksandar Toplek</a></small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="js/modernizr.custom.68766.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
+    <script type="text/javascript" src="js/termoservis.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+        _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+        _gaq.push(['_setAccount', 'UA-33228608-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+  </body>
+</html>

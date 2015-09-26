@@ -1,0 +1,10 @@
+source 'http://rubygems.org'
+
+gem 'nanoc'
+gem 'kramdown'
+gem 'compass'
+gem 'rouge'
+gem 'adsf'
+gem 'guard-nanoc'
+gem 'win32console'
+gem 'wdm'

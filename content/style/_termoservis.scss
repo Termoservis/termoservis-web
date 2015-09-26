@@ -1,0 +1,106 @@
+.company-select {
+  margin: 0;
+
+  li {
+    display: table-cell;
+
+    a {
+      display: block;
+      padding: 12px;
+      color: color("grey", "darken-3");
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &:hover {
+      background-color: color("grey", "lighten-2");
+    }
+
+    &.active {
+      background-color: color("red", "base");
+      color: white;
+      font-weight: bold;
+
+      a {
+        color: white;
+      }
+    }
+  }
+}
+
+.logo {
+  margin-top: 28px;
+
+  height: 80px;
+  cursor: default;
+
+  -ms-text-shadow: 0 0 7px #DDD;
+  text-shadow: 0 0 7px #DDD;
+
+  img {
+    width: 100%;
+    max-width: 330px;
+  }
+
+  div {
+    text-align: right;
+    max-width: 330px;
+  }
+}
+
+.top-line {
+  width: 100%;
+  background: color("red", "base");
+  padding-top: 5px;
+}
+
+.nav-wrapper {
+  a:hover {
+    text-decoration: none !important;
+  }
+}
+
+.parallax-container {
+  height: 500px;
+}
+
+@media #{$medium-and-down} {
+  .parallax-container {
+    height: 300px;
+  }
+}
+
+@media #{$small-and-down} {
+  .parallax-container {
+    height: 200px;
+  }
+}
+
+ul.activities-list {
+  li {
+    line-height: 32px;
+    list-style-type: circle;
+  }
+}
+
+.service-logos {
+  div {
+    padding: 8px;
+    height: 80px;
+  }
+}
+
+.cookies-notice {
+  font-size: 0.9em;
+  padding: 8px;
+  background-color: color("grey", "lighten-4");
+  border: solid 1px darken(color("grey", "lighten-4"), 8%);
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+footer {
+  margin-top: 0 !important;
+}
