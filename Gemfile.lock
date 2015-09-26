@@ -91,3 +91,6 @@ DEPENDENCIES
   rouge
   wdm
   win32console
+
+BUNDLED WITH
+   1.10.6
