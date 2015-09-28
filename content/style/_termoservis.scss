@@ -62,19 +62,33 @@
   }
 }
 
-.parallax-container {
-  height: 500px;
+.owl-carousel {
+  .item .image {
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+  }
+
+  margin-bottom: 36px;
 }
 
 @media #{$medium-and-down} {
-  .parallax-container {
-    height: 300px;
+  .owl-carousel {
+    .item .image {
+      max-height: 300px;
+    }
+    margin-bottom: 28px;
   }
 }
 
 @media #{$small-and-down} {
-  .parallax-container {
-    height: 200px;
+  .owl-carousel {
+    .item .image {
+      max-height: 200px;
+    }
+    margin-bottom: 16px;
   }
 }
 

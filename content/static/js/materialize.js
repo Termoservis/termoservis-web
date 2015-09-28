@@ -1065,12 +1065,12 @@ $(document).ready(function(){
         function updateParallax(initial) {
           var container_height;
           if (window_width < 601) {
-            container_height = ($this.height() > 0) ? $this.height() : $this.children("img").height();
+            container_height = ($this.height() > 0) ? $this.height() : $("img", $this).height();
           }
           else {
             container_height = ($this.height() > 0) ? $this.height() : 500;
           }
-          var $img = $this.children("img").first();
+          var $img = $("img", $this).first();
           var img_height = $img.height();
           var parallax_dist = img_height - container_height;
           var bottom = $this.offset().top + container_height;
@@ -1082,10 +1082,10 @@ $(document).ready(function(){
           var parallax = Math.round((parallax_dist * percentScrolled));
 
           if (initial) {
-            $img.css('display', 'block');
+              $("img", $this).css('display', 'block');
           }
           if ((bottom > scrollTop) && (top < (scrollTop + windowHeight))) {
-            $img.css('transform', "translate3D(-50%," + parallax + "px, 0)");
+              $("img", $this).css('transform', "translate3D(-50%," + parallax + "px, 0)");
           }
 
         }

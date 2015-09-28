@@ -1,8 +1,8 @@
-Crashlog created at 2015-09-26 20:51:20 +0200
+Crashlog created at 2015-09-27 23:38:30 +0200
 
 ===== MESSAGE:
 
-Sass::SyntaxError: Undefined variable: "$small-and-up".
+RuntimeError: Found 2 content files for content/static/css/owl; expected 0 or 1
 
 ===== COMPILATION STACK:
 
@@ -10,105 +10,58 @@ Sass::SyntaxError: Undefined variable: "$small-and-up".
 
 ===== STACK TRACE:
 
-  0. content/style/_navbar.scss:21
-  1. content/style/materialize.scss:18
-  2. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/script/tree/variable.rb:49:in `_perform'
-  3. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/script/tree/node.rb:50:in `perform'
-  4. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/script/tree/interpolation.rb:100:in `_perform'
-  5. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/script/tree/node.rb:50:in `perform'
-  6. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:536:in `block in run_interp_no_strip'
-  7. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:534:in `map'
-  8. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:534:in `run_interp_no_strip'
-  9. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:541:in `run_interp'
-  10. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:509:in `visit_media'
-  11. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `visit'
-  12. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-  13. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `block in with_base'
-  14. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:115:in `with_frame'
-  15. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `with_base'
-  16. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `visit'
-  17. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-  18. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:430:in `map'
-  19. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-  20. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-  21. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-  22. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `visit'
-  23. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-  24. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `block in with_base'
-  25. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:115:in `with_frame'
-  26. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `with_base'
-  27. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `visit'
-  28. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:325:in `block (2 levels) in visit_import'
-  29. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:325:in `map'
-  30. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:325:in `block in visit_import'
-  31. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:88:in `block in with_import'
-  32. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:115:in `with_frame'
-  33. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:88:in `with_import'
-  34. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
-  35. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `visit'
-  36. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-  37. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `block in with_base'
-  38. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:115:in `with_frame'
-  39. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/stack.rb:79:in `with_base'
-  40. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:158:in `visit'
-  41. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-  42. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:52:in `map'
-  43. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-  44. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
-  45. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-  46. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
-  47. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-  48. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
-  49. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/base.rb:36:in `visit'
-  50. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:157:in `visit'
-  51. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/visitors/perform.rb:8:in `visit'
-  52. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/root_node.rb:36:in `css_tree'
-  53. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/tree/root_node.rb:20:in `render'
-  54. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/sass-3.4.11/lib/sass/engine.rb:268:in `render'
-  55. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/filters/sass.rb:19:in `run'
-  56. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/filter.rb:117:in `setup_and_run'
-  57. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/result_data/item_rep.rb:334:in `filter'
-  58. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/item_rep_proxy.rb:45:in `filter'
-  59. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/rule_context.rb:59:in `filter'
-  60. C:/Users/Aleksandar Toplek/Documents/GitHub/termoservis-web/Rules:34:in `block in parse'
-  61. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/rule.rb:68:in `instance_eval'
-  62. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/rule.rb:68:in `apply_to'
-  63. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:385:in `compile_rep'
-  64. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:341:in `block in compile_reps'
-  65. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:334:in `loop'
-  66. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:334:in `compile_reps'
-  67. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:87:in `run'
-  68. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:57:in `compile'
-  69. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:65:in `block in recompile'
-  70. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:63:in `chdir'
-  71. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:63:in `recompile'
-  72. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:28:in `run_on_changes'
-  73. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:82:in `block in _supervise'
-  74. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:79:in `catch'
-  75. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:79:in `_supervise'
-  76. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:61:in `block (3 levels) in run_on_changes'
-  77. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:56:in `each'
-  78. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:56:in `block (2 levels) in run_on_changes'
-  79. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:119:in `block (2 levels) in _run_group_plugins'
-  80. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:117:in `each'
-  81. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:117:in `block in _run_group_plugins'
-  82. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:116:in `catch'
-  83. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:116:in `_run_group_plugins'
-  84. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:54:in `block in run_on_changes'
-  85. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:53:in `each'
-  86. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:53:in `run_on_changes'
-  87. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/internals/queue.rb:23:in `process'
-  88. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/commander.rb:43:in `start'
-  89. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/cli/environments/valid.rb:16:in `start_guard'
-  90. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/cli.rb:113:in `start'
-  91. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/command.rb:27:in `run'
-  92. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/invocation.rb:126:in `invoke_command'
-  93. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor.rb:359:in `dispatch'
-  94. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/base.rb:440:in `start'
-  95. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/aruba_adapter.rb:32:in `execute'
-  96. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/aruba_adapter.rb:19:in `execute!'
-  97. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/bin/guard:11:in `<top (required)>'
-  98. C:/tools/ruby21/bin/guard:23:in `load'
+  0. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/data_sources/filesystem.rb:169:in `block in all_split_files_in'
+  1. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/data_sources/filesystem.rb:159:in `each_pair'
+  2. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/data_sources/filesystem.rb:159:in `all_split_files_in'
+  3. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/data_sources/filesystem.rb:84:in `load_objects'
+  4. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/data_sources/filesystem.rb:43:in `items'
+  5. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:341:in `block in load_items'
+  6. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:340:in `each'
+  7. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:340:in `load_items'
+  8. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:242:in `block in load'
+  9. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:304:in `with_datasources'
+  10. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:241:in `load'
+  11. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:126:in `layouts'
+  12. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:186:in `dependency_tracker'
+  13. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/memoization.rb:54:in `block in memoize'
+  14. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:458:in `stores'
+  15. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:145:in `unload'
+  16. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:277:in `unload'
+  17. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:257:in `rescue in load'
+  18. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:261:in `load'
+  19. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:116:in `load'
+  20. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/compilation/compiler.rb:80:in `run'
+  21. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/nanoc-3.7.5/lib/nanoc/base/source_data/site.rb:57:in `compile'
+  22. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:65:in `block in recompile'
+  23. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:63:in `chdir'
+  24. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:63:in `recompile'
+  25. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-nanoc-1.0.3/lib/guard/nanoc.rb:32:in `run_on_removals'
+  26. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:82:in `block in _supervise'
+  27. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:79:in `catch'
+  28. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:79:in `_supervise'
+  29. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:61:in `block (3 levels) in run_on_changes'
+  30. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:56:in `each'
+  31. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:56:in `block (2 levels) in run_on_changes'
+  32. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:119:in `block (2 levels) in _run_group_plugins'
+  33. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:117:in `each'
+  34. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:117:in `block in _run_group_plugins'
+  35. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:116:in `catch'
+  36. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:116:in `_run_group_plugins'
+  37. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:54:in `block in run_on_changes'
+  38. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:53:in `each'
+  39. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/runner.rb:53:in `run_on_changes'
+  40. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/internals/queue.rb:23:in `process'
+  41. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/commander.rb:43:in `start'
+  42. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/cli/environments/valid.rb:16:in `start_guard'
+  43. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/cli.rb:113:in `start'
+  44. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/command.rb:27:in `run'
+  45. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/invocation.rb:126:in `invoke_command'
+  46. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor.rb:359:in `dispatch'
+  47. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/thor-0.19.1/lib/thor/base.rb:440:in `start'
+  48. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/aruba_adapter.rb:32:in `execute'
+  49. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/lib/guard/aruba_adapter.rb:19:in `execute!'
+  50. C:/tools/ruby21/lib/ruby/gems/2.1.0/gems/guard-2.11.1/bin/guard:11:in `<top (required)>'
+  51. C:/tools/ruby21/bin/guard:23:in `load'
 
 ===== VERSION INFORMATION:
 
@@ -176,7 +129,7 @@ GNGSDKPATH => "C:\\G-Core-SDK"
 GTK_BASEPATH => "C:\\Program Files (x86)\\GtkSharp\\2.12\\"
 GUARD_NOTIFIERS => "---\n- :name: :terminal_title\n  :options: {}\n"
 GUARD_NOTIFY_ACTIVE => "true"
-GUARD_NOTIFY_PID => "12636"
+GUARD_NOTIFY_PID => "5896"
 HOME => "C:/Users/Aleksandar Toplek"
 HOMEDRIVE => "C:"
 HOMEPATH => "\\Users\\Aleksandar Toplek"
@@ -315,6 +268,9 @@ DEPENDENCIES
   rouge
   wdm
   win32console
+
+BUNDLED WITH
+   1.10.6
 
 ===== LOAD PATHS:
 

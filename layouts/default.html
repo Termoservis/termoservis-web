@@ -10,16 +10,18 @@
 
     <title>TERMOSERVIS - Ovlašteni servis plinskih trošila</title>
 
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
 
     <!-- CSS selector support -->
     <!--[if (gte IE 6)&(lte IE 8)]>
-    <script type="text/javascript" src="js/selectivizr-min.js"></script>
+    <script type="text/javascript" src="/js/selectivizr-min.js"></script>
     <![endif]-->
 
     <!-- Styles -->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="style/materialize.css" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="/style/materialize.css" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="/css/owl-carousel-min.css">
+    <link type="text/css" rel="stylesheet" href="/css/owl-theme-default-min.css">
 
     <!-- you don't need to keep this, but it's cool for stats! -->
     <meta name="generator" content="nanoc <%= Nanoc::VERSION %>">
@@ -34,16 +36,24 @@
 
     <!-- Other company links -->
     <ul class="company-select">
-        <li class="active"><a href="#">Servisi i popravci</a></li>
-        <li><a href="#">Montaža</a></li>
+        <li <% if @item[:company] == 'doo' %>class="active"<% end %>><a href="/">Servisi i popravci</a></li>
+        <li <% if @item[:company] == 'md' %>class="active"<% end %>><a href="/montaza">Montaža</a></li>
     </ul>
 
     <!-- Logo -->
     <div class="container">
         <div class="row">
             <div class="logo col s12">
-                <a href="/"><img src="images/Termoservis.png" alt="Termoservis Logo" /></a>
+                <% if @item[:company] == 'doo' %>
+                <a href="/">
+                    <img src="/images/Termoservis.png" alt="Termoservis Logo" />
+                </a>
                 <div>ČAKOVEC</div>
+                <% else %>
+                <a href="/montaza">
+                    <img src="/images/TermoservisMD.png" alt="Termoservis Logo" />
+                </a>
+                <% end %>
             </div>
         </div>
     </div>
@@ -99,7 +109,7 @@
         </div>
         <div class="footer-copyright">
             <div class="container">
-                © 2012-2015 TERMOSERVIS
+                © 2012-<%=Time.now.year %> Termoservis
                 <small><a class="grey-text text-lighten-3 right" target="_blank" href="http://toplek.net/">Design by Aleksandar Toplek</a></small>
             </div>
         </div>
@@ -108,6 +118,7 @@
     <!-- Scripts -->
     <script type="text/javascript" src="js/modernizr.custom.68766.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/owl-carousel-min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/termoservis.js"></script>
 
