@@ -11878,35 +11878,51 @@ select {
 }
 
 /* line 65, content/style/_termoservis.scss */
-.parallax-container {
+.owl-carousel {
+  margin-bottom: 36px;
+}
+/* line 66, content/style/_termoservis.scss */
+.owl-carousel .item .image {
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 500px;
 }
 
 @media only screen and (max-width: 992px) {
-  /* line 70, content/style/_termoservis.scss */
-  .parallax-container {
-    height: 300px;
+  /* line 78, content/style/_termoservis.scss */
+  .owl-carousel {
+    margin-bottom: 28px;
+  }
+  /* line 79, content/style/_termoservis.scss */
+  .owl-carousel .item .image {
+    max-height: 300px;
   }
 }
 @media only screen and (max-width: 600px) {
-  /* line 76, content/style/_termoservis.scss */
-  .parallax-container {
-    height: 200px;
+  /* line 87, content/style/_termoservis.scss */
+  .owl-carousel {
+    margin-bottom: 16px;
+  }
+  /* line 88, content/style/_termoservis.scss */
+  .owl-carousel .item .image {
+    max-height: 200px;
   }
 }
-/* line 82, content/style/_termoservis.scss */
+/* line 96, content/style/_termoservis.scss */
 ul.activities-list li {
   line-height: 32px;
   list-style-type: circle;
 }
 
-/* line 89, content/style/_termoservis.scss */
+/* line 103, content/style/_termoservis.scss */
 .service-logos div {
   padding: 8px;
   height: 80px;
 }
 
-/* line 95, content/style/_termoservis.scss */
+/* line 109, content/style/_termoservis.scss */
 .cookies-notice {
   font-size: 0.9em;
   padding: 8px;
@@ -11916,7 +11932,7 @@ ul.activities-list li {
   border-right-width: 0;
 }
 
-/* line 104, content/style/_termoservis.scss */
+/* line 118, content/style/_termoservis.scss */
 footer {
   margin-top: 0 !important;
 }
