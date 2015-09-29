@@ -82,6 +82,37 @@
     <!-- Content -->
     <%= yield %>
 
+    <div class="contact-form z-depth-1">
+        <div class="container">
+            <div class="row">
+                <!-- Contact via Form -->
+                <div class="col s12 m5 l4 offset-l1">
+                    <div class="center-align">
+                        <% if @item[:company] == 'doo' %>
+                        <a class="typeform-share waves-effect waves-light btn-large red" href="https://termoservis.typeform.com/to/N5SWJv" data-mode="2" target="_blank">Kontaktirajte nas</a>
+                        <% else %>
+                        <a class="typeform-share waves-effect waves-light btn-large red" href="https://termoservis.typeform.com/to/foeTXy" data-mode="2" target="_blank">Kontaktirajte nas</a>
+                        <% end %>
+                    </div>
+                </div>
+                <div class="col s12 m1 contact-or-label center-align">
+                    <span>ili</span>
+                </div>
+                <!-- Contact over Phone -->
+                <div class="col s12 m5 l4 contact-phone">
+                    <div class="center-align">
+                        <i class="material-icons">phone</i>
+                        <% if @item[:company] == 'doo' %>
+                        <span>&nbsp;&nbsp;098&nbsp;600&nbsp;122</span>
+                        <% else %>
+                        <span>&nbsp;&nbsp;099&nbsp;60&nbsp;11&nbsp;222</span>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Cookies notice -->
     <div>
         <div class="cookies-notice grey-text darken-text-1 center-align">
@@ -121,6 +152,9 @@
     <script type="text/javascript" src="/js/owl-carousel-min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/termoservis.js"></script>
+
+    <!-- Typeform contact form -->
+    <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
 
     <!-- Google Analytics -->
     <script type="text/javascript">
