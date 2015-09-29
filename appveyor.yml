@@ -20,6 +20,8 @@ build_script:
 on_success:
 - git config --global credential.helper store
 - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+- git config --global user.email "aleksandar.toplek@gmail.com"
+- git config --global user.name "Aleksandar Toplek"
 - cd "C:\repo\output"
 - git add -A
 - git commit -m "Build $env:APPVEYOR_BUILD_VERSION"
