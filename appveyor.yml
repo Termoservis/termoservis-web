@@ -1,0 +1,26 @@
+version: 2.0.{build}
+clone_folder: C:\repo
+environment:
+  access_token:
+    secure: 1n4EkhaiVBqgfF+ndRq5fYeEP3cPFMHFoRvk/TLRhLASzd4UCy9+6gBBe19G+Dyy
+build_script:
+- cd "C:\repo"
+- gem install bundler
+- bundle install
+- bundle exec guard init nanoc
+- mkdir -p output
+- set targetdir=c:\repo\output
+- del /q %targetdir%\*
+- for /d %%x in (%targetdir%\*) do @rd /s /q ^"%%x^"
+- cd output
+- git clone https://github.com/Termoservis/termoservis.github.io.git .
+- git rm -r *
+- cd "C:\repo"
+- nanoc
+on_success:
+- git config --global credential.helper store
+- ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+- cd "C:\repo\output"
+- git add -A
+- git commit -m "Build $env:APPVEYOR_BUILD_VERSION"
+- git push
