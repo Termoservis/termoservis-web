@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<nav>
+<nav id="portal-nav">
 	<ul id="user-dropdown" class="dropdown-content">
 		<li><a asp-controller="Account" asp-action="LogOff">Odjava</a></li>
 	</ul>
@@ -29,7 +29,7 @@
 		<a href="#" class="brand-logo left">TERMOSERVIS</a>
 		<ul id="slide-out" class="side-nav fixed">
 			<li class="no-padding">
-				<ul class="collapse collapsible-accordion">
+				<ul class="collapsible collapsible-accordion">
 					<li class="bold">
 						<a class="collapsible-header waves-effect waves-teal">Portal</a>
 						<div class="collapsible-body">
@@ -70,6 +70,7 @@
 <environment names="Development">
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script src="~/lib/materialize/dist/js/materialize.js"></script>
+	<script src="~/js/parts/_portal.js" asp-append-version="true"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 </environment>
 <environment names="Staging,Production">
@@ -81,6 +82,7 @@
 	        asp-fallback-src="~/lib/materialize/dist/js/materialize.min.js"
 	        asp-fallback-test="window.jQuery && Materialize.toast && window.jQuery.fn && window.jQuery.fn.tabs">
 	</script>
+	<script src="~/js/parts/_portal.js" asp-append-version="true"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 </environment>
 
