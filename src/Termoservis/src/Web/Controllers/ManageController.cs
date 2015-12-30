@@ -14,7 +14,8 @@ using Web.ViewModels.Manage;
 namespace Web.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+	[RequireHttps]
+	public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
