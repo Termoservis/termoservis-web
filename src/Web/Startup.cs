@@ -85,7 +85,9 @@ namespace Web
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+
+			// Configure
+			services.Configure<AuthMessageSender>(this.Configuration);
         }
 
 		/// <summary>
