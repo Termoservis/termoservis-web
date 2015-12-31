@@ -101,7 +101,7 @@ namespace Web.Services.Configuration
 		/// <value>
 		/// The full namespace.
 		/// </value>
-		public string FullNamespace => Combine(this.Parent.FullNamespace ?? string.Empty, this.Namespace);
+		public string FullNamespace => Combine(this.Parent?.FullNamespace ?? string.Empty, this.Namespace);
 
 
 		/// <summary>
@@ -136,6 +136,8 @@ namespace Web.Services.Configuration
 		/// <returns>Returns the combination of parent and child separated with ':'.</returns>
 		public static string Combine(string parent, string child)
 		{
+			if (string.IsNullOrEmpty(parent))
+				return child;
 			return parent + ":" + child;
 		}
 	}
@@ -198,8 +200,8 @@ namespace Web.Services.Configuration
 			this.provider = provider;
 
 			// Initialize children
-			this.DefaultConnection = new ConfigurationDataDefaultConnection(this.provider);
-			this.Users = new ConfigurationDataUser(this.provider);
+			this.DefaultConnection = new ConfigurationDataDefaultConnection(this.provider, this);
+			this.Users = new ConfigurationDataUser(this.provider, this);
 		}
 	}
 
@@ -223,8 +225,9 @@ namespace Web.Services.Configuration
 		/// Initializes a new instance of the <see cref="ConfigurationDataDefaultConnection" /> class.
 		/// </summary>
 		/// <param name="provider">The configuration provider.</param>
-		public ConfigurationDataDefaultConnection(IConfigurationProvider provider)
-					: base("DefaultConnection", null)
+		/// <param name="parent">The parent.</param>
+		public ConfigurationDataDefaultConnection(IConfigurationProvider provider, IConfigurationNode parent)
+					: base("DefaultConnection", parent)
 		{
 			if (provider == null) throw new ArgumentNullException(nameof(provider));
 
@@ -253,8 +256,9 @@ namespace Web.Services.Configuration
 		/// Initializes a new instance of the <see cref="ConfigurationDataUser" /> class.
 		/// </summary>
 		/// <param name="provider">The configuration provider.</param>
-		public ConfigurationDataUser(IConfigurationProvider provider)
-					: base("Users", null)
+		/// <param name="parent">The parent.</param>
+		public ConfigurationDataUser(IConfigurationProvider provider, IConfigurationNode parent)
+					: base("Users", parent)
 		{
 			if (provider == null) throw new ArgumentNullException(nameof(provider));
 
