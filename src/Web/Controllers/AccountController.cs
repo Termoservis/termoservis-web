@@ -14,10 +14,10 @@ namespace Web.Controllers
 	[RequireHttps]
 	public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
-        private readonly ILogger _logger;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IEmailSender emailSender;
+        private readonly ILogger logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -25,10 +25,10 @@ namespace Web.Controllers
             IEmailSender emailSender,
             ILoggerFactory loggerFactory)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _emailSender = emailSender;
-            _logger = loggerFactory.CreateLogger<AccountController>();
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.emailSender = emailSender;
+            this.logger = loggerFactory.CreateLogger<AccountController>();
         }
 
         //
@@ -51,17 +51,26 @@ namespace Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+				// Check if user has confirmed their email
+	            var user = await this.userManager.FindByEmailAsync(model.Email);
+	            if (user != null)
+	            {
+		            if (!await this.userManager.IsEmailConfirmedAsync(user))
+		            {
+			            ModelState.AddModelError(string.Empty, "You must have a confirmed email to log in.");
+			            return this.View(model);
+		            }
+	            }
+
+				var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation(1, "User logged in.");
+                    this.logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning(2, "User account locked out.");
+                    this.logger.LogWarning(2, "User account locked out.");
                     return View("Lockout");
                 }
                 else
@@ -99,18 +108,18 @@ namespace Web.Controllers
 	        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
 	        // Create user
-	        var result = await this._userManager.CreateAsync(user, model.Password);
+	        var result = await this.userManager.CreateAsync(user, model.Password);
 
 	        // Send confirmation email if user is created successfully
 	        if (result.Succeeded)
 	        {
 		        // Send an email with this link
-		        var code = await this._userManager.GenerateEmailConfirmationTokenAsync(user);
+		        var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
 		        var callbackUrl = this.Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: this.HttpContext.Request.Scheme);
-		        await this._emailSender.SendEmailAsync(model.Email, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+		        await this.emailSender.SendEmailAsync(model.Email, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     
 		        // Redirect to home
-		        this._logger.LogInformation(3, "User created a new account with password.");
+		        this.logger.LogInformation(3, "User created a new account with password.");
 		        return this.RedirectToAction(nameof(HomeController.Index), "Home");
 	        }
 	        this.AddErrors(result);
@@ -125,8 +134,8 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation(4, "User logged out.");
+            await this.signInManager.SignOutAsync();
+            this.logger.LogInformation(4, "User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -139,12 +148,12 @@ namespace Web.Controllers
             {
                 return View("Error");
             }
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await this.userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return View("Error");
             }
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var result = await this.userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -166,17 +175,17 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Email);
-                if (user == null || !await this._userManager.IsEmailConfirmedAsync(user))
+                var user = await this.userManager.FindByNameAsync(model.Email);
+                if (user == null || !await this.userManager.IsEmailConfirmedAsync(user))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
 
                 // Send an email with this link
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var code = await this.userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                await this.emailSender.SendEmailAsync(model.Email, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
                 return View("ForgotPasswordConfirmation");
             }
 
@@ -213,13 +222,13 @@ namespace Web.Controllers
             {
                 return View(model);
             }
-            var user = await _userManager.FindByNameAsync(model.Email);
+            var user = await this.userManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
-            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            var result = await this.userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
@@ -248,7 +257,7 @@ namespace Web.Controllers
 
         private async Task<ApplicationUser> GetCurrentUserAsync()
         {
-            return await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            return await this.userManager.FindByIdAsync(HttpContext.User.GetUserId());
         }
 
         private IActionResult RedirectToLocal(string returnUrl)

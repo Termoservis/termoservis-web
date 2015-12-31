@@ -75,19 +75,22 @@ namespace Web
                     options.UseSqlServer(this.ConfigurationProvider.Data.DefaultConnection.ConnectionString));
 
 			// Register Identity Framework
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders()
+			services.AddIdentity<ApplicationUser, IdentityRole>()
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders()
 				.AddUserValidator<TermoservisUserValidator>();
 
+			// Setup options with DI
+			services.AddOptions();
+
+			// Configure
+			services.Configure<AuthMessageSenderOptions>(this.Configuration);
+
 			// Register MVC 
-            services.AddMvc();
+			services.AddMvc();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
-
-			// Configure
-			services.Configure<AuthMessageSender>(this.Configuration);
         }
 
 		/// <summary>

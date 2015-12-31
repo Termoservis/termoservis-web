@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.OptionsModel;
 
 namespace Web.Services
@@ -30,7 +31,7 @@ namespace Web.Services
 		/// <param name="subject">The subject.</param>
 		/// <param name="message">The message.</param>
 		/// <returns>Returns the awaitable task for sending the email.</returns>
-		public Task SendEmailAsync(string email, string subject, string message)
+		public async Task SendEmailAsync(string email, string subject, string message)
         {
 			// Create and populate message
 			var myMessage = new SendGrid.SendGridMessage();
@@ -40,16 +41,22 @@ namespace Web.Services
 			myMessage.Text = message;
 			myMessage.Html = message;
 
-			// Populate SendGrid credentials
-			var credentials = new System.Net.NetworkCredential(
-				this.options.SendGridUser,
-				this.options.SendGridKey);
-
 			// Create a Web transport for sending email.
-			var transportWeb = new SendGrid.Web(credentials);
+			var transportWeb = new SendGrid.Web(this.options.SendGridKey);
 
 			// Send the email.
-			return transportWeb.DeliverAsync(myMessage);
+			try
+			{
+				await transportWeb.DeliverAsync(myMessage);
+			}
+			catch (Exception)
+			{
+#if DEBUG
+				throw;
+#else
+				return;
+#endif
+			}
         }
     }
 }
