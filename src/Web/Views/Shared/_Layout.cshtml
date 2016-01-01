@@ -1,66 +1,155 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Termoservis</title>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content="Servis, popravak plinskih uređaja, instalacija termotehničkih i hidroinstalacija te ugradnja plinskih uređaja, klima uređaja, toplinskih pumpi, sistema solarnog grijanja i pripreme tople vode.">
+	<meta name="keywords" content="termoservis, servis, plinska, trošilo, ovlašteni, bojler, peč, vaillant, junkers, viessmann, bosch, puštanje, pogon, čakovec, međimurje, popravak, greška, kamenac, čišćenje" />
+	<meta name="author" content="Termoservis"/>
+	<meta name="msvalidate.01" content="001C40C53280B95BAB5F1B14123BDD86">
+	<title>@ViewData["Title"] - Termoservis</title>
 
-        <environment names="Development">
-	        <link rel="stylesheet" href="~/lib/materialize/sass/materialize.css"/>
-            <link rel="stylesheet" href="~/css/site.css" />
-        </environment>
-        <environment names="Staging,Production">
-            <link rel="stylesheet" href="~/lib/materialize/sass/materialize.min.css" />
-            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        </environment>
-    </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">Web</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    </ul>
-                    @await Html.PartialAsync("_LoginPartial")
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; 2015 - Web</p>
-            </footer>
-        </div>
+	<link rel="shortcut icon" href="~/favicon.ico" />
 
-        <environment names="Development">
-	        <script src="~/lib/jquery/dist/jquery.js"></script>
-	        <script src="~/lib/materialize/dist/js/materialize.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"
-                    asp-fallback-src="~/lib/materialize/dist/js/materialize.min.js"
-                    asp-fallback-test="window.jQuery && Materialize.toast && window.jQuery.fn && window.jQuery.fn.tabs">
-            </script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
+	<environment names="Development">
+		<link rel="stylesheet" href="~/lib/materialize/sass/materialize.css"/>
+		<link rel="stylesheet" href="~/css/site.css"/>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	</environment>
+	<environment names="Staging,Production">
+		<link rel="stylesheet" href="~/lib/materialize/sass/materialize.min.css"/>
+		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	</environment>
+</head>
+<body>
 
-        @RenderSection("scripts", required: false)
-    </body>
+<!-- NoScript notice -->
+<noscript>
+	<div class="white-text red center-align truncate">
+		<p>Da bi ova stranica radila, potrebno je omogućiti izvršavanje skripti.</p>
+	</div>
+</noscript>
+
+<!-- Top line -->
+<div class="top-line"></div>
+
+<!-- Other company links -->
+<ul class="company-select">
+	<li class="active"><a href="/">Servisi i popravci</a></li>
+	<li><a href="/montaza">Montaža</a></li>
+</ul>
+
+<!-- Logo -->
+<div class="container">
+	<div class="row">
+		<div class="logo col s12">
+			<a href="/">
+				<img src="~/images/Termoservis.png" alt="Termoservis Logo"/>
+			</a>
+			<div>ČAKOVEC</div>
+		</div>
+	</div>
+</div>
+
+<!-- Navigation -->
+<nav>
+	<div class="nav-wrapper">
+		<div class="container">
+			<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul class="left hide-on-small-and-down">
+				<li class="active"><a asp-controller="Home" asp-action="Index">POČETNA</a></li>
+				<li><a asp-controller="Home" asp-action="Service">USLUGE</a></li>
+				<li><a asp-controller="Home" asp-action="About">O NAMA</a></li>
+				<li><a asp-controller="Home" asp-action="Advices">SAVJETI</a></li>
+			</ul>
+			<ul class="side-nav" id="mobile-menu">
+				<li class="active"><a asp-controller="Home" asp-action="Index">POČETNA</a></li>
+				<li><a asp-controller="Home" asp-action="Service">USLUGE</a></li>
+				<li><a asp-controller="Home" asp-action="About">O NAMA</a></li>
+				<li><a asp-controller="Home" asp-action="Advices">SAVJETI</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!-- Contact info -->
+<div class="contact-form z-depth-1">
+	<div class="container">
+		<div class="row">
+			<!-- Contact via Form -->
+			<div class="col s12 m5 l4 offset-l1">
+				<div class="center-align">
+					<a class="waves-effect waves-light btn btn-large red" href="#">Kontaktirajte nas</a>
+				</div>
+			</div>
+			<div class="col s12 m1 contact-or-label center-align">
+				<span>ili</span>
+			</div>
+			<!-- Contact over Phone -->
+			<div class="col s12 m5 l4 contact-phone">
+				<div class="center-align">
+					<i class="material-icons">phone</i>
+					<span>&nbsp;&nbsp;098&nbsp;600&nbsp;122</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Content -->
+<div class="container body-content">
+	@RenderBody()
+</div>
+
+<!-- Cookies notice -->
+<div>
+	<div class="cookies-notice grey-text darken-text-1 center-align">
+		<span><span>Zbog poboljšanja korisničkog iskustva koristimo internetske kolačiće.</span> <a href="http://aboutcookies.org/">Više informacija</a></span>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col l6 s12">
+
+			</div>
+			<div class="col l6 s12">
+				<h5 class="white-text">Sadržaj</h5>
+				<ul>
+					<li><a class="grey-text text-lighten-3" asp-controller="Home" asp-action="Index">Početna</a></li>
+					<li><a class="grey-text text-lighten-3" asp-controller="Home" asp-action="Service">Usluge</a></li>
+					<li><a class="grey-text text-lighten-3" asp-controller="Home" asp-action="About">O nama</a></li>
+					<li><a class="grey-text text-lighten-3" asp-controller="Home" asp-action="Advices">Savjeti</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright">
+		<div class="container">
+			© 2012-@DateTime.Now.Year Termoservis
+			<small><a class="grey-text text-lighten-3 right" target="_blank" href="http://toplek.me/">Design by Aleksandar Toplek</a></small>
+		</div>
+	</div>
+</footer>
+
+<environment names="Development">
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/lib/materialize/dist/js/materialize.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+</environment>
+<environment names="Staging,Production">
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+	        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+	        asp-fallback-test="window.jQuery"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"
+	        asp-fallback-src="~/lib/materialize/dist/js/materialize.min.js"
+	        asp-fallback-test="window.jQuery && Materialize.toast && window.jQuery.fn && window.jQuery.fn.tabs"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+</environment>
+
+@RenderSection("scripts", required: false)
+</body>
 </html>

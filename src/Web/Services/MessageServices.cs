@@ -31,7 +31,7 @@ namespace Web.Services
 		/// <param name="subject">The subject.</param>
 		/// <param name="message">The message.</param>
 		/// <returns>Returns the awaitable task for sending the email.</returns>
-		public async Task SendEmailAsync(string email, string subject, string message)
+		public Task SendEmailAsync(string email, string subject, string message)
         {
 			// Create and populate message
 			var myMessage = new SendGrid.SendGridMessage();
@@ -45,18 +45,7 @@ namespace Web.Services
 			var transportWeb = new SendGrid.Web(this.options.SendGridKey);
 
 			// Send the email.
-			try
-			{
-				await transportWeb.DeliverAsync(myMessage);
-			}
-			catch (Exception)
-			{
-#if DEBUG
-				throw;
-#else
-				return;
-#endif
-			}
+			return transportWeb.DeliverAsync(myMessage);
         }
     }
 }

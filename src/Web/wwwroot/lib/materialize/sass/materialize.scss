@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 // Mixins
 @import "components/prefixer";
@@ -37,3 +37,6 @@
 @import "components/date_picker/default.scss";
 @import "components/date_picker/default.date.scss";
 @import "components/date_picker/default.time.scss";
+
+// Custom
+@import "components/_termoservis.scss";
