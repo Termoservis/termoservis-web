@@ -9,13 +9,13 @@
 	<title>@ViewData["Title"] - Termoservis Portal</title>
 
 	<environment names="Development">
-		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="~/lib/materialize/sass/materialize.css" media="screen,projection" type="text/css" />
 		<link rel="stylesheet" href="~/css/site.css"/>
 		<link rel="stylesheet" href="~/css/portal.css"/>
 	</environment>
 	<environment names="Staging,Production">
-		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="~/lib/materialize/sass/materialize.min.css" media="screen,projection" type="text/css"/>
 		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
 		<link rel="stylesheet" href="~/css/portal.min.css" asp-append-version="true"/>
@@ -28,20 +28,20 @@
 		<li><a asp-controller="Account" asp-action="LogOff">Odjava</a></li>
 	</ul>
 	<div class="nav-wrapper">
-		<a href="#" class="brand-logo left">TERMOSERVIS</a>
+		<a href="/" class="brand-logo left">TERMOSERVIS</a>
 		<ul id="slide-out" class="side-nav fixed">
 			<li class="no-padding">
 				<ul class="collapsible collapsible-accordion">
 					<li class="bold">
-						<a class="collapsible-header waves-effect waves-teal">Portal</a>
+						<a class="collapsible-header waves-effect waves-red">Portal</a>
 						<div class="collapsible-body">
 							<ul>
-								<li><a asp-controller="Users" asp-action="Index">Pregled</a></li>
+								<li><a asp-controller="Home" asp-action="Index">Pregled</a></li>
 							</ul>
 						</div>
 					</li>
 					<li class="bold">
-						<a class="collapsible-header waves-effect waves-teal">Korisnici</a>
+						<a class="collapsible-header waves-effect waves-red">Korisnici</a>
 						<div class="collapsible-body">
 							<ul>
 								<li><a asp-controller="Users" asp-action="Index">Pregled</a></li>
@@ -72,7 +72,6 @@
 <environment names="Development">
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script src="~/lib/materialize/dist/js/materialize.js"></script>
-	<script src="~/js/parts/_portal.js" asp-append-version="true"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 </environment>
 <environment names="Staging,Production">
@@ -84,7 +83,6 @@
 	        asp-fallback-src="~/lib/materialize/dist/js/materialize.min.js"
 	        asp-fallback-test="window.jQuery && Materialize.toast && window.jQuery.fn && window.jQuery.fn.tabs">
 	</script>
-	<script src="~/js/parts/_portal.js" asp-append-version="true"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 </environment>
 

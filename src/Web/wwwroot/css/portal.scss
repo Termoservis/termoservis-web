@@ -1,11 +1,26 @@
-﻿nav .side-nav.fixed {
+﻿// Positioning space for navigation bar on top of the page
+nav .side-nav.fixed {
 	top: 64px;
 }
 
+// Disable hover highlight color for sideNav items
+// This prevents all items in the list to change color on hover
+.side-nav > li:hover {
+	background-color: transparent;
+}
+
+// Disable margins on sideNav items 
+// This will make the wave effect full width of the item
+.side-nav .collapsible-header {
+	margin: 0;
+}
+
+// Padding for sideNav
 header, main, footer {
 	padding-left: 240px;
 }
 
+// Padding for sideNav mobile
 @media only screen and (max-width : 992px) {
 	header, main, footer {
 		padding-left: 0;
