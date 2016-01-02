@@ -9,16 +9,16 @@
 	<meta name="msvalidate.01" content="001C40C53280B95BAB5F1B14123BDD86">
 	<title>@ViewData["Title"] - Termoservis</title>
 
-	<link rel="shortcut icon" href="~/favicon.ico" />
+	<link rel="shortcut icon" href="/favicon.ico" />
 
 	<environment names="Development">
-		<link rel="stylesheet" href="~/lib/materialize/sass/materialize.css"/>
-		<link rel="stylesheet" href="~/css/site.css"/>
+		<link rel="stylesheet" href="/lib/materialize/sass/materialize.css"/>
+		<link rel="stylesheet" href="/css/site.css"/>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</environment>
 	<environment names="Staging,Production">
-		<link rel="stylesheet" href="~/lib/materialize/sass/materialize.min.css"/>
-		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+		<link rel="stylesheet" href="/lib/materialize/sass/materialize.min.css"/>
+		<link rel="stylesheet" href="/css/site.min.css" asp-append-version="true"/>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</environment>
 
@@ -85,7 +85,7 @@
 	<div class="container">
 		<div class="row">
 			<!-- Contact via Form -->
-			<div class="col  offset-l1 s12 m5 l4">
+			<div class="col s12 m5 l4 offset-l1">
 				<div class="center-align">
 					<a class="waves-effect waves-light btn btn-large red" href="#">Kontaktirajte nas</a>
 				</div>
@@ -138,18 +138,14 @@
 </footer>
 
 <environment names="Development">
-	<script src="~/lib/jquery/dist/jquery.js"></script>
-	<script src="~/lib/materialize/dist/js/materialize.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="/lib/jquery/dist/jquery.js"></script>
+	<script src="/lib/materialize/js/dist/materialize.js"></script>
+	<script src="/js/site.js" asp-append-version="true"></script>
 </environment>
 <environment names="Staging,Production">
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-	        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-	        asp-fallback-test="window.jQuery"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"
-	        asp-fallback-src="~/lib/materialize/dist/js/materialize.min.js"
-	        asp-fallback-test="window.jQuery && Materialize.toast && window.jQuery.fn && window.jQuery.fn.tabs"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="/lib/materialize/js/dist/materialize.min.js"></script>
+	<script src="/js/site.js" asp-append-version="true"></script>
 </environment>
 
 @RenderSection("scripts", required: false)

@@ -8,16 +8,16 @@
 	<title>@ViewData["Title"] - Termoservis Portal</title>
 
 	<environment names="Development">
+		<link rel="stylesheet" href="/lib/materialize/sass/materialize.css" media="screen,projection" type="text/css" />
+		<link rel="stylesheet" href="/css/site.css"/>
+		<link rel="stylesheet" href="/css/portal.css"/>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="stylesheet" href="~/lib/materialize/sass/materialize.css" media="screen,projection" type="text/css" />
-		<link rel="stylesheet" href="~/css/site.css"/>
-		<link rel="stylesheet" href="~/css/portal.css"/>
 	</environment>
 	<environment names="Staging,Production">
+		<link rel="stylesheet" href="/lib/materialize/sass/materialize.min.css" media="screen,projection" type="text/css"/>
+		<link rel="stylesheet" href="/css/site.min.css" asp-append-version="true"/>
+		<link rel="stylesheet" href="/css/portal.min.css" asp-append-version="true"/>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="stylesheet" href="~/lib/materialize/sass/materialize.min.css" media="screen,projection" type="text/css"/>
-		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
-		<link rel="stylesheet" href="~/css/portal.min.css" asp-append-version="true"/>
 	</environment>
 
 	@RenderSection("styles", required: false)
@@ -78,14 +78,14 @@
 </div>
 
 <environment names="Development">
-	<script src="~/lib/jquery/dist/jquery.js"></script>
-	<script src="~/lib/materialize/dist/js/materialize.js"></script>
-	<script src="~/js/portal.js" asp-append-version="true"></script>
+	<script src="/lib/jquery/dist/jquery.js"></script>
+	<script src="/lib/materialize/js/dist/materialize.js"></script>
+	<script src="/js/portal.js" asp-append-version="true"></script>
 </environment>
 <environment names="Staging,Production">
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/materialize/dist/js/materialize.min.js"></script>
-	<script src="~/js/portal.js" asp-append-version="true"></script>
+	<script src="/lib/jquery/dist/jquery.min.js"></script>
+	<script src="/lib/materialize/js/dist/materialize.min.js"></script>
+	<script src="/js/portal.js" asp-append-version="true"></script>
 </environment>
 
 @RenderSection("scripts", required: false)
