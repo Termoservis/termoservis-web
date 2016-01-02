@@ -57,7 +57,7 @@ namespace Web.Controllers
 	            {
 		            if (!await this.userManager.IsEmailConfirmedAsync(user))
 		            {
-			            ModelState.AddModelError(string.Empty, "You must have a confirmed email to log in.");
+			            ModelState.AddModelError(string.Empty, "Molimo potvrdite Vaš email. Na Vašu email adresu je poslan potvrdni link.");
 			            return this.View(model);
 		            }
 	            }
@@ -75,7 +75,7 @@ namespace Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Nevaljan pokušaj prijave.");
                     return View(model);
                 }
             }
@@ -116,7 +116,7 @@ namespace Web.Controllers
 		        // Send an email with this link
 		        var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
 		        var callbackUrl = this.Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: this.HttpContext.Request.Scheme);
-		        await this.emailSender.SendEmailAsync(model.Email, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+		        await this.emailSender.SendEmailAsync(model.Email, "Termoservis Portal - Novi korisnik", "Termoservis Portal<br/><br/>Novi korisnik.<br/>Molimo potvrdite vaš email \"" + model.Email + "\" ovim linkom: <a href=\"" + callbackUrl + "\">potvrda emaila</a>");
                     
 		        // Redirect to home
 		        this.logger.LogInformation(3, "User created a new account with password.");
@@ -185,7 +185,7 @@ namespace Web.Controllers
                 // Send an email with this link
                 var code = await this.userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                await this.emailSender.SendEmailAsync(model.Email, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                await this.emailSender.SendEmailAsync(model.Email, "Termoservis Portal - Promijena zaporke", "Termoservis Portal<br/><br/>Promijena zaporke.<br/>Promijenite zaporku korisnika \"" + model.Email + "\" ovim linkom: <a href=\"" + callbackUrl + "\">promijena zaporke</a>");
                 return View("ForgotPasswordConfirmation");
             }
 

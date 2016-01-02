@@ -1,26 +1,23 @@
 ﻿@model IndexViewModel
 @{
-    ViewData["Title"] = "Manage your account";
+    ViewData["Title"] = "Pregled računa";
 }
 
-<h2>@ViewData["Title"].</h2>
+<!-- Header -->
+<h2 class="thin">@ViewData["Title"]</h2>
+
 <p class="text-success">@ViewData["StatusMessage"]</p>
 <div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                <a asp-controller="Manage" asp-action="ChangePassword">Change</a>
-            }
-            else
-            {
-                <a asp-controller="Manage" asp-action="SetPassword">Create</a>
-            }
-            ]
-        </dd>
-    </dl>
+	<div class="row">
+		<table class="col m7 l5">
+			<tr>
+				<td>Email</td>
+				<td>@User.Identity.Name</td>
+			</tr>
+			<tr>
+				<td>Zaporka</td>
+				<td><a asp-controller="Manage" asp-action="ChangePassword">Promijeni</a></td>
+			</tr>
+		</table>
+	</div>
 </div>
