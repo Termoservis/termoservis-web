@@ -21,6 +21,8 @@
 		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</environment>
+
+	@RenderSection("styles", required: false)
 </head>
 <body>
 
@@ -74,7 +76,7 @@
 </nav>
 
 <!-- Content -->
-<div class="container body-content">
+<div>
 	@RenderBody()
 </div>
 
