@@ -1,5 +1,4 @@
 ﻿@model Web.Areas.Portal.ViewModels.Portal.LayoutViewModel
-@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
 
 <!DOCTYPE html>
 <html>
@@ -23,12 +22,20 @@
 </head>
 <body>
 
+<!-- User drop-down structure -->
+<ul id="user-dropdown" class="dropdown-content">
+	<li><a asp-controller="Manage" asp-action="Index">Pregled</a></li>
+	<li class="divider"></li>
+	<li>
+		<form asp-controller="Account" asp-action="LogOff" method="post" id="user-dropdown-logoutform"></form>
+		<a id="user-dropdown-logoff" href="#">Odjava</a>
+	</li>
+</ul>
+
+<!-- Navigation -->
 <nav id="portal-nav">
-	<ul id="user-dropdown" class="dropdown-content">
-		<li><a asp-controller="Account" asp-action="LogOff">Odjava</a></li>
-	</ul>
 	<div class="nav-wrapper">
-		<a href="/" class="brand-logo left">TERMOSERVIS</a>
+		<a asp-controller="Home" asp-action="Index" class="brand-logo left">TERMOSERVIS&nbsp;<span class="thin">Portal</span></a>
 		<ul id="slide-out" class="side-nav fixed">
 			<li class="no-padding">
 				<ul class="collapsible collapsible-accordion">
@@ -56,14 +63,13 @@
 
 		<!-- User info -->
 		<ul class="right">
-			<li><a class="dropdown-button" href="#!" data-activities="user-dropdown">@Model.User.Email<i class="material-icons right">perm_identity</i></a></li>
+			<li><a class="dropdown-button" href="#!" data-beloworigin="true" data-hover="false" data-activates="user-dropdown">@Model.User.Email<i class="material-icons right">perm_identity</i></a></li>
 		</ul>
 	</div>
 </nav>
 
+<!-- Content -->
 <div>
-	<header></header>
-
 	<main>
 		@RenderBody()
 	</main>
@@ -72,18 +78,12 @@
 <environment names="Development">
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script src="~/lib/materialize/dist/js/materialize.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/portal.js" asp-append-version="true"></script>
 </environment>
 <environment names="Staging,Production">
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-	        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-	        asp-fallback-test="window.jQuery">
-	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"
-	        asp-fallback-src="~/lib/materialize/dist/js/materialize.min.js"
-	        asp-fallback-test="window.jQuery && Materialize.toast && window.jQuery.fn && window.jQuery.fn.tabs">
-	</script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/materialize/dist/js/materialize.min.js"></script>
+	<script src="~/js/portal.js" asp-append-version="true"></script>
 </environment>
 
 @RenderSection("scripts", required: false)

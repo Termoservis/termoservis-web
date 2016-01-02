@@ -5,51 +5,64 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Prijava";
 }
 
-<h2>@ViewData["Title"].</h2>
+<h2 class="thin">@ViewData["Title"]</h2>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col m8">
         <section>
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Email" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            <input asp-for="RememberMe" />
-                            <label asp-for="RememberMe"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button type="submit" class="btn btn-default">Log in</button>
-                    </div>
-                </div>
-                <p>
-                    <a asp-action="Register">Register as a new user?</a>
-                </p>
-                <p>
-                    <a asp-action="ForgotPassword">Forgot your password?</a>
-                </p>
-            </form>
+	        <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+		        <!-- Errors list -->
+		        <div class="row">
+			        <div asp-validation-summary="ValidationSummary.All" class="text-danger col m10 l8"></div>
+		        </div>
+
+		        <!-- Email input field -->
+		        <div class="row">
+			        <div class="input-field col m10 l8">
+				        <input asp-for="Email" class="form-control"/>
+				        <span asp-validation-for="Email" class="text-danger"></span>
+				        <label asp-for="Email"></label>
+			        </div>
+		        </div>
+
+		        <!-- Password input field -->
+		        <div class="row">
+			        <div class="input-field col m10 l8">
+				        <input asp-for="Password" class="form-control"/>
+				        <span asp-validation-for="Password" class="text-danger"></span>
+				        <label asp-for="Password">Zaporka</label>
+			        </div>
+		        </div>
+
+		        <!-- Remember me input field -->
+		        <div class="row">
+			        <div class="col m10 l8 offset-m2">
+				        <div class="checkbox">
+					        <input asp-for="RememberMe"/>
+					        <label asp-for="RememberMe">Zapamti me?</label>
+				        </div>
+			        </div>
+		        </div>
+
+		        <!-- Submit button -->
+		        <div class="row">
+			        <div class="col m10 l8 offset-m2">
+				        <button type="submit" class="waves-effect waves-light btn btn-default red">Prijava</button>
+			        </div>
+		        </div>
+
+		        <!-- Register new user -->
+		        <p>
+			        <a asp-action="Register">Registriraj novog korisnika.</a>
+		        </p>
+
+		        <!-- Forgot password -->
+		        <p>
+			        <a asp-action="ForgotPassword">Zaboravili ste zaporku?</a>
+		        </p>
+	        </form>
         </section>
     </div>
 </div>
