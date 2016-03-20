@@ -101,6 +101,10 @@ namespace Termoservis.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+			// NOTE: Registrations are disabled
+			this.ModelState.AddModelError("", "Registrations are disabled. Contact the administrator for more info.");
+			return this.View(model);
+
             if (this.ModelState.IsValid)
             {
 				// Validate email address
