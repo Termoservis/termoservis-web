@@ -1,11 +1,6 @@
-using Microsoft.AspNet.Identity;
-
 namespace Termoservis.DAL.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+	using System.Data.Entity.Migrations;
 
 	/// <summary>
 	/// The migrations configuration.

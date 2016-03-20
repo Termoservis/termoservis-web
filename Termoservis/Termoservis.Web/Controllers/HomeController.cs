@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Mindscape.Raygun4Net;
+﻿using System.Web.Mvc;
 
 namespace Termoservis.Web.Controllers
 {
+	/// <summary>
+	/// The home controller.
+	/// </summary>
+	/// <seealso cref="System.Web.Mvc.Controller" />
+	[Authorize]
 	public class HomeController : Controller
 	{
+		/// <summary>
+		/// Index page.
+		/// </summary>
 		public ActionResult Index()
 		{
-			return View();
+			return this.View();
 		}
 	}
 }
