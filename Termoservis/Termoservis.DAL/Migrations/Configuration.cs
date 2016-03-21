@@ -5,7 +5,6 @@ namespace Termoservis.DAL.Migrations
 	/// <summary>
 	/// The migrations configuration.
 	/// </summary>
-	/// <seealso cref="System.Data.Entity.Migrations.DbMigrationsConfiguration{Termoservis.DAL.ApplicationDbContext}" />
 	internal sealed class Configuration : DbMigrationsConfiguration<Termoservis.DAL.ApplicationDbContext>
     {
 		/// <summary>

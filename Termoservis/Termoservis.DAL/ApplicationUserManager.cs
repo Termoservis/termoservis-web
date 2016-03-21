@@ -6,8 +6,16 @@ using Termoservis.Models;
 
 namespace Termoservis.DAL
 {
+	/// <summary>
+	/// The <see cref="ApplicationUser"/> manager.
+	/// </summary>
 	public class ApplicationUserManager : UserManager<ApplicationUser>
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ApplicationUserManager"/> class.
+		/// </summary>
+		/// <param name="store">The store.</param>
+		/// <param name="dataProtectionProvider">The data protection provider.</param>
 		public ApplicationUserManager(
 			IUserStore<ApplicationUser> store, 
 			IDataProtectionProvider dataProtectionProvider)

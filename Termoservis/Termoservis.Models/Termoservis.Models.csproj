@@ -59,8 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
     <Compile Include="ApplicationUser.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Place.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TelephoneNumber.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Termoservis.Contracts\Termoservis.Contracts.csproj">

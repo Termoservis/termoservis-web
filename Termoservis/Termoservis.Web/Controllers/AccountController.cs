@@ -105,6 +105,7 @@ namespace Termoservis.Web.Controllers
 			this.ModelState.AddModelError("", "Registrations are disabled. Contact the administrator for more info.");
 			return this.View(model);
 
+#pragma warning disable 162
             if (this.ModelState.IsValid)
             {
 				// Validate email address
@@ -126,6 +127,7 @@ namespace Termoservis.Web.Controllers
 
             // If we got this far, something failed, redisplay form
             return this.View(model);
+#pragma warning restore 162
         }
 
 		//
