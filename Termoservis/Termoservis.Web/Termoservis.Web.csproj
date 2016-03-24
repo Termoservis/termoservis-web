@@ -334,6 +334,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Termoservis.Common\Termoservis.Common.csproj">
+      <Project>{08a0b513-755b-4ccc-8924-99cc332ec139}</Project>
+      <Name>Termoservis.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Termoservis.Contracts\Termoservis.Contracts.csproj">
       <Project>{F962C1C5-6C1D-4BFB-9582-C96B5D8FB1D6}</Project>
       <Name>Termoservis.Contracts</Name>

@@ -96,6 +96,10 @@
     <Compile Include="TelephoneNumber.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Termoservis.Common\Termoservis.Common.csproj">
+      <Project>{08a0b513-755b-4ccc-8924-99cc332ec139}</Project>
+      <Name>Termoservis.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Termoservis.Contracts\Termoservis.Contracts.csproj">
       <Project>{f962c1c5-6c1d-4bfb-9582-c96b5d8fb1d6}</Project>
       <Name>Termoservis.Contracts</Name>

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.Models", "Termo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.Contracts", "Termoservis.Contracts\Termoservis.Contracts.csproj", "{F962C1C5-6C1D-4BFB-9582-C96B5D8FB1D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.Common", "Termoservis.Common\Termoservis.Common.csproj", "{08A0B513-755B-4CCC-8924-99CC332EC139}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F962C1C5-6C1D-4BFB-9582-C96B5D8FB1D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F962C1C5-6C1D-4BFB-9582-C96B5D8FB1D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F962C1C5-6C1D-4BFB-9582-C96B5D8FB1D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08A0B513-755B-4CCC-8924-99CC332EC139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08A0B513-755B-4CCC-8924-99CC332EC139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08A0B513-755B-4CCC-8924-99CC332EC139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08A0B513-755B-4CCC-8924-99CC332EC139}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
