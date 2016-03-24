@@ -5,7 +5,8 @@ namespace Termoservis.DAL.Migrations
 	/// <summary>
 	/// The migrations configuration.
 	/// </summary>
-	internal sealed class Configuration : DbMigrationsConfiguration<Termoservis.DAL.ApplicationDbContext>
+	// ReSharper disable once UnusedMember.Global
+	internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Configuration"/> class.
@@ -19,9 +20,8 @@ namespace Termoservis.DAL.Migrations
 		/// Seeds the specified context.
 		/// </summary>
 		/// <param name="context">The context.</param>
-		protected override void Seed(Termoservis.DAL.ApplicationDbContext context)
+		protected override void Seed(ApplicationDbContext context)
         {
-			
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 using Termoservis.Contracts.Models;
 
 namespace Termoservis.Models
@@ -22,6 +23,7 @@ namespace Termoservis.Models
 		/// </value>
 		[Key]
 		[Required]
+		[HiddenInput(DisplayValue = false)]
 		public string Id { get; set; }
 
 		/// <summary>
@@ -50,6 +52,7 @@ namespace Termoservis.Models
 		/// The email.
 		/// </value>
 		[DisplayName("Email")]
+		[EmailAddress]
 		public string Email { get; set; }
 
 		/// <summary>

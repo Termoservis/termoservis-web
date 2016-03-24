@@ -106,7 +106,8 @@ namespace Termoservis.Web.Controllers
 			return this.View(model);
 
 #pragma warning disable 162
-            if (this.ModelState.IsValid)
+			// ReSharper disable HeuristicUnreachableCode
+			if (this.ModelState.IsValid)
             {
 				// Validate email address
 	            if (!model.Email.EndsWith("@termoservis.hr"))
@@ -127,6 +128,7 @@ namespace Termoservis.Web.Controllers
 
             // If we got this far, something failed, redisplay form
             return this.View(model);
+			// ReSharper restore HeuristicUnreachableCode
 #pragma warning restore 162
         }
 

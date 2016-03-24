@@ -1,0 +1,88 @@
+﻿@model Termoservis.Web.Models.Customer.CustomerCreateViewModel
+
+@{
+    ViewBag.Title = "Kreiraj korisnika";
+}
+
+<div class="row">
+	@Html.ActionLink("Vrati se na listu korisnika", "Index", null, htmlAttributes: new {@class="col-xs-12 p-t-2"})
+</div>
+<div class="row">
+	<h2 class="col-xs-12 p-t-1">Kreiraj korisnika</h2>
+</div>
+	@using (Html.BeginForm("Create", "Customers", FormMethod.Post, new { @class = "col-xs-12", role = "form" }))
+	{
+		@Html.AntiForgeryToken()
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.Id)
+
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group row">
+					@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group row">
+					@Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "form-control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.TextAreaFor(model => model.Note, htmlAttributes: new { @class = "form-control", rows = "3" })
+						@Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-lg-6">
+				<div class="form-group row">
+					@Html.LabelFor(model => model.CustomerStreetName, htmlAttributes: new { @class = "form-control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.CustomerStreetName, new { htmlAttributes = new { @class = "form-control" } })
+					</div>
+				</div>
+
+				<div class="form-group row">
+					@Html.LabelFor(model => model.CustomerPlaceId, htmlAttributes: new { @class = "form-control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.DropDownList(nameof(Model.CustomerPlaceId), new SelectList(Model.AvailablePlaces, null, "Name"), htmlAttributes: new { @class = "form-control" })
+					</div>
+				</div>
+
+				<div class="form-group row">
+					@Html.LabelFor(model => model.CustomerCountryId, htmlAttributes: new { @class = "form-control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.DropDownList(nameof(Model.CustomerCountryId), new SelectList(Model.AvailableCountries, null, "Name"), htmlAttributes: new { @class = "form-control" })
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<h4>Kontakt podaci</h4>
+				</div>
+
+				<div class="form-group row">
+					@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<div class="col-md-offset-1 col-md-11">
+				<input type="submit" value="Kreiraj" class="btn btn-default btn-success"/>
+			</div>
+		</div>
+	}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

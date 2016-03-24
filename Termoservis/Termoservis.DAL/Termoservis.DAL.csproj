@@ -98,6 +98,7 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="ApplicationSignInManager.cs" />
     <Compile Include="ApplicationUserManager.cs" />
+    <Compile Include="Extensions\ILocationViewModelExtensions.cs" />
     <Compile Include="Migrations\201603201850293_Initial.cs" />
     <Compile Include="Migrations\201603201850293_Initial.Designer.cs">
       <DependentUpon>201603201850293_Initial.cs</DependentUpon>
@@ -108,6 +109,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\PlacesRepository.cs" />
+    <Compile Include="ViewModels\ILocationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
