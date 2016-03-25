@@ -109,7 +109,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\PlacesRepository.cs" />
+    <Compile Include="Repositories\PlacesesRepository.cs" />
     <Compile Include="ViewModels\ILocationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

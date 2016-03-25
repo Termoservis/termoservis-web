@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Termoservis.Contracts.Repository
 {
 	/// <summary>
@@ -9,6 +11,12 @@ namespace Termoservis.Contracts.Repository
 		where TModelIdentifier : struct
 	{
 		/// <summary>
+		/// Gets all models from repository.
+		/// </summary>
+		/// <returns>Returns query for all models in the repository.</returns>
+		IQueryable<TModel> GetAll();
+
+			/// <summary>
 		/// Gets the model by specified identifier.
 		/// </summary>
 		/// <param name="id">The identifier.</param>

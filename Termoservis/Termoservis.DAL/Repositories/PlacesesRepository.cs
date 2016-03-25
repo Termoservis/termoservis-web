@@ -10,9 +10,84 @@ using Termoservis.Models;
 namespace Termoservis.DAL.Repositories
 {
 	/// <summary>
+	/// The <see cref="Country"/> repository contract.
+	/// </summary>
+	public interface ICountriesRepository : IRepository<Country, int>
+	{
+	}
+
+	/// <summary>
+	/// The <see cref="Country"/> repository.
+	/// </summary>
+	/// <seealso cref="ICountriesRepository" />
+	// ReSharper disable once UnusedMember.Global
+	public class CountriesRepository : ICountriesRepository
+	{
+		private readonly ApplicationDbContext context;
+
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CountriesRepository"/> class.
+		/// </summary>
+		/// <param name="context">The context.</param>
+		/// <exception cref="System.ArgumentNullException">context</exception>
+		public CountriesRepository(ApplicationDbContext context)
+		{
+			if (context == null) throw new ArgumentNullException(nameof(context));
+
+			this.context = context;
+		}
+
+
+		/// <summary>
+		/// Gets all countries from repository..
+		/// </summary>
+		/// <returns>Returns collection of countries from repository.</returns>
+		public IQueryable<Country> GetAll()
+		{
+			return this.context.Countries.AsQueryable();
+		}
+
+		/// <summary>
+		/// Gets the country with specified identifier.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		/// <returns>Returns the country that matches specified identifier; <c>null</c> if no such country exists in repository.</returns>
+		public Country Get(int id)
+		{
+			return this.context.Countries.FirstOrDefault(country => country.Id == id);
+		}
+
+		public Task<Country> AddAsync(Country model)
+		{
+			if (model == null) throw new ArgumentNullException(nameof(model));
+			
+
+			throw new NotImplementedException();
+		}
+
+		public Task<Country> EditAsync(int id, Country model)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<bool> DeleteAsync(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<bool> DeleteAsync(Country model)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	/// <summary>
 	/// The places repository.
 	/// </summary>
-	public class PlacesRepository : IPlaceRepository
+	/// <seealso cref="IPlacesRepository" />
+	// ReSharper disable once UnusedMember.Global
+	public class PlacesRepository : IPlacesRepository
 	{
 		private readonly ApplicationDbContext context;
 
@@ -27,6 +102,16 @@ namespace Termoservis.DAL.Repositories
 			if (context == null) throw new ArgumentNullException(nameof(context));
 
 			this.context = context;
+		}
+
+
+		/// <summary>
+		/// Gets all places from the repository..
+		/// </summary>
+		/// <returns>Returns collection of places from the repository.</returns>
+		public IQueryable<Place> GetAll()
+		{
+			return this.context.Places.AsQueryable();
 		}
 
 		/// <summary>
@@ -110,7 +195,7 @@ namespace Termoservis.DAL.Repositories
 	/// <summary>
 	/// The places repository contract.
 	/// </summary>
-	public interface IPlaceRepository : IRepository<Place, int>
+	public interface IPlacesRepository : IRepository<Place, int>
 	{
 		/// <summary>
 		/// Gets the specified place in specified country.
