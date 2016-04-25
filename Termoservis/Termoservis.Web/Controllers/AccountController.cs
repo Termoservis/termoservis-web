@@ -14,6 +14,7 @@ namespace Termoservis.Web.Controllers
 	/// </summary>
 	/// <seealso cref="System.Web.Mvc.Controller" />
 	[Authorize]
+    [RequireHttps]
     public class AccountController : Controller
     {
         private readonly ApplicationSignInManager signInManager;
