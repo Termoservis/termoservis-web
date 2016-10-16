@@ -32,7 +32,7 @@ namespace Termoservis.Web
 				"~/Scripts/bootstrap.js",
 				"~/Scripts/respond.js"));
 
-			bundles.Add(new StyleBundle("~/Content/css").Include(
+			bundles.Add(new StyleBundle("~/bundles/css").Include(
 				"~/Content/tether/tether.css",
 				"~/Content/tether/tether-theme-basic.css",
 				"~/Content/bootstrap.css",

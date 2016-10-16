@@ -83,6 +83,10 @@ namespace Termoservis.Web.Controllers
         {
             var viewModel = new CustomerCreateViewModel();
 			await viewModel.PopulateLocationsAsync(this.context);
+			viewModel.TelephoneNumbers = new List<TelephoneNumber>()
+			{
+				new TelephoneNumber()
+			};
 
             return View(viewModel);
         }
@@ -90,7 +94,7 @@ namespace Termoservis.Web.Controllers
         // POST: Customers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Note,Email,CustomerStreetName,CustomerPlaceId,CustomerCountryId")] CustomerCreateViewModel viewModel)
+        public async Task<ActionResult> Create(CustomerCreateViewModel viewModel)
         {
 			// Validate model
             if (ModelState.IsValid)
