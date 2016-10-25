@@ -109,7 +109,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AddressesRepository.cs" />
     <Compile Include="Repositories\CountriesRepository.cs" />
+    <Compile Include="Repositories\IAddressesRepository.cs" />
     <Compile Include="Repositories\ICountriesRepository.cs" />
     <Compile Include="Repositories\IPlacesRepository.cs" />
     <Compile Include="Repositories\PlacesesRepository.cs" />

@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Models\IResponsibilityLog.cs" />
     <Compile Include="Models\ISearchable.cs" />
+    <Compile Include="Repository\IAddRepository.cs" />
     <Compile Include="Repository\IDeleteRepository.cs" />
     <Compile Include="Repository\IEditRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />

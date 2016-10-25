@@ -132,7 +132,7 @@ namespace Termoservis.DAL.Repositories
 				throw new ArgumentOutOfRangeException(nameof(model.Id), "Place identifier must be zero.");
 
 			// Validate
-			ValidateModel(model);
+			this.ValidateModel(model);
 
 			// Add to context and save changes
 			this.context.Places.Add(model);
@@ -166,7 +166,7 @@ namespace Termoservis.DAL.Repositories
 				throw new ArgumentOutOfRangeException(nameof(id), "Place identifier must not be null.");
 
 			// Validate
-			ValidateModel(model);
+			this.ValidateModel(model);
 
 			// Retrieve from database
 			var placeDb = this.Get(id);
@@ -241,7 +241,7 @@ namespace Termoservis.DAL.Repositories
 		/// or
 		/// Place name must not be null or empty.
 		/// </exception>
-		private static void ValidateModel(Place model)
+		private void ValidateModel(Place model)
 		{
 			if (model == null)
 				throw new ArgumentNullException(nameof(model));
@@ -253,6 +253,8 @@ namespace Termoservis.DAL.Repositories
 			// Validate country name
 			if (string.IsNullOrWhiteSpace(model.Name))
 				throw new InvalidDataException("Place name must not be null or empty.");
+			if (this.context.Places.Any(place => place.Name == model.Name))
+				throw new InvalidDataException("Duplicate place name.");
 		}
 	}
 }

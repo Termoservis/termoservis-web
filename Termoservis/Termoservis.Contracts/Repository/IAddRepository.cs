@@ -3,18 +3,18 @@ using System.Threading.Tasks;
 namespace Termoservis.Contracts.Repository
 {
 	/// <summary>
-	/// The editable repository contract.
+	/// The repository with support for adding elements.
 	/// </summary>
 	/// <typeparam name="TModel">The type of the model.</typeparam>
 	/// <typeparam name="TModelIdentifier">The type of the model identifier.</typeparam>
-	public interface IEditRepository<TModel, in TModelIdentifier> : IAddRepository<TModel, TModelIdentifier>
+	/// <seealso cref="Termoservis.Contracts.Repository.IRetrieveRepository{TModel, TModelIdentifier}" />
+	public interface IAddRepository<TModel, in TModelIdentifier> : IRetrieveRepository<TModel, TModelIdentifier>
 		where TModelIdentifier : struct
 	{
 		/// <summary>
-		/// Edits the model with specified identifier.
+		/// Adds the specified model to the repository..
 		/// </summary>
-		/// <param name="id">The identifier.</param>
 		/// <param name="model">The model.</param>
-		Task<TModel> EditAsync(TModelIdentifier id, TModel model);
+		Task<TModel> AddAsync(TModel model);
 	}
 }
