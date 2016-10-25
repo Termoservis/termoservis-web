@@ -6,6 +6,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Practices.Unity;
 using Termoservis.Contracts.Services;
 using Termoservis.DAL;
+using Termoservis.DAL.Repositories;
 using Termoservis.Models;
 using Termoservis.Web.Services;
 
@@ -48,6 +49,10 @@ namespace Termoservis.Web
 				new InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));
 			container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(
 		        new InjectionConstructor(typeof(ApplicationDbContext)));
-        }
+
+			// Register repositories
+	        container.RegisterType<ICountriesRepository, CountriesRepository>();
+			container.RegisterType<IPlacesRepository, PlacesRepository>();
+		}
     }
 }
