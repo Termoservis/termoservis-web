@@ -1,7 +1,6 @@
 namespace Termoservis.DAL.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
+	using System.Data.Entity.Migrations;
 
 	/// <summary>
 	/// Migration that adds Customer model and corresponding models.

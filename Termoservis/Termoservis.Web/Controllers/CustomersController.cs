@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Serilog;
 using Termoservis.Contracts.Services;
@@ -91,8 +88,12 @@ namespace Termoservis.Web.Controllers
             return View(viewModel);
         }
 
-        // POST: Customers/Create
-        [HttpPost]
+		// POST: Customers/Create		
+		/// <summary>
+		/// Creates the customer from submitted form view model.
+		/// </summary>
+		/// <param name="viewModel">The customer creation view model.</param>
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CustomerCreateViewModel viewModel)
         {

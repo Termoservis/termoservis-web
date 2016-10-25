@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -8,8 +6,26 @@ using System.Web.Mvc.Html;
 
 namespace Termoservis.Web.Helpers
 {
+	/// <summary>
+	/// The HTML helpers.
+	/// </summary>
 	public static class HtmlHelpers
 	{
+		/// <summary>
+		/// 'Add' link helper.
+		/// </summary>
+		/// <typeparam name="TModel">The type of the model.</typeparam>
+		/// <param name="htmlHelper">The HTML helper.</param>
+		/// <param name="linkText">The link text.</param>
+		/// <param name="containerElement">The container element.</param>
+		/// <param name="counterElement">The counter element.</param>
+		/// <param name="collectionProperty">The collection property.</param>
+		/// <param name="nestedType">Type of the nested.</param>
+		/// <returns>Returns the HTML string that represents the 'add' link.</returns>
+		/// <remarks>
+		/// The link will trigger `addNestedForm` function with following parameters:
+		/// containerElement, counterElement, ticks, partial
+		/// </remarks>
 		public static IHtmlString AddLink<TModel>(
 			this HtmlHelper<TModel> htmlHelper,
 			string linkText,
@@ -23,8 +39,7 @@ namespace Termoservis.Web.Helpers
 			var partial = htmlHelper.EditorFor(x => nestedObject).ToHtmlString().JsEncode();
 			partial = partial.Replace("id=\\\"nestedObject", "id=\\\"" + collectionProperty + "_" + ticks + "_");
 			partial = partial.Replace("name=\\\"nestedObject", "name=\\\"" + collectionProperty + "[" + ticks + "]");
-			var js = string.Format("javascript:addNestedForm('{0}','{1}','{2}','{3}');return false;", containerElement,
-				counterElement, ticks, partial);
+			var js = $"javascript:addNestedForm('{containerElement}','{counterElement}','{ticks}','{partial}');return false;";
 			TagBuilder tb = new TagBuilder("a");
 			tb.Attributes.Add("href", "#");
 			tb.Attributes.Add("onclick", js);
