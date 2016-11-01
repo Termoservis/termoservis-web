@@ -110,7 +110,9 @@
     <Compile Include="Repositories\IAddressesRepository.cs" />
     <Compile Include="Repositories\ICountriesRepository.cs" />
     <Compile Include="Repositories\IPlacesRepository.cs" />
+    <Compile Include="Repositories\ITelephoneNumbersRepository.cs" />
     <Compile Include="Repositories\PlacesesRepository.cs" />
+    <Compile Include="Repositories\TelephoneNumbersRepository.cs" />
     <Compile Include="ViewModels\ILocationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
