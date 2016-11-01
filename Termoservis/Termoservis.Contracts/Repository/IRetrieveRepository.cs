@@ -8,7 +8,6 @@ namespace Termoservis.Contracts.Repository
 	/// <typeparam name="TModel">The type of the model.</typeparam>
 	/// <typeparam name="TModelIdentifier">The type of the model identifier.</typeparam>
 	public interface IRetrieveRepository<out TModel, in TModelIdentifier>
-		where TModelIdentifier : struct
 	{
 		/// <summary>
 		/// Gets all models from repository.

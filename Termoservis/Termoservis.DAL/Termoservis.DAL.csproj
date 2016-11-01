@@ -109,6 +109,7 @@
     <Compile Include="Repositories\CountriesRepository.cs" />
     <Compile Include="Repositories\IAddressesRepository.cs" />
     <Compile Include="Repositories\ICountriesRepository.cs" />
+    <Compile Include="Repositories\ICustomersRepository.cs" />
     <Compile Include="Repositories\IPlacesRepository.cs" />
     <Compile Include="Repositories\ITelephoneNumbersRepository.cs" />
     <Compile Include="Repositories\PlacesesRepository.cs" />

@@ -54,6 +54,8 @@ namespace Termoservis.Web
 	        container.RegisterType<ICountriesRepository, CountriesRepository>();
 			container.RegisterType<IPlacesRepository, PlacesRepository>();
 	        container.RegisterType<IAddressesRepository, AddressesRepository>();
-        }
+			container.RegisterType<ITelephoneNumbersRepository, TelephoneNumbersRepository>();
+			container.RegisterType<ICustomersRepository, CustomersRepository>();
+		}
     }
 }

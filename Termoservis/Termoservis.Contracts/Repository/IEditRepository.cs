@@ -8,7 +8,6 @@ namespace Termoservis.Contracts.Repository
 	/// <typeparam name="TModel">The type of the model.</typeparam>
 	/// <typeparam name="TModelIdentifier">The type of the model identifier.</typeparam>
 	public interface IEditRepository<TModel, in TModelIdentifier> : IAddRepository<TModel, TModelIdentifier>
-		where TModelIdentifier : struct
 	{
 		/// <summary>
 		/// Edits the model with specified identifier.

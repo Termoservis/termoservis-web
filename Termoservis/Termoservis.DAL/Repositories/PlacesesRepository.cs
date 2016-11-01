@@ -44,9 +44,9 @@ namespace Termoservis.DAL.Repositories
 
 
 		/// <summary>
-		/// Gets all places from the repository..
+		/// Gets all places from the repository.
 		/// </summary>
-		/// <returns>Returns collection of places from the repository.</returns>
+		/// <returns>Returns collection of all places from the repository.</returns>
 		public IQueryable<Place> GetAll()
 		{
 			return this.context.Places.AsQueryable();

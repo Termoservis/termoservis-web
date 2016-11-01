@@ -24,6 +24,9 @@ namespace Termoservis.DAL.Repositories
 		/// <param name="context">The context.</param>
 		/// <param name="loggingService">The logging service.</param>
 		/// <exception cref="ArgumentNullException">
+		/// context
+		/// or
+		/// loggingService
 		/// </exception>
 		public TelephoneNumbersRepository(
 			ApplicationDbContext context,

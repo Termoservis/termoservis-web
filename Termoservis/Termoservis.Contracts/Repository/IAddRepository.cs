@@ -9,7 +9,6 @@ namespace Termoservis.Contracts.Repository
 	/// <typeparam name="TModelIdentifier">The type of the model identifier.</typeparam>
 	/// <seealso cref="Termoservis.Contracts.Repository.IRetrieveRepository{TModel, TModelIdentifier}" />
 	public interface IAddRepository<TModel, in TModelIdentifier> : IRetrieveRepository<TModel, TModelIdentifier>
-		where TModelIdentifier : struct
 	{
 		/// <summary>
 		/// Adds the specified model to the repository..
