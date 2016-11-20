@@ -100,7 +100,7 @@ namespace Termoservis.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
             // NOTE: Registrations are disabled
             this.ModelState.AddModelError("", "Registrations are disabled. Contact the administrator for more info.");
@@ -112,14 +112,21 @@ namespace Termoservis.Web.Controllers
             //    if (!model.Email.EndsWith("@termoservis.hr"))
             //    {
             //        this.ModelState.AddModelError("", "Unauthorized registration attempt.");
-            //        this.View(model);
+            //        return this.View(model);
             //    }
 
-            //    var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
-            //    var result = await this.userManager.CreateAsync(user, model.Password);
+            //    // Validate password
+            //    if (model.Password != model.ConfirmPassword)
+            //    {
+            //        this.ModelState.AddModelError("", "Passwords don't match.");
+            //        return this.View(model);
+            //    }
+
+            //    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            //    var result = this.userManager.Create(user, model.Password);
             //    if (result.Succeeded)
             //    {
-            //        await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            //        this.signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
             //        return this.RedirectToAction("Index", "Home");
             //    }
             //    this.AddErrors(result);
