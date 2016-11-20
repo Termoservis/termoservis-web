@@ -103,8 +103,8 @@ namespace Termoservis.Web.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
 			// NOTE: Registrations are disabled
-			this.ModelState.AddModelError("", "Registrations are disabled. Contact the administrator for more info.");
-			return this.View(model);
+			//this.ModelState.AddModelError("", "Registrations are disabled. Contact the administrator for more info.");
+			//return this.View(model);
 
 #pragma warning disable 162
 			// ReSharper disable HeuristicUnreachableCode
