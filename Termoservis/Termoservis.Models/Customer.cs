@@ -84,6 +84,8 @@ namespace Termoservis.Models
 		[DisplayName("Ulica i kućni broj")]
 		public virtual Address Address { get; set; }
 
+        public virtual ICollection<WorkItem> WorkItems { get; set; }
+
 		/// <summary>
 		/// Gets or sets the search keywords.
 		/// </summary>

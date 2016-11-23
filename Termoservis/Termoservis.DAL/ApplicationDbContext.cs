@@ -50,8 +50,12 @@ namespace Termoservis.DAL
 		/// </value>
 		public IDbSet<TelephoneNumber> TelephoneNumbers { get; set; }
 
+        public IDbSet<WorkItem> WorkItems { get; set; }
 
-		/// <summary>
+	    public IDbSet<CustomerDevice> CustomerDevices { get; set; }
+
+
+	    /// <summary>
 		/// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
 		/// </summary>
 		public ApplicationDbContext()

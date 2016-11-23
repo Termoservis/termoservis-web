@@ -104,18 +104,26 @@
     <Compile Include="Migrations\201611230105303_Customer.Designer.cs">
       <DependentUpon>201611230105303_Customer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611232320203_WorkItem.cs" />
+    <Compile Include="Migrations\201611232320203_WorkItem.Designer.cs">
+      <DependentUpon>201611232320203_WorkItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AddressesRepository.cs" />
     <Compile Include="Repositories\CountriesRepository.cs" />
+    <Compile Include="Repositories\CustomerDevicesRepository.cs" />
     <Compile Include="Repositories\CustomersRepository.cs" />
     <Compile Include="Repositories\IAddressesRepository.cs" />
     <Compile Include="Repositories\ICountriesRepository.cs" />
+    <Compile Include="Repositories\ICustomerDevicesRepository.cs" />
     <Compile Include="Repositories\ICustomersRepository.cs" />
     <Compile Include="Repositories\IPlacesRepository.cs" />
     <Compile Include="Repositories\ITelephoneNumbersRepository.cs" />
+    <Compile Include="Repositories\IWorkItemsRepository.cs" />
     <Compile Include="Repositories\PlacesesRepository.cs" />
     <Compile Include="Repositories\TelephoneNumbersRepository.cs" />
+    <Compile Include="Repositories\WorkItemsRepository.cs" />
     <Compile Include="ViewModels\ILocationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611230105303_Customer.resx">
       <DependentUpon>201611230105303_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611232320203_WorkItem.resx">
+      <DependentUpon>201611232320203_WorkItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
