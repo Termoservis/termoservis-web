@@ -9,6 +9,7 @@ using Termoservis.DAL;
 using Termoservis.DAL.Repositories;
 using Termoservis.Models;
 using Termoservis.Web.Services;
+using Termoservis.Web.Controllers;
 
 namespace Termoservis.Web
 {
@@ -56,6 +57,9 @@ namespace Termoservis.Web
 	        container.RegisterType<IAddressesRepository, AddressesRepository>();
 			container.RegisterType<ITelephoneNumbersRepository, TelephoneNumbersRepository>();
 			container.RegisterType<ICustomersRepository, CustomersRepository>();
-		}
+
+            // Register services
+            container.RegisterType<ICustomerService, CustomerService>();
+        }
     }
 }

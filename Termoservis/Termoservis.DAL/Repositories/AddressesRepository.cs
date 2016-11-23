@@ -90,13 +90,15 @@ namespace Termoservis.DAL.Repositories
 			// Validate
 			this.ValidateModel(model);
 
+		    model.SearchKeywords = model.StreetAddress.ToLowerInvariant().Trim();
+
 			// Add to the repository and save
 			this.context.Addresses.Add(model);
 			await this.context.SaveChangesAsync();
 
 			this.logger.Information(
-				"Added new address {StreetAddress} ({AddressId}) to {PlaceName} ({PlaceId}).",
-				model.StreetAddress, model.Id, model.Place.Name, model.PlaceId);
+				"Added new address {StreetAddress} ({AddressId}) to Place ({PlaceId}).",
+				model.StreetAddress, model.Id, model.PlaceId);
 
 			return model;
 		}
@@ -120,7 +122,7 @@ namespace Termoservis.DAL.Repositories
 				return address;
 
 			// Retrieve place
-			var place = this.placesRepository.Get(address.Id);
+			var place = this.placesRepository.Get(address.PlaceId);
 			if (place == null)
 				throw new InvalidDataException("Invalid place identifier.");
 

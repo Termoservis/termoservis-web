@@ -13,7 +13,7 @@ namespace Termoservis.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201603212243358_Customer"; }
+            get { return "201611230105303_Customer"; }
         }
         
         string IMigrationMetadata.Source

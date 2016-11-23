@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -11,22 +13,36 @@ namespace Termoservis.Web.Helpers
 	/// </summary>
 	public static class HtmlHelpers
 	{
-		/// <summary>
-		/// 'Add' link helper.
-		/// </summary>
-		/// <typeparam name="TModel">The type of the model.</typeparam>
-		/// <param name="htmlHelper">The HTML helper.</param>
-		/// <param name="linkText">The link text.</param>
-		/// <param name="containerElement">The container element.</param>
-		/// <param name="counterElement">The counter element.</param>
-		/// <param name="collectionProperty">The collection property.</param>
-		/// <param name="nestedType">Type of the nested.</param>
-		/// <returns>Returns the HTML string that represents the 'add' link.</returns>
-		/// <remarks>
-		/// The link will trigger `addNestedForm` function with following parameters:
-		/// containerElement, counterElement, ticks, partial
-		/// </remarks>
-		public static IHtmlString AddLink<TModel>(
+        public static MvcHtmlString DisplayColumnNameFor<TModel, TClass, TProperty>(this HtmlHelper<TModel> helper, IEnumerable<TClass> model, Expression<Func<TClass, TProperty>> expression)
+        {
+            var name = ExpressionHelper.GetExpressionText(expression);
+            name = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            var metadata = ModelMetadataProviders.Current.GetMetadataForProperty(
+            () => Activator.CreateInstance<TClass>(), typeof(TClass), name);
+
+            var returnName = metadata.DisplayName;
+            if (string.IsNullOrEmpty(returnName))
+                returnName = metadata.PropertyName;
+
+            return new MvcHtmlString(returnName);
+        }
+
+        /// <summary>
+        /// 'Add' link helper.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the model.</typeparam>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <param name="linkText">The link text.</param>
+        /// <param name="containerElement">The container element.</param>
+        /// <param name="counterElement">The counter element.</param>
+        /// <param name="collectionProperty">The collection property.</param>
+        /// <param name="nestedType">Type of the nested.</param>
+        /// <returns>Returns the HTML string that represents the 'add' link.</returns>
+        /// <remarks>
+        /// The link will trigger `addNestedForm` function with following parameters:
+        /// containerElement, counterElement, ticks, partial
+        /// </remarks>
+        public static IHtmlString AddLink<TModel>(
 			this HtmlHelper<TModel> htmlHelper,
 			string linkText,
 			string containerElement,

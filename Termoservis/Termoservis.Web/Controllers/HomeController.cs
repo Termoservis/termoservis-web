@@ -7,7 +7,8 @@ namespace Termoservis.Web.Controllers
 	/// </summary>
 	/// <seealso cref="System.Web.Mvc.Controller" />
 	[Authorize]
-	public class HomeController : Controller
+    [RequireHttps]
+    public class HomeController : Controller
 	{
 		/// <summary>
 		/// Index page.

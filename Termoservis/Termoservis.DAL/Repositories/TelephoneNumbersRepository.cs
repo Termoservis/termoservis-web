@@ -91,9 +91,14 @@ namespace Termoservis.DAL.Repositories
 				throw new ArgumentNullException(nameof(model));
 			if (model.Id != 0)
 				throw new ArgumentOutOfRangeException(nameof(model.Id), "Telephone number identifier must not be zero.");
-			
+
+		    model.Number = model.Number?.Replace(" ", "").Replace("+", "00").Trim();
+
 			// Validate
 			this.ValidateModel(model);
+
+		    model.SearchKeywords =
+		        model.Number.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : "")).Trim();
 
 			// Add to the repository and save
 			this.context.TelephoneNumbers.Add(model);

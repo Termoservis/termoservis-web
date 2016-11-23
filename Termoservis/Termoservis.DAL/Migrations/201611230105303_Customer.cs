@@ -1,18 +1,11 @@
 namespace Termoservis.DAL.Migrations
 {
-	using System.Data.Entity.Migrations;
-
-	/// <summary>
-	/// Migration that adds Customer model and corresponding models.
-	/// </summary>
-	/// <seealso cref="System.Data.Entity.Migrations.DbMigration" />
-	/// <seealso cref="System.Data.Entity.Migrations.Infrastructure.IMigrationMetadata" />
-	public partial class Customer : DbMigration
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class Customer : DbMigration
     {
-		/// <summary>
-		/// Operations to be performed during the upgrade process.
-		/// </summary>
-		public override void Up()
+        public override void Up()
         {
             CreateTable(
                 "dbo.Addresses",
@@ -54,7 +47,7 @@ namespace Termoservis.DAL.Migrations
                 "dbo.Customers",
                 c => new
                     {
-                        Id = c.String(nullable: false, maxLength: 128),
+                        Id = c.Long(nullable: false, identity: true),
                         Name = c.String(nullable: false),
                         Note = c.String(),
                         Email = c.String(),
@@ -76,18 +69,15 @@ namespace Termoservis.DAL.Migrations
                         Id = c.Long(nullable: false, identity: true),
                         Number = c.String(nullable: false),
                         SearchKeywords = c.String(nullable: false),
-                        Customer_Id = c.String(maxLength: 128),
+                        Customer_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Customers", t => t.Customer_Id)
                 .Index(t => t.Customer_Id);
             
         }
-
-		/// <summary>
-		/// Operations to be performed during the downgrade process.
-		/// </summary>
-		public override void Down()
+        
+        public override void Down()
         {
             DropForeignKey("dbo.TelephoneNumbers", "Customer_Id", "dbo.Customers");
             DropForeignKey("dbo.Customers", "ApplicationUserId", "dbo.AspNetUsers");

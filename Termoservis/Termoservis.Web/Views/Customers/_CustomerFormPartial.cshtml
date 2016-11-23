@@ -1,0 +1,88 @@
+﻿@using Termoservis.Models
+@using Termoservis.Web.Helpers
+@model Termoservis.Web.Models.Customer.CustomerCreateViewModel
+
+@using (Html.BeginForm("Create", "Customers", FormMethod.Post, new {@class = "col-xs-12", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ApplicationUserId)
+    @Html.HiddenFor(model => model.SearchKeywords)
+
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "form-control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", tabindex = "1", autofocus = "true"}})
+                    @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Note, htmlAttributes: new {@class = "form-control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Note, htmlAttributes: new {@class = "form-control", rows = "3", tabindex = "5"})
+                    @Html.ValidationMessageFor(model => model.Note, "", new {@class = "text-danger"})
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CustomerStreetName, htmlAttributes: new {@class = "form-control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CustomerStreetName, new {htmlAttributes = new {@class = "form-control", tabindex = "2"}})
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CustomerPlaceId, htmlAttributes: new {@class = "form-control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.DropDownList(nameof(Model.CustomerPlaceId), new SelectList(Model.AvailablePlaces, "Id", "Name"), htmlAttributes: new {@class = "form-control", tabindex = "3"})
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CustomerCountryId, htmlAttributes: new {@class = "form-control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.DropDownList(nameof(Model.CustomerCountryId), new SelectList(Model.AvailableCountries, "Id", "Name"), htmlAttributes: new {@class = "form-control", tabindex = "4"})
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <h4>Kontakt podaci</h4>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.TelephoneNumbers, htmlAttributes: new {@class = "form-control-label col-md-2"})
+                <div class="col-md-10" id="telephoneNumbers">
+                    @Html.EditorFor(model => model.TelephoneNumbers)
+                </div>
+                <div class="col-md-10 col-md-offset-2">
+                    @Html.AddLink("Dodaj novi", "#telephoneNumbers", ".telephoneNumber", nameof(Model.TelephoneNumbers), typeof(TelephoneNumber))
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new {@class = "form-control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-offset-1 col-md-11">
+            <input type="submit" value="Kreiraj" class="btn btn-default btn-success"/>
+        </div>
+    </div>
+}

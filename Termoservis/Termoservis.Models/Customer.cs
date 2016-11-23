@@ -22,9 +22,9 @@ namespace Termoservis.Models
 		/// The identifier.
 		/// </value>
 		[Key]
-		[Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		[HiddenInput(DisplayValue = false)]
-		public string Id { get; set; }
+		public long Id { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name.

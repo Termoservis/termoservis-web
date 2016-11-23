@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Termoservis.Models.Customer>
+﻿@using Termoservis.Web.Helpers
+@model List<Termoservis.Models.Customer>
 
 @{
     ViewBag.Title = "Korisnici";
@@ -14,17 +15,17 @@
 <table class="table">
 	<tr>
 		<th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-		<th>
-			@Html.DisplayNameFor(model => model.Address.StreetAddress)
+		    @Html.DisplayColumnNameFor(Model, model => model.Name)
 		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.Note)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.CreationDate)
-		</th>
+	    <th>
+	        @Html.DisplayColumnNameFor(Model, model => model.Address)
+	    </th>
+	    <th>
+	        @Html.DisplayColumnNameFor(Model, model => model.Note)
+	    </th>
+	    <th>
+	        @Html.DisplayColumnNameFor(Model, model => model.CreationDate)
+	    </th>
 		<th></th>
 	</tr>
 
