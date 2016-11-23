@@ -6,7 +6,7 @@ namespace Termoservis.DAL.Migrations
 	/// The migrations configuration.
 	/// </summary>
 	// ReSharper disable once UnusedMember.Global
-	internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+	public sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Configuration"/> class.
