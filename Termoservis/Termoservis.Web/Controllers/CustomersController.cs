@@ -37,7 +37,7 @@ namespace Termoservis.Web.Controllers
         private readonly ICustomerService customerService;
         private readonly ILogger logger;
 
-        private const int CustomersPageSize = 2;
+        private const int CustomersPageSize = 10;
 
 
         /// <summary>
