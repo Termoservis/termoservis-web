@@ -6,11 +6,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
+    <li class="breadcrumb-item active">Korisnici</li>
+</ol>
+
+<h2>Korisnici</h2>
+
 <p>
     @Html.ActionLink("Dodaj korisnika", "Create")
 </p>
-
-<h2>Korisnici</h2>
 
 <table class="table table-hover">
     <thead class="thead-default">
@@ -30,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address.StreetAddress)
+                    @Html.DisplayFor(modelItem => item.Address, "AddressTableCell")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Note)

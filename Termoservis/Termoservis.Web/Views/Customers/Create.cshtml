@@ -6,9 +6,12 @@
     ViewBag.Title = "Kreiraj korisnika";
 }
 
-<div class="row">
-	@Html.ActionLink("Vrati se na listu korisnika", "Index", null, htmlAttributes: new {@class="col-xs-12 p-t-2"})
-</div>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
+    <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
+    <li class="breadcrumb-item active">Novi korisnik</li>
+</ol>
+
 <div class="row">
 	<h2 class="col-xs-12 p-t-1">Kreiraj korisnika</h2>
 </div>

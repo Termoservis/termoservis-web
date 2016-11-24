@@ -13,9 +13,18 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (var workItem in Model.OrderByDescending(item => item.Date))
+            @if (Model.Any())
             {
-                @Html.DisplayFor(model => workItem, "WorkItemTableRow")
+                foreach (var workItem in Model.OrderByDescending(item => item.Date))
+                {
+                    @Html.DisplayFor(model => workItem, "WorkItemTableRow")
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-muted" colspan="5">Korisnik nema stavki</td>
+                </tr>
             }
             </tbody>
         </table>
