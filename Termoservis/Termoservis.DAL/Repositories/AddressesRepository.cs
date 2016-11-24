@@ -8,7 +8,7 @@ using Termoservis.Models;
 
 namespace Termoservis.DAL.Repositories
 {
-	/// <summary>
+    /// <summary>
 	/// The <see cref="Address"/> repository.
 	/// </summary>
 	public class AddressesRepository : IAddressesRepository

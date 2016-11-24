@@ -5,7 +5,7 @@ using Termoservis.Contracts.Models;
 
 namespace Termoservis.Models
 {
-	/// <summary>
+    /// <summary>
 	/// The address model.
 	/// </summary>
 	/// <seealso cref="ISearchable" />

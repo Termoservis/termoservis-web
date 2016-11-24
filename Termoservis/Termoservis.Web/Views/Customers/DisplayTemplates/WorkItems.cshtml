@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Termoservis.Models.WorkItem>
+    
+<div class="form-group row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead class="thead-default">
+            <tr>
+                <th></th>
+                <th>Datum</th>
+                <th>Cijena</th>
+                <th>Opis</th>
+                <th>Uredaj</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.Any())
+            {
+                foreach (var workItem in Model.OrderByDescending(item => item.Date))
+                {
+                    @Html.DisplayFor(model => workItem, "WorkItemTableRow")
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-muted" colspan="5">Korisnik nema stavki</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

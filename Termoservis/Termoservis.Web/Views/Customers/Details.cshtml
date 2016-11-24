@@ -5,53 +5,134 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
+    <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
+    <li class="breadcrumb-item active">@Model.Name</li>
+</ol>
+
 <div>
-    <h1>@Model.Name</h1>
-    <hr />
-    <dl class="dl-horizontal">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>@Model.Name</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+            </p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12 h5">
+                            @Html.DisplayNameFor(model => model.Note)
+                        </div>
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address.StreetAddress)
-        </dt>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @if (!string.IsNullOrWhiteSpace(Model.Note))
+                            {
+                                @Html.DisplayFor(model => model.Note)
+                            }
+                            else
+                            {
+                                <div class="text-sm-left text-muted small">Nema zapisa</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12 h5">
+                            @Html.DisplayNameFor(model => model.Address.StreetAddress)
+                        </div>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.Note)
-        </dt>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @Html.DisplayFor(model => model.Address)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12 h5">
+                            @Html.DisplayNameFor(model => model.TelephoneNumbers)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @if (Model.TelephoneNumbers.Any())
+                            {
+                                @Html.DisplayFor(model => model.TelephoneNumbers, "TelephoneNumbers")
+                            }
+                            else
+                            {
+                                <div class="text-muted small">Nema zapisa</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12 h5">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </div>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Note)
-        </dd>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @if (!string.IsNullOrWhiteSpace(Model.Email))
+                            {
+                                @Html.DisplayFor(model => model.Email)
+                            }
+                            else
+                            {
+                                <div class="text-muted small">Nema zapisa</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12 h5">
+                            @Html.DisplayNameFor(model => model.WorkItems)
+                        </div>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.TelephoneNumbers)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TelephoneNumbers, "TelephoneNumbers")
-        </dd>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @Html.DisplayFor(model => model.WorkItems, "WorkItems")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12 text-muted small">
+                            Korisnik je stvoren @Html.DisplayFor(model => model.CreationDate)
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
