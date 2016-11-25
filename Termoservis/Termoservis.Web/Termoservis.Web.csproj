@@ -252,6 +252,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AjaxAttribute.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\Customer\CustomerCreateViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -291,6 +292,8 @@
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -338,6 +341,7 @@
     <Content Include="Views\Customers\DisplayTemplates\WorkItem.cshtml" />
     <Content Include="Views\Customers\DisplayTemplates\WorkItemTableRow.cshtml" />
     <Content Include="Views\Customers\DisplayTemplates\AddressTableCell.cshtml" />
+    <Content Include="Views\Customers\_CustomersTablePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

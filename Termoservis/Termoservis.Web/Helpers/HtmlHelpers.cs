@@ -8,26 +8,26 @@ using System.Web.Mvc.Html;
 
 namespace Termoservis.Web.Helpers
 {
-	/// <summary>
-	/// The HTML helpers.
-	/// </summary>
-	public static class HtmlHelpers
+    /// <summary>
+    /// The HTML helpers.
+    /// </summary>
+    public static class HtmlHelpers
 	{
-        public static MvcHtmlString DisplayColumnNameFor<TModel, TClass, TProperty>(this HtmlHelper<TModel> helper, IEnumerable<TClass> model, Expression<Func<TClass, TProperty>> expression)
-        {
-            var name = ExpressionHelper.GetExpressionText(expression);
-            name = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
-            var metadata = ModelMetadataProviders.Current.GetMetadataForProperty(
-            () => Activator.CreateInstance<TClass>(), typeof(TClass), name);
+	    public static MvcHtmlString DisplayColumnNameFor<TModel, TClass, TProperty>(this HtmlHelper<TModel> helper,
+	        IEnumerable<TClass> model, Expression<Func<TClass, TProperty>> expression)
+	    {
+	        var name = ExpressionHelper.GetExpressionText(expression);
+	        var metadata = ModelMetadataProviders.Current.GetMetadataForProperty(
+	            () => Activator.CreateInstance<TClass>(), typeof(TClass), name);
 
-            var returnName = metadata.DisplayName;
-            if (string.IsNullOrEmpty(returnName))
-                returnName = metadata.PropertyName;
+	        var returnName = metadata.DisplayName;
+	        if (string.IsNullOrEmpty(returnName))
+	            returnName = metadata.PropertyName;
 
-            return new MvcHtmlString(returnName);
-        }
+	        return new MvcHtmlString(returnName);
+	    }
 
-        /// <summary>
+	    /// <summary>
         /// 'Add' link helper.
         /// </summary>
         /// <typeparam name="TModel">The type of the model.</typeparam>

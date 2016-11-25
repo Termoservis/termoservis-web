@@ -11,10 +11,20 @@ using Termoservis.DAL;
 using Termoservis.DAL.Extensions;
 using Termoservis.DAL.Repositories;
 using Termoservis.Models;
+using Termoservis.Web.Helpers;
 using Termoservis.Web.Models.Customer;
 
 namespace Termoservis.Web.Controllers
 {
+    public class CustomersSearchResult
+    {
+        public List<Customer> Customers { get; set; }
+
+        public int TotalPages { get; set; }
+
+        public int CurrentPage { get; set; }
+    }
+
     /// <summary>
     /// The <see cref="Customer"/> controller.
     /// </summary>
@@ -26,6 +36,8 @@ namespace Termoservis.Web.Controllers
 	    private readonly ApplicationDbContext context;
         private readonly ICustomerService customerService;
         private readonly ILogger logger;
+
+        private const int CustomersPageSize = 10;
 
 
         /// <summary>
@@ -57,18 +69,57 @@ namespace Termoservis.Web.Controllers
 		/// The index page.
 		/// </summary>
 		public async Task<ActionResult> Index()
+		{
+            var result = new CustomersSearchResult
+            {
+                CurrentPage = 0
+            };
+            var customers = this.context.Customers.Include(c => c.Address);
+
+            // Calculate total pages
+		    var totalFound = customers.Count();
+		    result.TotalPages = (int)Math.Ceiling((decimal)totalFound / CustomersPageSize);
+
+            // Set current page content
+		    result.Customers = customers
+                .OrderBy(c => c.Name)
+		        .Skip(result.CurrentPage * CustomersPageSize)
+		        .Take(CustomersPageSize)
+		        .ToList();
+
+            return View(result);
+        }
+
+        [HttpGet]
+        public ActionResult CustomersSearch(int newPage)
         {
-            var customers = this.context.Customers.Include(c => c.Address).Include(c => c.ApplicationUser);
-            return View(await customers.ToListAsync());
+            var result = new CustomersSearchResult
+            {
+                CurrentPage = newPage
+            };
+            var customers = this.context.Customers.Include(c => c.Address);
+
+            // Calculate total pages
+            var totalFound = customers.Count();
+            result.TotalPages = (int)Math.Ceiling((decimal)totalFound / CustomersPageSize);
+
+            // Set current page content
+            result.Customers = customers
+                .OrderBy(c => c.Name)
+                .Skip(result.CurrentPage * CustomersPageSize)
+                .Take(CustomersPageSize)
+                .ToList();
+
+            return PartialView("_CustomersTablePartial", result);
         }
 
         //
-		// GET: Customers/Details/{id}
-		/// <summary>
-		/// The customer details page.
-		/// </summary>
-		/// <param name="id">The identifier.</param>
-		public async Task<ActionResult> Details(long id)
+        // GET: Customers/Details/{id}
+        /// <summary>
+        /// The customer details page.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public async Task<ActionResult> Details(long id)
         {
 			// Check customer identifier
 			if (id == 0)

@@ -22,6 +22,6 @@ namespace Termoservis.DAL.Repositories
 		/// <param name="streetAddress">The street address.</param>
 		/// <param name="placeId">The place identifier.</param>
 		/// <returns>Returns the address that matches specified address from repository.</returns>
-		Task<Address> EnsureExistsAsync(string streetAddress, int placeId);
+		Task<Address> EnsureExistsAsync(string streetAddress, int? placeId);
 	}
 }

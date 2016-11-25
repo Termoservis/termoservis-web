@@ -23,8 +23,10 @@ namespace Termoservis.Models
         [DisplayName("Vrsta")]
         public WorkItemType Type { get; set; }
 
+        [DisplayName("Uredaj")]
         public long? DeviceId { get; set; }
 
+        [DisplayName("Uredaj")]
         [ForeignKey(nameof(DeviceId))]
         public CustomerDevice Device { get; set; }
     }

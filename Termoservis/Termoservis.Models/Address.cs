@@ -37,9 +37,8 @@ namespace Termoservis.Models
 		/// <value>
 		/// The place identifier.
 		/// </value>
-		[Required]
 		[DisplayName("Mjesto")]
-		public int PlaceId { get; set; }
+		public int? PlaceId { get; set; }
 
 		/// <summary>
 		/// Gets or sets the place.
