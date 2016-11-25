@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,11 @@ namespace Termoservis.MigrationTool
     {
         static void Main(string[] args)
         {
+            Dictionary<string, string> placesDict = new Dictionary<string, string>();
+            var placesreader = new CsvReader(new StreamReader("C:\\Users\\aleks\\Desktop\\naselja.csv", Encoding.UTF8));
+            while (placesreader.Read())
+                placesDict[placesreader.CurrentRecord[0]] = placesreader[1].Trim().ToLower().Replace(". ", ".").Replace("sveti ", "sv.");
+
             var reader = new CsvReader(new StreamReader("C:\\Users\\aleks\\Desktop\\termoserviskorisnici.csv", Encoding.UTF8));
             int counter = 0;
             int matchCounter = 0;
@@ -35,26 +41,27 @@ namespace Termoservis.MigrationTool
                         continue;
                     }
 
-                    
+                    // Address
                     var address = reader[2].Trim();
                     var addressCorrected = address.ToLower().Replace(". ", ".").Replace("-", " ").Replace("??", "").Replace("sveti ", "sv.");
+
+                    // Match place
+                    var matchedPlace = string.Empty;
                     var addressPlace = addressCorrected.Split(new []{','}, StringSplitOptions.RemoveEmptyEntries).LastOrDefault()?.Trim();
-                    if (addressPlace != null && !string.IsNullOrWhiteSpace(addressPlace) && addressPlace != addressCorrected && !addressPlace.Any(char.IsDigit) && !addressPlace.Contains("bb"))
-                    {
-                        addressPlaces.Add(addressPlace);
-                        Console.WriteLine(addressPlace); //matchCounter++;
-                        matchCounter++;
-                        if (matchCounter % 20 == 0)
-                        {
-                            Console.WriteLine("------------- " + matchCounter);
-                            //Console.ReadKey();
-                        }
-                    }
-
                     var place = reader[3].Trim().ToLower().Replace(". ", ".").Replace("-", " ").Replace("??", "").Replace("sveti ", "sv.");
-                    if (!string.IsNullOrWhiteSpace(place))
-                        places.Add(place);
-
+                    if (!string.IsNullOrWhiteSpace(place) && placesDict.ContainsKey(place))
+                        place = placesDict[place];
+                    var smallPlaceMatch = placesDict.Values.FirstOrDefault(p => addressPlace?.StartsWith(p) ?? false);
+                    if (placesDict.ContainsValue(addressPlace))
+                        matchedPlace = addressPlace;
+                    else if (placesDict.ContainsValue(place))
+                        matchedPlace = place;
+                    else if (!string.IsNullOrEmpty(smallPlaceMatch))
+                        matchedPlace = smallPlaceMatch;
+                    var hasPlace = !string.IsNullOrWhiteSpace(matchedPlace);
+                    if (!hasPlace)
+                        matchCounter++;
+                    
                     // Telephone 1
                     var tel1 = reader[7].Trim();
                     var hasTel1 = !string.IsNullOrWhiteSpace(tel1);
@@ -85,8 +92,63 @@ namespace Termoservis.MigrationTool
                     DateTime lastCommissionDate;
                     var hasLastCommissionDate = DateTime.TryParse(commissionDate, out lastCommissionDate);
                     
-                    var service = reader[14];
+                    // Parse work items
+                    var service = reader[14].Trim().Replace("&nbsp;", " ").Replace("\r", "").Replace("\n","").Replace("<div>","").Replace("</div>","\n").Trim();
+                    var serviceLines = service.Split(new []{'\n'}, StringSplitOptions.RemoveEmptyEntries).Select(l => l.Trim().TrimStart('-').Trim()).Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
+                    var lastStartIndex = 0;
+                    DateTime? lastDate = null;
+                    int lastPrice = 0;
+                    var desc = string.Empty;
+                    var workItems = new List<Tuple<DateTime?, int, string>>();
+                    for (int index = 0; index < serviceLines.Count; index++)
+                    {
+                        DateTime itemDate;
+                        var isWorkItemStart = DateTime.TryParseExact(
+                            (serviceLines[index].Split(' ').FirstOrDefault() ?? string.Empty).Trim('.'), 
+                            "dd.MM.yy", 
+                            new CultureInfo("hr"),
+                            DateTimeStyles.AssumeLocal, out itemDate);
+                        if (!isWorkItemStart)
+                            isWorkItemStart=DateTime.TryParseExact(
+                            (serviceLines[index].Split(' ').FirstOrDefault() ?? string.Empty).Trim('.'),
+                            "dd.MM.yyyy",
+                            new CultureInfo("hr"),
+                            DateTimeStyles.AssumeLocal, out itemDate);
 
+                        if (isWorkItemStart)
+                        {
+                            if (index != lastStartIndex)
+                            {
+                                workItems.Add(new Tuple<DateTime?, int, string>(lastDate, lastPrice, desc));
+                                lastPrice = 0;
+                            }
+
+                            // Try parse price
+                            var split = serviceLines[index].Split(new[] {' ', '-'},
+                                StringSplitOptions.RemoveEmptyEntries);
+                            for (int priceIndex = 1; priceIndex < split.Length; priceIndex++)
+                            {
+                                var priceString = split.ElementAt(priceIndex).Replace(",", ".").Replace(" ", "").Trim();
+                                double price;
+                                var hasPrice = double.TryParse(priceString, out price);
+                                if (hasPrice)
+                                {
+                                    lastPrice = (int) price;
+                                    matchCounter += lastPrice;
+                                    break;
+                                }
+                            }
+
+                            lastStartIndex = index;
+                            lastDate = itemDate;
+                            desc = string.Empty;
+                            //matchCounter++;
+                        }
+
+                        desc += serviceLines[index] + "\n";
+                    }
+                    if (!string.IsNullOrWhiteSpace(desc))
+                        workItems.Add(new Tuple<DateTime?, int, string>(lastDate, lastPrice, desc));
 
                     // Service date
                     var serviceDate = reader[15];
@@ -100,13 +162,22 @@ namespace Termoservis.MigrationTool
                     
                     // Handle creation date
                     var creation = reader[16];
-                    DateTime creationDate;
+                    DateTime creationDate = DateTime.MaxValue;
                     if (!DateTime.TryParse(creation, out creationDate))
                     {
-                        // TODO Handle no creation date
-                        Console.WriteLine("INVALID CREATION DATE" + creation);
+                        creationDate = DateTime.MaxValue;
+                        if (hasLastCommissionDate && lastCommissionDate < creationDate)
+                            creationDate = lastCommissionDate;
+                        if (hasLastServiceDate && lastServiceDate < creationDate)
+                            creationDate = lastServiceDate;
+                        if (hasLastRepairDate && lastRepairDate < creationDate)
+                            creationDate = lastRepairDate;
+                        
+                        if (creationDate == DateTime.MinValue)
+                            Console.WriteLine("INVALID CREATION DATE" + creation);
                     }
-                    //Console.WriteLine(name);
+
+                    // Construct something :D
                 }
             }
             Console.WriteLine(counter);
