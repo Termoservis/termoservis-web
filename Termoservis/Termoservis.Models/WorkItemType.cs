@@ -2,6 +2,7 @@
 {
     public enum WorkItemType
     {
+        Unknown,
         Repair,
         Service
     }
