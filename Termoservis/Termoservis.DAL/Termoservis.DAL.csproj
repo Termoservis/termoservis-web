@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201611241949172_CustomerDevice.Designer.cs">
       <DependentUpon>201611241949172_CustomerDevice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611250110143_AddressUpdate.cs" />
+    <Compile Include="Migrations\201611250110143_AddressUpdate.Designer.cs">
+      <DependentUpon>201611250110143_AddressUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AddressesRepository.cs" />
@@ -160,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611241949172_CustomerDevice.resx">
       <DependentUpon>201611241949172_CustomerDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611250110143_AddressUpdate.resx">
+      <DependentUpon>201611250110143_AddressUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
