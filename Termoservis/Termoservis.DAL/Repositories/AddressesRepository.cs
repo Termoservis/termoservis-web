@@ -122,11 +122,14 @@ namespace Termoservis.DAL.Repositories
 				return address;
 
 			// Retrieve place
-			var place = this.placesRepository.Get(address.PlaceId);
-			if (place == null)
-				throw new InvalidDataException("Invalid place identifier.");
+		    if (address.PlaceId.HasValue)
+		    {
+		        var place = this.placesRepository.Get(address.PlaceId.Value);
+		        if (place == null)
+		            throw new InvalidDataException("Invalid place identifier.");
+		    }
 
-			// Retrieve address with exact street name
+		    // Retrieve address with exact street name
 			var addressDb = this.TryMatchStreetName(address.StreetAddress);
 			if (addressDb != null)
 				return addressDb;
@@ -145,12 +148,10 @@ namespace Termoservis.DAL.Repositories
 		/// </returns>
 		/// <exception cref="ArgumentException">Value cannot be null or whitespace.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">Place identifier must not be zero.</exception>
-		public async Task<Address> EnsureExistsAsync(string streetAddress, int placeId)
+		public async Task<Address> EnsureExistsAsync(string streetAddress, int? placeId)
 		{
 			if (string.IsNullOrWhiteSpace(streetAddress))
 				throw new ArgumentException("Value cannot be null or whitespace.", nameof(streetAddress));
-			if (placeId <= 0)
-				throw new ArgumentOutOfRangeException(nameof(placeId), "Place identifier must not be zero.");
 
 			return await this.EnsureExistsAsync(new Address
 			{
@@ -189,11 +190,7 @@ namespace Termoservis.DAL.Repositories
 		{
 			if (model == null)
 				throw new ArgumentNullException(nameof(model));
-
-			// Validate place
-			if (model.PlaceId <= 0 && model.Place == null)
-				throw new InvalidDataException("Place must be assigned to the address.");
-
+            
 			// Validate street address
 			if (string.IsNullOrWhiteSpace(model.StreetAddress))
 				throw new InvalidDataException("Street address must not be null or empty.");
