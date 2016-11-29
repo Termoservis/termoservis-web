@@ -52,6 +52,8 @@ namespace Termoservis.DAL
 
         public IDbSet<WorkItem> WorkItems { get; set; }
 
+        public IDbSet<Worker> Workers { get; set; }
+
 	    public IDbSet<CustomerDevice> CustomerDevices { get; set; }
 
 
