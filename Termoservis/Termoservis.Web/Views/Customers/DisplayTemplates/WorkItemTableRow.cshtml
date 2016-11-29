@@ -4,6 +4,12 @@
     <td></td>    
     <td>@Html.DisplayFor(model => model.Date)</td>    
     <td>@Html.DisplayFor(model => model.Price) kn</td>    
+    <td>
+        @if (Model.Worker != null)
+        {
+            @Model.Worker.Name
+        }
+    </td>
     <td>@Html.DisplayFor(model => model.Description)</td>    
     <td></td>
 </tr>

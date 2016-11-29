@@ -87,6 +87,9 @@ namespace Termoservis.Models
         [DisplayName("Stavke")]
         public virtual ICollection<WorkItem> WorkItems { get; set; }
 
+        [DisplayName("Uredaji")]
+        public virtual ICollection<CustomerDevice> CustomerDevices { get; set; }
+
 		/// <summary>
 		/// Gets or sets the search keywords.
 		/// </summary>
