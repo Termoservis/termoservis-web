@@ -29,5 +29,12 @@ namespace Termoservis.Models
         [DisplayName("Uredaj")]
         [ForeignKey(nameof(DeviceId))]
         public CustomerDevice Device { get; set; }
+
+        [DisplayName("Serviser")]
+        public long? WorkerId { get; set; }
+
+        [DisplayName("Serviser")]
+        [ForeignKey(nameof(WorkerId))]
+        public Worker Worker { get; set; }
     }
 }

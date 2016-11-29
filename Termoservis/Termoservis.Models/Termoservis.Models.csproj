@@ -96,6 +96,7 @@
     <Compile Include="Place.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TelephoneNumber.cs" />
+    <Compile Include="Worker.cs" />
     <Compile Include="WorkItem.cs" />
     <Compile Include="WorkItemType.cs" />
   </ItemGroup>

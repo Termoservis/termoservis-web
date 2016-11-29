@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CsvHelper;
+using Termoservis.DAL;
+using Termoservis.DAL.Repositories;
+using Termoservis.Models;
 
 namespace Termoservis.MigrationTool
 {
@@ -13,16 +16,30 @@ namespace Termoservis.MigrationTool
     {
         static void Main(string[] args)
         {
+            const string dataPath =
+                "C:\\Users\\aleks\\OneDrive\\Documents\\Development\\Termoservis\\Customers - Migration data";
+            const string placesDataSource = "naselja.csv";
+            const string customersDataSource = "termoserviskorisnici.csv";
+
             Dictionary<string, string> placesDict = new Dictionary<string, string>();
-            var placesreader = new CsvReader(new StreamReader("C:\\Users\\aleks\\Desktop\\naselja.csv", Encoding.UTF8));
+            var placesreader = new CsvReader(new StreamReader(Path.Combine(dataPath, placesDataSource), Encoding.UTF8));
             while (placesreader.Read())
                 placesDict[placesreader.CurrentRecord[0]] = placesreader[1].Trim().ToLower().Replace(". ", ".").Replace("sveti ", "sv.");
 
-            var reader = new CsvReader(new StreamReader("C:\\Users\\aleks\\Desktop\\termoserviskorisnici.csv", Encoding.UTF8));
+            var reader = new CsvReader(new StreamReader(Path.Combine(dataPath, customersDataSource), Encoding.UTF8));
             int counter = 0;
+            int progress = 0;
             int matchCounter = 0;
             var addressPlaces = new List<string>();
             var places = new List<string>();
+            var workers = new List<string>()
+            {
+                "marko",
+                "neven",
+                "martin",
+                "mario",
+                "dino"
+            };
             while (reader.Read())
             {
                 // Skip header
@@ -99,7 +116,8 @@ namespace Termoservis.MigrationTool
                     DateTime? lastDate = null;
                     int lastPrice = 0;
                     var desc = string.Empty;
-                    var workItems = new List<Tuple<DateTime?, int, string>>();
+                    var worker = string.Empty;
+                    var workItems = new List<Tuple<DateTime?, int, string, string>>();
                     for (int index = 0; index < serviceLines.Count; index++)
                     {
                         DateTime itemDate;
@@ -119,7 +137,7 @@ namespace Termoservis.MigrationTool
                         {
                             if (index != lastStartIndex)
                             {
-                                workItems.Add(new Tuple<DateTime?, int, string>(lastDate, lastPrice, desc));
+                                workItems.Add(new Tuple<DateTime?, int, string, string>(lastDate, lastPrice, desc, worker));
                                 lastPrice = 0;
                             }
 
@@ -138,6 +156,15 @@ namespace Termoservis.MigrationTool
                                     break;
                                 }
                             }
+                            for (int workerIndex = 1; workerIndex < split.Length; workerIndex++)
+                            {
+                                var currentCorrected = split[workerIndex].Trim().ToLower();
+                                if (workers.Contains(currentCorrected))
+                                {
+                                    worker = workers.FirstOrDefault(w => w == currentCorrected);
+                                    break;
+                                }
+                            }
 
                             lastStartIndex = index;
                             lastDate = itemDate;
@@ -148,7 +175,7 @@ namespace Termoservis.MigrationTool
                         desc += serviceLines[index] + "\n";
                     }
                     if (!string.IsNullOrWhiteSpace(desc))
-                        workItems.Add(new Tuple<DateTime?, int, string>(lastDate, lastPrice, desc));
+                        workItems.Add(new Tuple<DateTime?, int, string, string>(lastDate, lastPrice, desc, worker));
 
                     // Service date
                     var serviceDate = reader[15];
@@ -177,6 +204,45 @@ namespace Termoservis.MigrationTool
                             Console.WriteLine("INVALID CREATION DATE" + creation);
                     }
 
+                    var oldLeft = Console.CursorLeft;
+                    var oldTop = Console.CursorTop;
+                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine(progress++);
+                    Console.SetCursorPosition(oldLeft, oldTop);
+
+                    // Instantiate new context
+                    var context = new ApplicationDbContext();
+
+                    // Create telephone numbers
+                    List<TelephoneNumber> customerTelephoneNumbers = new List<TelephoneNumber>();
+                    if (hasTel1)
+                    {
+                        var telephoneNumber1 = new TelephoneNumber
+                        {
+                            Number = tel1,
+                            SearchKeywords =
+                                tel1.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : "")).Trim()
+                        };
+                        customerTelephoneNumbers.Add(context.TelephoneNumbers.Add(telephoneNumber1));
+                    }
+                    if (hasTel2)
+                    {
+                        var telephoneNumber2 = new TelephoneNumber
+                        {
+                            Number = tel2,
+                            SearchKeywords =
+                                tel2.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : "")).Trim()
+                        };
+                        customerTelephoneNumbers.Add(context.TelephoneNumbers.Add(telephoneNumber2));
+                    }
+
+                    // Create new customer
+                    var customer = new Customer
+                    {
+                        CreationDate = creationDate,
+                        Name = name,
+                        TelephoneNumbers = customerTelephoneNumbers,
+                    };
                     // Construct something :D
                 }
             }
