@@ -3,10 +3,10 @@
 <div class="form-group row">
     <div class="col-md-12">
         <address>
-            <span>@Model.StreetAddress </span>
+            <span>@Model.StreetAddress</span>
             @if (Model.Place != null)
             {
-                <span>,</span>
+                <span>, </span><br />
                 <span>@Model.Place.Name, </span><br />
                 <span>@Model.Place.Country.Name </span>
             }
