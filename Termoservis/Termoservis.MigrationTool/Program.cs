@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using CsvHelper;
@@ -35,10 +36,36 @@ namespace Termoservis.MigrationTool
             return String.Join(" ", words);
         }
 
+        private static string GetOneDrivePath() 
+        {
+            var OneDriveId = new Guid("A52BBA46-E9E1-435f-B3D9-28DAA648C0F6");
+            return GetKnownFolderPath(OneDriveId);
+        }
+
+        private static string GetKnownFolderPath(Guid knownFolderId) 
+        {
+            var pszPath = IntPtr.Zero;
+            try 
+            {
+                int hr = SHGetKnownFolderPath(knownFolderId, 0, IntPtr.Zero, out pszPath);
+                if (hr >= 0)
+                    return Marshal.PtrToStringAuto(pszPath);
+                throw Marshal.GetExceptionForHR(hr);
+            }
+            finally
+            {
+                if (pszPath != IntPtr.Zero)
+                    Marshal.FreeCoTaskMem(pszPath);
+            }
+        }
+
+        [DllImportAttribute("shell32.dll")]
+        static extern int SHGetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)] Guid rfid, uint dwFlags, IntPtr hToken, out IntPtr pszPath);
+
         static void Main(string[] args)
         {
-            const string dataPath =
-                "C:\\Users\\aleks\\OneDrive\\Documents\\Development\\Termoservis\\Customers - Migration data";
+            var oneDrivePath = GetOneDrivePath();
+            var dataPath = Path.Combine(oneDrivePath, "\\Documents\\Development\\Termoservis\\Customers - Migration data");
             const string placesDataSource = "naselja.csv";
             const string customersDataSource = "termoserviskorisnici.csv";
 
