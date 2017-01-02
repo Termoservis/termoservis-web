@@ -18,6 +18,7 @@ namespace Termoservis.Models
         [DisplayName("Cijena")]
         public int Price { get; set; }
 
+        [DataType(DataType.MultilineText)]
         [DisplayName("Opis")]
         public string Description { get; set; }
 
