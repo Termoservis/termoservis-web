@@ -1,0 +1,47 @@
+﻿@model Termoservis.Models.WorkItem
+
+<div style="padding-top: 1em;">
+    <div class="row" style="margin: 0;">
+        <div class="col-lg-2">
+            <div class="row">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "col-md-4", style="font-weight: bold; color: #555;" })
+                <div class="col-md-8">
+                    <div>@Html.DisplayFor(model => model.Date)</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="row">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "col-md-4", style = "font-weight: bold; color: #555;" })
+                <div class="col-md-8">
+                    <div>@Html.DisplayFor(model => model.Price)</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="row">
+                @Html.LabelFor(model => model.Worker, htmlAttributes: new { @class = "col-md-5", style = "font-weight: bold; color: #555;" })
+                <div class="col-md-7">
+                    @if (Model.Worker != null)
+                    {
+                        <div>@Html.DisplayFor(model => model.Worker.Name)</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin: 0;">
+        <div class="col-lg-6">
+            <div class="row">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-sm-12", style = "font-weight: bold; color: #555;" })
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p>
+                        @Html.Raw(Model.Description.Replace("\r\n", "<br />"))
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
