@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Termoservis.DAL.ViewModels;
 using Termoservis.Models;
 
@@ -33,6 +34,7 @@ namespace Termoservis.Web.Models.Customer
 		/// <value>
 		/// The name of the customer street.
 		/// </value>
+		[Required(AllowEmptyStrings = false)]
 		[DisplayName("Adresa")]
 		public string CustomerStreetName { get; set; }
 
