@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ol class="breadcrumb">
+<ol class="breadcrumb bg-faded">
     <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
     <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
     <li class="breadcrumb-item active">@Model.Name</li>
@@ -74,14 +74,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            @if (Model.TelephoneNumbers.Any())
-                            {
-                                @Html.DisplayFor(model => model.TelephoneNumbers, "TelephoneNumbers")
-                            }
-                            else
-                            {
-                                <div class="text-muted small">Nema zapisa</div>
-                            }
+                            @Html.DisplayFor(model => model.TelephoneNumbers, "TelephoneNumbers")
                         </div>
                     </div>
                 </div>
@@ -127,7 +120,7 @@
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="col-sm-12 text-muted small">
-                            Korisnik je stvoren @Html.DisplayFor(model => model.CreationDate)
+                            Korisnik je stvoren @Html.DisplayFor(model => model.CreationDate) (@Html.DisplayFor(model => model.ApplicationUser.UserName))
                         </div>
                     </div>
                 </div>

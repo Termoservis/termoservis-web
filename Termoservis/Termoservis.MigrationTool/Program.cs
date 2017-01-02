@@ -65,7 +65,7 @@ namespace Termoservis.MigrationTool
         static void Main(string[] args)
         {
             var oneDrivePath = GetOneDrivePath();
-            var dataPath = Path.Combine(oneDrivePath, "\\Documents\\Development\\Termoservis\\Customers - Migration data");
+            var dataPath = Path.Combine(oneDrivePath, "Documents\\Development\\Termoservis\\Customers - Migration data");
             const string placesDataSource = "naselja.csv";
             const string customersDataSource = "termoserviskorisnici.csv";
 
@@ -341,25 +341,39 @@ namespace Termoservis.MigrationTool
                     List<TelephoneNumber> customerTelephoneNumbers = new List<TelephoneNumber>();
                     if (hasTel1 && tel1.Any(char.IsDigit))
                     {
-                        var telephoneNumber1 = new TelephoneNumber
+                        // Split by comma
+                        var multipleNumbersTel1 = tel1.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (var tel in multipleNumbersTel1)
                         {
-                            Number = tel1,
-                            SearchKeywords =
-                                tel1.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : "")).Trim()
-                        };
-                        customerTelephoneNumbers.Add(context.TelephoneNumbers.Add(telephoneNumber1));
-                        context.SaveChanges();
+                            var telephoneNumber1 = new TelephoneNumber
+                            {
+                                Number = tel,
+                                SearchKeywords =
+                                    tel.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : ""))
+                                        .Trim()
+                                        .AsSearchable()
+                            };
+                            customerTelephoneNumbers.Add(context.TelephoneNumbers.Add(telephoneNumber1));
+                            context.SaveChanges();
+                        }
                     }
                     if (hasTel2 && tel2.Any(char.IsDigit))
                     {
-                        var telephoneNumber2 = new TelephoneNumber
+                        // Split by comma
+                        var multipleNumbersTel1 = tel2.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (var tel in multipleNumbersTel1)
                         {
-                            Number = tel2,
-                            SearchKeywords =
-                                tel2.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : "")).Trim()
-                        };
-                        customerTelephoneNumbers.Add(context.TelephoneNumbers.Add(telephoneNumber2));
-                        context.SaveChanges();
+                            var telephoneNumber2 = new TelephoneNumber
+                            {
+                                Number = tel,
+                                SearchKeywords =
+                                    tel.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : ""))
+                                        .Trim()
+                                        .AsSearchable()
+                            };
+                            customerTelephoneNumbers.Add(context.TelephoneNumbers.Add(telephoneNumber2));
+                            context.SaveChanges();
+                        }
                     }
 
                     // Ensure address exists
@@ -410,7 +424,7 @@ namespace Termoservis.MigrationTool
                             Price = wraw.Item2,
                             Type = WorkItemType.Unknown
                         }).ToList(),
-                        SearchKeywords = name.ToLowerInvariant().Trim()
+                        SearchKeywords = name.AsSearchable()
                     };
 
                     context.Customers.Add(customer);
