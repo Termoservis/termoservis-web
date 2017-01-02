@@ -69,7 +69,7 @@ namespace Termoservis.MigrationTool
             const string placesDataSource = "naselja.csv";
             const string customersDataSource = "termoserviskorisnici.csv";
 
-            bool seedPlaces = false;
+            bool seedPlaces = true;
 
             // Create country if doesnt exit
             var defaultCountry = "Hrvatska";
