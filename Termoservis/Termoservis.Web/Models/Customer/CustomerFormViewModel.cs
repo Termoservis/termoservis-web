@@ -7,11 +7,23 @@ using Termoservis.Models;
 namespace Termoservis.Web.Models.Customer
 {
 	/// <summary>
-	/// Customer create view model.
+	/// Customer form view model.
 	/// </summary>
 	/// <seealso cref="ILocationViewModel" />
-	public class CustomerCreateViewModel : Termoservis.Models.Customer, ILocationViewModel
+	public class CustomerFormViewModel : Termoservis.Models.Customer, ILocationViewModel
 	{
+	    public CustomerFormViewModel()
+	    {
+	    }
+
+	    public CustomerFormViewModel(string actionName)
+	    {
+	        this.ActionName = actionName;
+	    }
+
+
+        public string ActionName { get; set; }
+
 		/// <summary>
 		/// Gets or sets the available places.
 		/// </summary>

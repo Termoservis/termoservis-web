@@ -166,7 +166,7 @@ namespace Termoservis.Web.Controllers
 		/// </summary>
 		public async Task<ActionResult> Create()
         {
-            var viewModel = new CustomerCreateViewModel();
+            var viewModel = new CustomerFormViewModel("Create");
 			await viewModel.PopulateLocationsAsync(this.context);
 			viewModel.TelephoneNumbers = new List<TelephoneNumber>
 			{
@@ -184,7 +184,7 @@ namespace Termoservis.Web.Controllers
 		/// <param name="viewModel">The customer creation view model.</param>
 		[HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CustomerCreateViewModel viewModel)
+        public async Task<ActionResult> Create(CustomerFormViewModel viewModel)
         {
             if (!viewModel.CustomerPlaceId.HasValue)
             {
@@ -213,41 +213,72 @@ namespace Termoservis.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        ////
-        //// GET: Customers/Edit/5
-        //public async Task<ActionResult> Edit(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Customer customer = await db.Customers.FindAsync(id);
-        //    if (customer == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.AddressId = new SelectList(db.Addresses, "Id", "StreetAddress", customer.AddressId);
-        //    ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "Email", customer.ApplicationUserId);
-        //    return View(customer);
-        //}
+        //
+        // GET: Customers/Edit/5
+        public async Task<ActionResult> Edit(long id)
+        {
+            if (id <= 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //// POST: Customers/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Note,Email,AddressId,SearchKeywords,ApplicationUserId,CreationDate")] Customer customer)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(customer).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.AddressId = new SelectList(db.Addresses, "Id", "StreetAddress", customer.AddressId);
-        //    ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "Email", customer.ApplicationUserId);
-        //    return View(customer);
-        //}
+            var customer = this.context.Customers.FirstOrDefault(c => c.Id == id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            var vm = new CustomerFormViewModel("Edit")
+            {
+                TelephoneNumbers = customer.TelephoneNumbers,
+                Name = customer.Name,
+                Address = customer.Address,
+                AddressId = customer.AddressId,
+                CreationDate = customer.CreationDate,
+                CustomerCountryId = customer.Address.Place?.CountryId,
+                CustomerDevices = customer.CustomerDevices,
+                CustomerPlaceId = customer.Address.PlaceId,
+                CustomerStreetName = customer.Address.StreetAddress,
+                Email = customer.Email,
+                Id = customer.Id,
+                Note = customer.Note,
+                WorkItems = customer.WorkItems
+            };
+            await vm.PopulateLocationsAsync(this.context);
+
+            return View(vm);
+        }
+
+        //
+        // POST: Customers/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(CustomerFormViewModel viewModel)
+        {
+            if (!viewModel.CustomerPlaceId.HasValue)
+            {
+                this.ModelState.AddModelError("", "Place is required.");
+
+                // Validate model
+                await viewModel.PopulateLocationsAsync(this.context);
+                return View(viewModel);
+            }
+
+            var customer = new Customer
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name.Trim(),
+                Email = viewModel.Email?.Trim(),
+                Note = viewModel.Note?.Trim(),
+            };
+
+            var streetName = viewModel.CustomerStreetName.Trim();
+            var placeId = viewModel.CustomerPlaceId.Value;
+
+            var editedCustomer = await this.customerService.EditCustomerAsync(customer, streetName, placeId, viewModel.TelephoneNumbers);
+
+            return RedirectToAction("Details", new { id = editedCustomer.Id });
+        }
     }
 
     public interface ICustomerService
@@ -258,6 +289,12 @@ namespace Termoservis.Web.Controllers
             int placeId,
             IEnumerable<TelephoneNumber> telephoneNumbers,
             ApplicationUser user);
+
+        Task<Customer> EditCustomerAsync(
+            Customer customerModel, 
+            string streetName, 
+            int placeId, 
+            IEnumerable<TelephoneNumber> telephoneNumbers);
     }
 
     public class CustomerService : ICustomerService
@@ -301,6 +338,48 @@ namespace Termoservis.Web.Controllers
             customerModel.ApplicationUserId = user.Id;
 
             return await this.customersRepository.AddAsync(customerModel);
+        }
+
+        public async Task<Customer> EditCustomerAsync(
+            Customer customerModel, 
+            string streetName, 
+            int placeId, 
+            IEnumerable<TelephoneNumber> telephoneNumbers)
+        {
+            if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
+            if (string.IsNullOrEmpty(streetName)) throw new ArgumentException("Value cannot be null or empty.", nameof(streetName));
+            if (placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
+            
+            // Create telephone numbers
+            var telephoneNumbersList = telephoneNumbers?.ToList() ?? new List<TelephoneNumber>();
+            foreach (var telephoneNumber in telephoneNumbersList.Where(t => string.IsNullOrWhiteSpace(t.SearchKeywords)))
+                await this.telephoneNumbersRepository.AddAsync(telephoneNumber);
+            
+            // Assign telephone number id's
+            var customerDb = this.customersRepository.Get(customerModel.Id);
+            foreach (var telephoneNumber in telephoneNumbersList)
+            {
+                var matchedNumber = customerDb.TelephoneNumbers.FirstOrDefault(t =>
+                    t.SearchKeywords == telephoneNumber.SearchKeywords);
+                if (matchedNumber == null)
+                    continue;
+
+                telephoneNumber.Id = matchedNumber.Id;
+            }
+
+            // Recalculate telephone numbers search keywords for existing entities
+            foreach (var telephoneNumber in telephoneNumbersList.Where(t => t.Id != 0))
+                await telephoneNumbersRepository.EditAsync(
+                    telephoneNumber.Id,
+                    telephoneNumber);
+
+            var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
+
+            customerModel.TelephoneNumbers = telephoneNumbersList;
+            customerModel.AddressId = address.Id;
+            customerModel.Address = address;
+
+            return await this.customersRepository.EditAsync(customerModel.Id, customerModel);
         }
     }
 }
