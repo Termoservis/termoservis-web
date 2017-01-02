@@ -6,7 +6,7 @@ namespace Termoservis.DAL.Repositories
 	/// <summary>
 	/// The <see cref="TelephoneNumber"/> repository contract.
 	/// </summary>
-	public interface ITelephoneNumbersRepository : IAddRepository<TelephoneNumber, int>
+	public interface ITelephoneNumbersRepository : IEditRepository<TelephoneNumber, long>
 	{
 	}
 }

@@ -61,7 +61,7 @@ namespace Termoservis.DAL.Repositories
 		/// Returns model with specified identifier; returns null if not found.
 		/// </returns>
 		/// <exception cref="ArgumentOutOfRangeException">Telephone number identifier must not be zero.</exception>
-		public TelephoneNumber Get(int id)
+		public TelephoneNumber Get(long id)
 		{
 			if (id <= 0)
 				throw new ArgumentOutOfRangeException(nameof(id), "Telephone number identifier must not be zero.");
@@ -90,15 +90,14 @@ namespace Termoservis.DAL.Repositories
 			if (model == null)
 				throw new ArgumentNullException(nameof(model));
 			if (model.Id != 0)
-				throw new ArgumentOutOfRangeException(nameof(model.Id), "Telephone number identifier must not be zero.");
+				throw new ArgumentOutOfRangeException(nameof(model.Id), "Telephone number identifier must be zero.");
 
 		    model.Number = model.Number?.Replace(" ", "").Replace("+", "00").Trim();
 
 			// Validate
 			this.ValidateModel(model);
 
-		    model.SearchKeywords =
-		        model.Number.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : "")).Trim();
+		    model.SearchKeywords = GetSearchKeywords(model);
 
 			// Add to the repository and save
 			this.context.TelephoneNumbers.Add(model);
@@ -111,17 +110,49 @@ namespace Termoservis.DAL.Repositories
 			return model;
 		}
 
-		/// <summary>
-		/// Validates the model.
-		/// </summary>
-		/// <param name="model">The model.</param>
-		/// <exception cref="ArgumentNullException">
-		/// model
-		/// </exception>
-		/// <exception cref="InvalidDataException">
-		/// Telephone number must not be empty.
-		/// </exception>
-		private void ValidateModel(TelephoneNumber model)
+        public async Task<TelephoneNumber> EditAsync(long id, TelephoneNumber model)
+        {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+            if (id == 0)
+                throw new ArgumentOutOfRangeException(nameof(model.Id), "Telephone number identifier must not be zero.");
+
+            model.Number = model.Number?.Replace(" ", "").Replace("+", "00").Trim();
+
+            // Validate
+            this.ValidateModel(model);
+
+            model.SearchKeywords = GetSearchKeywords(model);
+
+            // Edit the number from repository
+            var telephoneNumberDb = this.Get(id);
+            telephoneNumberDb.SearchKeywords = model.SearchKeywords;
+            telephoneNumberDb.Number = model.Number;
+            await this.context.SaveChangesAsync();
+
+            this.logger.Information(
+                "Edited telephone number {TelephoneNumber} ({TelephoneNumberId})",
+                telephoneNumberDb.Number, telephoneNumberDb.Id);
+
+            return telephoneNumberDb;
+        }
+
+	    private static string GetSearchKeywords(TelephoneNumber telephoneNumber)
+	    {
+	        return telephoneNumber.Number.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : "")).Trim();
+	    }
+
+        /// <summary>
+        /// Validates the model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <exception cref="ArgumentNullException">
+        /// model
+        /// </exception>
+        /// <exception cref="InvalidDataException">
+        /// Telephone number must not be empty.
+        /// </exception>
+        private void ValidateModel(TelephoneNumber model)
 		{
 			if (model == null)
 				throw new ArgumentNullException(nameof(model));

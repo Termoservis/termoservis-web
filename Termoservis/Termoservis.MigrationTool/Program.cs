@@ -411,7 +411,7 @@ namespace Termoservis.MigrationTool
                     var customer = new Customer
                     {
                         CreationDate = creationDate,
-                        Name = TitleCaseString(name),
+                        Name = TitleCaseString(name).Replace("D O O", "d.o.o."),
                         TelephoneNumbers = customerTelephoneNumbers,
                         AddressId = customerAddress.Id,
                         ApplicationUserId = context.Users.FirstOrDefault()?.Id,  

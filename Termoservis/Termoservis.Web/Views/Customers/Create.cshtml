@@ -1,16 +1,18 @@
-﻿@using Termoservis.Models
-@using Termoservis.Web.Helpers
-@model Termoservis.Web.Models.Customer.CustomerCreateViewModel
+﻿@model Termoservis.Web.Models.Customer.CustomerFormViewModel
 
 @{
     ViewBag.Title = "Kreiraj korisnika";
 }
 
-<ol class="breadcrumb bg-faded">
-    <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
-    <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
-    <li class="breadcrumb-item active">Novi korisnik</li>
-</ol>
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb bg-faded">
+            <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
+            <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
+            <li class="breadcrumb-item active">Novi korisnik</li>
+        </ol>
+    </div>
+</div>
 
 <div class="row">
 	<h2 class="col-xs-12 p-t-1">Kreiraj korisnika</h2>
