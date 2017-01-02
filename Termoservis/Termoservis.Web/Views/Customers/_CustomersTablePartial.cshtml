@@ -1,50 +1,43 @@
 ﻿@using Termoservis.Web.Helpers
 @model Termoservis.Web.Controllers.CustomersSearchResult
 
-<div class="row" id="search-result-content">
-    <div class="col-sm-12">
         @using (Html.BeginForm())
         {
-            @Html.ValidationSummary(true);
-
-            <div class="form-group row">
-                <div class="col-xs-12">
-                    <input class="form-control" type="search" aria-describedby="search-status" placeholder="Trazi korisnika..." />
-                </div>
-            </div>
+            @Html.ValidationSummary(true)
+            ;
 
             <table class="table table-hover">
                 <thead class="thead-default">
-                    <tr>
-                        <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Name)</th>
-                        <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Address)</th>
-                        <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Note)</th>
-                        <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.CreationDate)</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Name)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Address)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Note)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.CreationDate)</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Customers)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Address, "AddressTableCell")
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Note)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreationDate)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.Id })
-                            </td>
-                        </tr>
-                    }
+                @foreach (var item in Model.Customers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address, "AddressTableCell")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                            @Html.ActionLink("Details", "Details", new {id = item.Id})
+                        </td>
+                    </tr>
+                }
                 </tbody>
             </table>
 
@@ -67,17 +60,17 @@
                                         "«",
                                         "CustomersSearch",
                                         "Customers",
-                                        new { newPage = Model.CurrentPage - 1 },
+                                        new {newPage = Model.CurrentPage - 1, keywords = Model.Keywords ?? string.Empty },
                                         new AjaxOptions
                                         {
                                             HttpMethod = "GET",
                                             UpdateTargetId = "search-result-content",
                                             InsertionMode = InsertionMode.Replace
                                         },
-                                        new { @class = "page-link" })
+                                        new {@class = "page-link"})
                                 </li>
                             }
-                            
+
                             @for (int pageIndex = Math.Max(0, Model.CurrentPage - 2); pageIndex < Model.TotalPages && pageIndex < Math.Max(0, Model.CurrentPage - 2) + 5; pageIndex++)
                             {
                                 <li class="page-item @(@Model.CurrentPage == pageIndex ? "active" : "")">
@@ -85,7 +78,7 @@
                                         (pageIndex + 1).ToString(),
                                         "CustomersSearch",
                                         "Customers",
-                                        new {newPage = pageIndex},
+                                        new {newPage = pageIndex, keywords = Model.Keywords ?? string.Empty },
                                         new AjaxOptions
                                         {
                                             HttpMethod = "GET",
@@ -110,14 +103,14 @@
                                         "»",
                                         "CustomersSearch",
                                         "Customers",
-                                        new { newPage = Model.CurrentPage + 1 },
+                                        new {newPage = Model.CurrentPage + 1, keywords = Model.Keywords ?? string.Empty},
                                         new AjaxOptions
                                         {
                                             HttpMethod = "GET",
                                             UpdateTargetId = "search-result-content",
                                             InsertionMode = InsertionMode.Replace
                                         },
-                                        new { @class = "page-link" })
+                                        new {@class = "page-link"})
                                 </li>
                             }
                         </ul>
@@ -125,7 +118,6 @@
                 </div>
             </div>
 
-            <input type="submit" id="submit-user-search" />
+            <input type="submit" id="submit-user-search" hidden="hidden"/>
         }
-    </div>
-</div>
+

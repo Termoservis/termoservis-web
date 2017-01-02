@@ -125,6 +125,7 @@ namespace Termoservis.Models
 		/// </value>
 		[Required]
 		[DisplayName("Datum stvaranja")]
+        [DataType(DataType.Date)]
 		public DateTime CreationDate { get; set; }
 	}
 }
