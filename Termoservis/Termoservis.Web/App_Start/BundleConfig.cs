@@ -37,7 +37,11 @@ namespace Termoservis.Web
 				"~/Content/tether/tether.css",
 				"~/Content/tether/tether-theme-basic.css",
 				"~/Content/bootstrap.css",
-				"~/Content/site.css"));
+				"~/Content/site.css",
+                "~/Content/css/select2.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                "~/Scripts/select2.min.js"));
 		}
 	}
 }
