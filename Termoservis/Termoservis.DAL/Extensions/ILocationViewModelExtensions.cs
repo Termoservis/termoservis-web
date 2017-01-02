@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using Termoservis.DAL.ViewModels;
 
@@ -26,7 +27,7 @@ namespace Termoservis.DAL.Extensions
 			if (viewModel == null) throw new ArgumentNullException(nameof(viewModel));
 			if (context == null) throw new ArgumentNullException(nameof(context));
 
-			var places = await context.Places.ToListAsync();
+			var places = await context.Places.OrderBy(p => p.Name).ToListAsync();
 			var countries = await context.Countries.ToListAsync();
 
 			viewModel.AvailableCountries = countries;

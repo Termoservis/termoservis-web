@@ -20,13 +20,29 @@
 
 @section Scripts {
     <script src="/bundles/jqueryval"></script>
+    <script src="/bundles/select2"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $(".select2-init").each(function() {
+                $(this).select2();
+                $(this).next('.select2').find('.select2-selection').one('focus', select2Focus).on('blur',
+                    function() {
+                        $(this).one('focus', select2Focus);
+                    });
 
-	<script>
-		function addNestedForm(container, counter, ticks, content) {
-   			var nextIndex = $(counter).length;
-   			var pattern = new RegExp(ticks, "gi");
-   			content = content.replace(pattern, nextIndex);
-   			$(container).append(content);
-		}
-	</script>
+                function select2Focus() {
+                    $(this).closest('.select2').prev('select').select2('open');
+                }
+            });
+        });
+    </script>
+    <script>
+        function addNestedForm(container, counter, ticks, content) {
+            var nextIndex = $(counter).length;
+            var pattern = new RegExp(ticks, "gi");
+            content = content.replace(pattern, nextIndex);
+            $(container).append(content);
+        }
+    </script>
 }
