@@ -1,6 +1,6 @@
 ﻿@model Termoservis.Models.WorkItem
 
-<tr> 
+<tr data-toggle="collapse" data-target="#workItemEdit-@Model.Id" class="accordion-toggle"> 
     <td>@Html.DisplayFor(model => model.Date)</td>    
     <td>@Html.DisplayFor(model => model.Price) kn</td>    
     <td>
@@ -10,4 +10,11 @@
         }
     </td>
     <td>@Html.DisplayFor(model => model.Description)</td>
+</tr>
+<tr>
+    <td colspan="4" style="padding: 0 !important; border: none;">
+        <div class="accordion-body collapse" id="workItemEdit-@Model.Id" style="background-color: rgb(249, 249, 249)">
+            @Html.Partial("_WorkItemFormPartial", Model)
+        </div>
+    </td>
 </tr>

@@ -298,7 +298,7 @@ namespace Termoservis.MigrationTool
                             //matchCounter++;
                         }
 
-                        desc += serviceLines[index] + "\n";
+                        desc += serviceLines[index] + Environment.NewLine;
                     }
                     if (!string.IsNullOrWhiteSpace(desc))
                         workItems.Add(new Tuple<DateTime?, int, string, string>(lastDate, lastPrice, desc, worker));
