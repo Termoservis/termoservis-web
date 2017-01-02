@@ -12,6 +12,7 @@ namespace Termoservis.Models
         public long Id { get; set; }
 
         [DisplayName("Datum")]
+        [DataType(DataType.Date)]
         public DateTime? Date { get; set; }
 
         [DisplayName("Cijena")]

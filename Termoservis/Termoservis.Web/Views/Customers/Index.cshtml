@@ -6,15 +6,65 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ol class="breadcrumb">
+<ol class="breadcrumb bg-faded">
     <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
     <li class="breadcrumb-item active">Korisnici</li>
 </ol>
 
-<h2>Korisnici</h2>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Korisnici</h2>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Dodaj korisnika", "Create")
-</p>
+<div class="row">
+    <div class="col-sm-12">
+        <p>
+            @Html.ActionLink("Dodaj korisnika", "Create")
+        </p>
+    </div>
+</div>
 
-@Html.Partial("_CustomersTablePartial", Model)
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <div class="col-xs-12">
+                <input class="form-control customers-table-search-input" onkeyup="customersTableSearchInputSubmit()" type="search" aria-describedby="search-status" value="@Model.Keywords" placeholder="Trazi korisnika..." />
+                @Ajax.ActionLink(
+                        "Search",
+                        "CustomersSearch",
+                        "Customers",
+                        new { newPage = 0 },
+                        new AjaxOptions
+                        {
+                            HttpMethod = "GET",
+                            UpdateTargetId = "search-result-content",
+                            InsertionMode = InsertionMode.Replace
+                        },
+                        new { @class = "customers-table-search-submit" })
+            </div>
+        </div>
+
+        <script>
+            var initialValue;
+            function customersTableSearchInputSubmit() {
+                var keywords = $(".customers-table-search-input").val();
+                var submitLink = $(".customers-table-search-submit");
+
+                if (!initialValue)
+                    initialValue = submitLink.attr('href');
+                var link = initialValue + "&keywords=" + encodeURI(keywords);
+                submitLink.attr('href', link);
+
+                // Submit
+                submitLink.click();
+            }
+        </script>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12" id="search-result-content">
+        @Html.Partial("_CustomersTablePartial", Model)
+    </div>
+</div>

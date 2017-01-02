@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using Serilog;
+using Termoservis.Common.Extensions;
 using Termoservis.Contracts.Services;
 using Termoservis.DAL;
 using Termoservis.DAL.Extensions;
@@ -23,6 +24,8 @@ namespace Termoservis.Web.Controllers
         public int TotalPages { get; set; }
 
         public int CurrentPage { get; set; }
+
+        public string Keywords { get; set; }
     }
 
     /// <summary>
@@ -91,13 +94,36 @@ namespace Termoservis.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult CustomersSearch(int newPage)
+        public ActionResult CustomersSearch(int newPage, string keywords)
         {
+            // Create empty response
             var result = new CustomersSearchResult
             {
-                CurrentPage = newPage
+                CurrentPage = newPage,
+                Keywords = keywords
             };
-            var customers = this.context.Customers.Include(c => c.Address);
+
+            // Create query with all customers
+            var customers = this.context.Customers
+                .Include(c => c.Address)
+                .Include(c => c.TelephoneNumbers);
+
+            // Filter customers using keywords
+            if (!string.IsNullOrWhiteSpace(keywords))
+            {
+                var splitKeywords = keywords
+                    .AsSearchable()
+                    .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                    .Where(k => !string.IsNullOrEmpty(k));
+                customers =
+                    customers.Where(
+                        c =>
+                            splitKeywords.All(k =>
+                                c.SearchKeywords.Contains(k) ||
+                                c.Address.SearchKeywords.Contains(k) ||
+                                c.Note.Contains(k) ||
+                                (c.TelephoneNumbers.Any() && c.TelephoneNumbers.Any(t => t.SearchKeywords.Contains(k)))));
+            }
 
             // Calculate total pages
             var totalFound = customers.Count();
