@@ -1,7 +1,6 @@
 ﻿@model Termoservis.Models.WorkItem
 
-<tr>
-    <td></td>    
+<tr> 
     <td>@Html.DisplayFor(model => model.Date)</td>    
     <td>@Html.DisplayFor(model => model.Price) kn</td>    
     <td>
@@ -10,6 +9,5 @@
             @Model.Worker.Name
         }
     </td>
-    <td>@Html.DisplayFor(model => model.Description)</td>    
-    <td></td>
+    <td>@Html.DisplayFor(model => model.Description)</td>
 </tr>

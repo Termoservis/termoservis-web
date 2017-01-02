@@ -30,7 +30,8 @@
 		<div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
 			@Html.ActionLink("TERMOSERVIS", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
 			<div class="nav navbar-nav">
-				<a>@Html.ActionLink("Početna", "Index", "Home", new {area = ""}, new {@class = "nav-item nav-link"})</a>
+			    @Html.ActionLink("Početna", "Index", "Home", new {area = ""}, new {@class = "nav-item nav-link"})
+                @Html.ActionLink("Korisnici", "Index", "Customers", new { area = "" }, new { @class = "nav-item nav-link" })
 				@Html.Partial("_LoginPartial")
 			</div>
 		</div>

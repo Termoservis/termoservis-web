@@ -2,9 +2,20 @@
 
 <div class="form-group row">
     <div class="col-md-12">
-        @foreach (var telephoneNumber in Model)
+        @if (Model.Any())
         {
-            @Html.DisplayFor(model => telephoneNumber)
+            foreach (var telephoneNumber in Model)
+            {
+                @Html.DisplayFor(model => telephoneNumber)
+            }
+        }
+        else
+        {
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <div class="text-muted small">Nema zapisa</div>
+                </div>
+            </div>
         }
     </div>
 </div>
