@@ -6,12 +6,12 @@ using Termoservis.Models;
 
 namespace Termoservis.Web.Models.Customer
 {
-	/// <summary>
+    /// <summary>
 	/// Customer form view model.
 	/// </summary>
 	/// <seealso cref="ILocationViewModel" />
-	public class CustomerFormViewModel : Termoservis.Models.Customer, ILocationViewModel
-	{
+	public class CustomerFormViewModel : Termoservis.Models.Customer, ILocationViewModel, IFormViewModel
+    {
 	    public CustomerFormViewModel()
 	    {
 	    }
