@@ -13,16 +13,17 @@ namespace Termoservis.Models
 
         [DisplayName("Datum")]
         [DataType(DataType.Date)]
-        public DateTime? Date { get; set; }
+        public DateTime? Date { get; set; } = DateTime.Today;
 
         [DisplayName("Cijena")]
         public int Price { get; set; }
 
+        [DataType(DataType.MultilineText)]
         [DisplayName("Opis")]
-        public string Description { get; set; }
-
+        public string Description { get; set; } = string.Empty;
+        
         [DisplayName("Vrsta")]
-        public WorkItemType Type { get; set; }
+        public WorkItemType Type { get; set; } = WorkItemType.Service;
 
         [DisplayName("Serviser")]
         public long? WorkerId { get; set; }
