@@ -103,37 +103,37 @@ namespace Termoservis.Web.Controllers
         public ActionResult Register(RegisterViewModel model)
         {
             // NOTE: Registrations are disabled
-            this.ModelState.AddModelError("", "Registrations are disabled. Contact the administrator for more info.");
-            return this.View(model);
-
-            //if (this.ModelState.IsValid)
-            //{
-            //    // Validate email address
-            //    if (!model.Email.EndsWith("@termoservis.hr"))
-            //    {
-            //        this.ModelState.AddModelError("", "Unauthorized registration attempt.");
-            //        return this.View(model);
-            //    }
-
-            //    // Validate password
-            //    if (model.Password != model.ConfirmPassword)
-            //    {
-            //        this.ModelState.AddModelError("", "Passwords don't match.");
-            //        return this.View(model);
-            //    }
-
-            //    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-            //    var result = this.userManager.Create(user, model.Password);
-            //    if (result.Succeeded)
-            //    {
-            //        this.signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-            //        return this.RedirectToAction("Index", "Home");
-            //    }
-            //    this.AddErrors(result);
-            //}
-
-            //// If we got this far, something failed, redisplay form
+            //this.ModelState.AddModelError("", "Registrations are disabled. Contact the administrator for more info.");
             //return this.View(model);
+
+            if (this.ModelState.IsValid)
+            {
+                // Validate email address
+                if (!model.Email.EndsWith("@termoservis.hr"))
+                {
+                    this.ModelState.AddModelError("", "Unauthorized registration attempt.");
+                    return this.View(model);
+                }
+
+                // Validate password
+                if (model.Password != model.ConfirmPassword)
+                {
+                    this.ModelState.AddModelError("", "Passwords don't match.");
+                    return this.View(model);
+                }
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = this.userManager.Create(user, model.Password);
+                if (result.Succeeded)
+                {
+                    this.signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    return this.RedirectToAction("Index", "Home");
+                }
+                this.AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return this.View(model);
         }
 
         //
