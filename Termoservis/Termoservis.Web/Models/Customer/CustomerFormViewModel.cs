@@ -1,16 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Termoservis.DAL.ViewModels;
 using Termoservis.Models;
 
 namespace Termoservis.Web.Models.Customer
 {
-	/// <summary>
-	/// Customer create view model.
+    /// <summary>
+	/// Customer form view model.
 	/// </summary>
 	/// <seealso cref="ILocationViewModel" />
-	public class CustomerCreateViewModel : Termoservis.Models.Customer, ILocationViewModel
-	{
+	public class CustomerFormViewModel : Termoservis.Models.Customer, ILocationViewModel, IFormViewModel
+    {
+	    public CustomerFormViewModel()
+	    {
+	    }
+
+	    public CustomerFormViewModel(string actionName)
+	    {
+	        this.ActionName = actionName;
+	    }
+
+
+        public string ActionName { get; set; }
+
 		/// <summary>
 		/// Gets or sets the available places.
 		/// </summary>
@@ -33,6 +46,7 @@ namespace Termoservis.Web.Models.Customer
 		/// <value>
 		/// The name of the customer street.
 		/// </value>
+		[Required(AllowEmptyStrings = false)]
 		[DisplayName("Adresa")]
 		public string CustomerStreetName { get; set; }
 

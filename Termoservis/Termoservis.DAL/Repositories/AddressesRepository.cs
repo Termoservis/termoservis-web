@@ -122,16 +122,17 @@ namespace Termoservis.DAL.Repositories
 				return address;
 
 			// Retrieve place
+		    Place place = null;
 		    if (address.PlaceId.HasValue)
 		    {
-		        var place = this.placesRepository.Get(address.PlaceId.Value);
+		        place = this.placesRepository.Get(address.PlaceId.Value);
 		        if (place == null)
 		            throw new InvalidDataException("Invalid place identifier.");
 		    }
 
 		    // Retrieve address with exact street name
 			var addressDb = this.TryMatchStreetName(address.StreetAddress);
-			if (addressDb != null)
+			if (addressDb?.PlaceId != null && place != null && addressDb.PlaceId.Value == place.Id)
 				return addressDb;
 
 			// Create new address
@@ -194,9 +195,8 @@ namespace Termoservis.DAL.Repositories
 			// Validate street address
 			if (string.IsNullOrWhiteSpace(model.StreetAddress))
 				throw new InvalidDataException("Street address must not be null or empty.");
-			if (this.context.Addresses.Any(address => address.StreetAddress == model.StreetAddress))
+			if (this.context.Addresses.Any(address => address.StreetAddress == model.StreetAddress && address.PlaceId == model.PlaceId))
 				throw new InvalidDataException("Duplicate street address.");
-
 		}
 	}
 }

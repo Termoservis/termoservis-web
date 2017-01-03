@@ -1,4 +1,6 @@
-﻿@using Termoservis.Web.Helpers
+﻿@using Termoservis.Models
+@using Termoservis.Web.Helpers
+@using Termoservis.Web.Models.Customer
 @model IEnumerable<Termoservis.Models.WorkItem>
     
 <div class="form-group row">
@@ -13,6 +15,21 @@
             </tr>
             </thead>
             <tbody>
+            <tr>
+                <td style="cursor: pointer; color: #1e90ff" colspan="4" data-toggle="collapse" data-target="#workItemEdit-new" class="accordion-toggle">
+                    <div>
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <span>Dodaj novu stavku</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="padding: 0 !important; border: none;">
+                    <div class="accordion-body collapse" id="workItemEdit-new">
+                        @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Create", new WorkItem()))
+                    </div>
+                </td>
+            </tr>
             @if (Model.Any())
             {
                 foreach (var workItem in Model.OrderByDescending(item => item.Date))

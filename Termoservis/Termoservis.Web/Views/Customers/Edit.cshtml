@@ -1,91 +1,50 @@
-﻿@model Termoservis.Models.Customer
+﻿@model Termoservis.Web.Models.Customer.CustomerFormViewModel
 
 @{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Uredi korisnika";
 }
 
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Customer</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddressId, "AddressId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("AddressId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AddressId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SearchKeywords, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SearchKeywords, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SearchKeywords, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApplicationUserId, "ApplicationUserId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ApplicationUserId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ApplicationUserId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb bg-faded">
+            <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
+            <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
+            <li class="breadcrumb-item active">Uredi @Model.Name</li>
+        </ol>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
+<div class="row">
+    <h2 class="col-xs-12 p-t-1">Uredi @Model.Name</h2>
+</div>
+
+@Html.Partial("_CustomerFormPartial", Model)
+
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script src="/bundles/jqueryval"></script>
+    <script src="/bundles/select2"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".select2-init").each(function() {
+                $(this).select2();
+                $(this).next('.select2').find('.select2-selection').one('focus', select2Focus).on('blur',
+                    function() {
+                        $(this).one('focus', select2Focus);
+                    });
+
+                function select2Focus() {
+                    $(this).closest('.select2').prev('select').select2('open');
+                }
+            });
+        });
+    </script>
+    <script>
+        function addNestedForm(container, counter, ticks, content) {
+            var nextIndex = $(counter).length;
+            var pattern = new RegExp(ticks, "gi");
+            content = content.replace(pattern, nextIndex);
+            $(container).append(content);
+        }
+    </script>
 }

@@ -69,7 +69,7 @@ namespace Termoservis.MigrationTool
             const string placesDataSource = "naselja.csv";
             const string customersDataSource = "termoserviskorisnici.csv";
 
-            bool seedPlaces = false;
+            bool seedPlaces = true;
 
             // Create country if doesnt exit
             var defaultCountry = "Hrvatska";
@@ -298,7 +298,7 @@ namespace Termoservis.MigrationTool
                             //matchCounter++;
                         }
 
-                        desc += serviceLines[index] + "\n";
+                        desc += serviceLines[index] + Environment.NewLine;
                     }
                     if (!string.IsNullOrWhiteSpace(desc))
                         workItems.Add(new Tuple<DateTime?, int, string, string>(lastDate, lastPrice, desc, worker));
@@ -411,7 +411,7 @@ namespace Termoservis.MigrationTool
                     var customer = new Customer
                     {
                         CreationDate = creationDate,
-                        Name = TitleCaseString(name),
+                        Name = TitleCaseString(name).Replace("D O O", "d.o.o."),
                         TelephoneNumbers = customerTelephoneNumbers,
                         AddressId = customerAddress.Id,
                         ApplicationUserId = context.Users.FirstOrDefault()?.Id,  
