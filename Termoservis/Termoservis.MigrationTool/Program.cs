@@ -69,7 +69,7 @@ namespace Termoservis.MigrationTool
             const string placesDataSource = "naselja.csv";
             const string customersDataSource = "termoserviskorisnici.csv";
 
-            bool seedPlaces = true;
+            bool seedPlaces = false;
 
             // Create country if doesnt exit
             var defaultCountry = "Hrvatska";
@@ -414,7 +414,7 @@ namespace Termoservis.MigrationTool
                         Name = TitleCaseString(name).Replace("D O O", "d.o.o."),
                         TelephoneNumbers = customerTelephoneNumbers,
                         AddressId = customerAddress.Id,
-                        ApplicationUserId = context.Users.FirstOrDefault()?.Id,  
+                        ApplicationUserId = context.Users.FirstOrDefault(u => u.UserName.StartsWith("tatjana.toplek"))?.Id,  
                         CustomerDevices = customerDevices,
                         WorkItems = workItems.Select(wraw => new WorkItem
                         {
