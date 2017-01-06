@@ -105,17 +105,20 @@ namespace Termoservis.MigrationTool
                     int totalState = placesDict.Count;
                     int width = 50;
                     int startTop = Console.CursorTop;
+                    var addedCounter = 0;
                     Console.CursorVisible = false;
                     foreach (var placeKvp in placesDict)
                     {
-                        if (!context.Places.Any(p => p.Name.ToLower() == placeKvp.Value))
+                        var placeKvpSearchableValue = placeKvp.Value.AsSearchable();
+                        if (context.Places.All(p => p.SearchKeywords != placeKvpSearchableValue))
                         {
                             context.Places.Add(new Place
                             {
                                 CountryId = commonCountry.Id,
                                 Name = TitleCaseString(placeKvp.Value),
-                                SearchKeywords = placeKvp.Value.AsSearchable()
+                                SearchKeywords = placeKvpSearchableValue
                             });
+                            addedCounter++;
                         }
 
                         state++;
@@ -129,6 +132,7 @@ namespace Termoservis.MigrationTool
                         }
                         Console.Write("]");
                         Console.WriteLine("{0:0000}/{1:0000}", state, totalState);
+                        Console.WriteLine(addedCounter);
                     }
 
                     Console.CursorVisible = true;
@@ -166,8 +170,10 @@ namespace Termoservis.MigrationTool
                 // Instantiate new context
                 var context = new ApplicationDbContext();
                 var dbtcounter = 0;
-                const int dbtCounterLimit = 300;
+                const int dbtCounterLimit = 200;
                 var applicationUser = context.Users.FirstOrDefault(u => u.UserName.StartsWith("tatjana.toplek"))?.Id;
+                if (applicationUser == null)
+                    applicationUser = context.Users.FirstOrDefault()?.Id;
 
                 var reader = new CsvReader(new StreamReader(Path.Combine(dataPath, customersDataSource), Encoding.UTF8));
                 int counter = 0;
@@ -467,7 +473,8 @@ namespace Termoservis.MigrationTool
                             SearchKeywords = name.AsSearchable()
                         };
 
-                        context.Customers.Add(customer);
+                        var repo = new CustomersRepository(context, null);
+                        repo.AddAsync(customer, false).Wait();
 
                         if (dbtcounter++ > dbtCounterLimit)
                         {
@@ -507,17 +514,19 @@ namespace Termoservis.MigrationTool
                             context.Addresses.Load();
                             context.Workers.Load();
                             Console.SetCursorPosition(0, statusTop);
-                            Console.WriteLine("                 ");
+                            Console.WriteLine("                  ");
                         }
-
-                        // Last save
-                        Console.SetCursorPosition(0, statusTop);
-                        Console.WriteLine("Saving...         ");
-                        context.SaveChanges();
 
                         // Construct something :D
                     }
                 }
+
+                // Last save
+                Console.SetCursorPosition(0, statusTop);
+                Console.WriteLine("Saving...         ");
+                context.SaveChanges();
+                Console.SetCursorPosition(0, statusTop);
+                Console.WriteLine("                  ");
 
                 Console.WriteLine(counter);
                 Console.WriteLine("Match count: " + matchCounter);

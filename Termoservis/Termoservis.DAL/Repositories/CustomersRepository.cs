@@ -2,6 +2,7 @@ using System;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 using Termoservis.Common.Extensions;
@@ -35,11 +36,9 @@ namespace Termoservis.DAL.Repositories
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
-            if (loggingService == null)
-                throw new ArgumentNullException(nameof(loggingService));
 
             this.context = context;
-            this.logger = loggingService.GetLogger<CustomersRepository>();
+            this.logger = loggingService?.GetLogger<CustomersRepository>();
         }
 
 
@@ -87,6 +86,25 @@ namespace Termoservis.DAL.Repositories
         /// </exception>
         public async Task<Customer> AddAsync(Customer model)
         {
+            return await AddAsync(model, true);
+        }
+
+        /// <summary>
+        /// Adds the customer to the repository.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="shouldSaveChanges">If set to <c>True</c> changes to the context will be saved. Default is <c>True</c>.</param>
+        /// <returns>
+        /// Returns the customer instance that was added to the repository.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// model
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Customer identifier must be zero.
+        /// </exception>
+        public async Task<Customer> AddAsync(Customer model, bool shouldSaveChanges = true)
+        {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
             if (model.Id != 0)
@@ -98,20 +116,15 @@ namespace Termoservis.DAL.Repositories
             // Assign creation date
             model.CreationDate = DateTime.UtcNow;
 
-            model.SearchKeywords = model.Name.AsSearchable();
+            model.SearchKeywords = GetSearchKeywords(model);
 
             // Add customer to the repository and save
-            try
-            {
-                this.context.Customers.Add(model);
-                await this.context.SaveChangesAsync();
-            }
-            catch 
-            {
-                
-            }
+            this.context.Customers.Add(model);
 
-            this.logger.Information(
+            if (shouldSaveChanges)
+                await this.context.SaveChangesAsync();
+
+            this.logger?.Information(
                 "Added new {CustomerName} ({CustomerId})",
                 model.Name, model.Id);
 
@@ -157,15 +170,33 @@ namespace Termoservis.DAL.Repositories
             customerDb.Email = model.Email;
             customerDb.Note = model.Note;
             customerDb.TelephoneNumbers = model.TelephoneNumbers;
+            customerDb.SearchKeywords = GetSearchKeywords(customerDb);
 
             // Save context changes
             await this.context.SaveChangesAsync();
 
-            this.logger.Information(
+            this.logger?.Information(
                 "Edited customer {CustomerName} ({CustomerId})", 
                 customerDb.Name, customerDb.Id);
 
             return customerDb;
+        }
+
+        private static string GetSearchKeywords(Customer customer)
+        {
+            var sb = new StringBuilder();
+            sb.Append(customer.Name.AsSearchable());
+            sb.Append(' ');
+            sb.Append(customer.Address.SearchKeywords);
+            if (customer.TelephoneNumbers != null)
+            {
+                foreach (var customerTelephoneNumber in customer.TelephoneNumbers)
+                {
+                    sb.Append(' ');
+                    sb.Append(customerTelephoneNumber.SearchKeywords);
+                }
+            }
+            return sb.ToString();
         }
 
         /// <summary>
@@ -186,7 +217,7 @@ namespace Termoservis.DAL.Repositories
                 throw new ArgumentNullException(nameof(model));
 
             // Validate that model has address assigned
-            if (model.AddressId == 0)
+            if (model.Address == null && model.AddressId == 0)
                 throw new InvalidDataException("Customer must have address assigned.");
 
             // Validate name

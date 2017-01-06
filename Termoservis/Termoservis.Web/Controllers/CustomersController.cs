@@ -115,58 +115,15 @@ namespace Termoservis.Web.Controllers
 
                 var customersNameQuery = await
                     this.context.Customers
-                        .Where(c => splitKeywords.Any(k => c.SearchKeywords.Contains(k)))
+                        .Where(c => splitKeywords.All(k => c.SearchKeywords.Contains(k)))
                         .OrderBy(c => c.Name)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToListAsync();
-                var customersAddressQuery = await
-                    this.context.Customers
-                        .Where(c => splitKeywords.Any(k => c.Address.SearchKeywords.Contains(k)))
-                        .OrderBy(c => c.Name)
-                        .Skip(toSkip)
-                        .Take(CustomersPageSize)
-                        .ToListAsync();
-                var customersNoteQuery = await
-                    this.context.Customers
-                        .Where(c => splitKeywords.Any(k => c.Note.Contains(k)))
-                        .OrderBy(c => c.Name)
-                        .Skip(toSkip)
-                        .Take(CustomersPageSize)
-                        .ToListAsync();
-                var customersTelephoneQuery = await
-                    this.context.Customers
-                        .Where(
-                            c =>
-                                c.TelephoneNumbers.Any() &&
-                                splitKeywords.Any(k => c.TelephoneNumbers.Any(t => t.SearchKeywords.Contains(k))))
-                        .OrderBy(c => c.Name)
-                        .Skip(toSkip)
-                        .Take(CustomersPageSize)
-                        .ToListAsync();
-
-                //// Wait all queries
-                //await Task.WhenAll(
-                //    customersNameQuery,
-                //    customersAddressQuery,
-                //    customersNoteQuery,
-                //    customersTelephoneQuery);
-
-                // Combine all queries
-                var customersFiltered =
-                    customersNameQuery.Union(
-                            customersAddressQuery).Union(
-                            customersNoteQuery).Union(
-                            customersTelephoneQuery)
-                        .Skip(toSkip)
-                        .Take(CustomersPageSize)
-                        .ToList();
 
                 // Populate result
-                result.TotalPages = customersFiltered.Count < CustomersPageSize
-                    ? result.CurrentPage
-                    : result.CurrentPage + 1;
-                result.Customers = customersFiltered;
+                result.TotalPages = 1;
+                result.Customers = customersNameQuery;
             }
             else
             {
