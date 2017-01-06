@@ -116,18 +116,21 @@ namespace Termoservis.Web.Controllers
                 var customersNameQuery =
                     this.context.Customers
                         .Where(c => splitKeywords.Any(k => c.SearchKeywords.Contains(k)))
+                        .OrderBy(c => c.Name)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToListAsync();
                 var customersAddressQuery =
                     this.context.Customers
                         .Where(c => splitKeywords.Any(k => c.Address.SearchKeywords.Contains(k)))
+                        .OrderBy(c => c.Name)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToListAsync();
                 var customersNoteQuery =
                     this.context.Customers
                         .Where(c => splitKeywords.Any(k => c.Note.Contains(k)))
+                        .OrderBy(c => c.Name)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToListAsync();
@@ -137,6 +140,7 @@ namespace Termoservis.Web.Controllers
                             c =>
                                 c.TelephoneNumbers.Any() &&
                                 splitKeywords.Any(k => c.TelephoneNumbers.Any(t => t.SearchKeywords.Contains(k))))
+                        .OrderBy(c => c.Name)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToListAsync();
