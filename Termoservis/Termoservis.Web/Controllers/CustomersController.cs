@@ -94,7 +94,7 @@ namespace Termoservis.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult CustomersSearch(int newPage, string keywords)
+        public async Task<ActionResult> CustomersSearch(int newPage, string keywords)
         {
             // Create empty response
             var result = new CustomersSearchResult
@@ -103,38 +103,83 @@ namespace Termoservis.Web.Controllers
                 Keywords = keywords
             };
 
-            // Create query with all customers
-            var customers = this.context.Customers
-                .Include(c => c.Address)
-                .Include(c => c.TelephoneNumbers);
-
             // Filter customers using keywords
             if (!string.IsNullOrWhiteSpace(keywords))
             {
                 var splitKeywords = keywords
                     .AsSearchable()
                     .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
-                    .Where(k => !string.IsNullOrEmpty(k));
-                customers =
-                    customers.Where(
-                        c =>
-                            splitKeywords.All(k =>
-                                c.SearchKeywords.Contains(k) ||
-                                c.Address.SearchKeywords.Contains(k) ||
-                                c.Note.Contains(k) ||
-                                (c.TelephoneNumbers.Any() && c.TelephoneNumbers.Any(t => t.SearchKeywords.Contains(k)))));
+                    .Where(k => !string.IsNullOrEmpty(k))
+                    .ToList();
+                var toSkip = result.CurrentPage * CustomersPageSize;
+
+                var customersNameQuery =
+                    this.context.Customers
+                        .Where(c => splitKeywords.Any(k => c.SearchKeywords.Contains(k)))
+                        .Skip(toSkip)
+                        .Take(CustomersPageSize)
+                        .ToListAsync();
+                var customersAddressQuery =
+                    this.context.Customers
+                        .Where(c => splitKeywords.Any(k => c.Address.SearchKeywords.Contains(k)))
+                        .Skip(toSkip)
+                        .Take(CustomersPageSize)
+                        .ToListAsync();
+                var customersNoteQuery =
+                    this.context.Customers
+                        .Where(c => splitKeywords.Any(k => c.Note.Contains(k)))
+                        .Skip(toSkip)
+                        .Take(CustomersPageSize)
+                        .ToListAsync();
+                var customersTelephoneQuery =
+                    this.context.Customers
+                        .Where(
+                            c =>
+                                c.TelephoneNumbers.Any() &&
+                                splitKeywords.Any(k => c.TelephoneNumbers.Any(t => t.SearchKeywords.Contains(k))))
+                        .Skip(toSkip)
+                        .Take(CustomersPageSize)
+                        .ToListAsync();
+
+                // Wait all queries
+                await Task.WhenAll(
+                    customersNameQuery,
+                    customersAddressQuery,
+                    customersNoteQuery,
+                    customersTelephoneQuery);
+
+                // Combine all queries
+                var customersFiltered =
+                    customersNameQuery.Result.Union(
+                            customersAddressQuery.Result).Union(
+                            customersNoteQuery.Result).Union(
+                            customersTelephoneQuery.Result)
+                        .Skip(toSkip)
+                        .Take(CustomersPageSize)
+                        .ToList();
+
+                // Populate result
+                result.TotalPages = customersFiltered.Count < CustomersPageSize
+                    ? result.CurrentPage
+                    : result.CurrentPage + 1;
+                result.Customers = customersFiltered;
             }
+            else
+            {
+                // Create query with all customers
+                var customers = this.context.Customers;
 
-            // Calculate total pages
-            var totalFound = customers.Count();
-            result.TotalPages = (int)Math.Ceiling((decimal)totalFound / CustomersPageSize);
+                // Calculate total pages
+                var totalFound = customers.Count();
+                result.TotalPages = (int) Math.Ceiling((decimal) totalFound / CustomersPageSize);
 
-            // Set current page content
-            result.Customers = customers
-                .OrderBy(c => c.Name)
-                .Skip(result.CurrentPage * CustomersPageSize)
-                .Take(CustomersPageSize)
-                .ToList();
+                // Set current page content
+                result.Customers = await customers
+                    .OrderBy(c => c.Name)
+                    .Skip(result.CurrentPage * CustomersPageSize)
+                    .Take(CustomersPageSize)
+                    .ToListAsync();
+            }
 
             return PartialView("_CustomersTablePartial", result);
         }

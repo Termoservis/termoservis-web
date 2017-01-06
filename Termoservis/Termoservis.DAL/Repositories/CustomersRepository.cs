@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
+using Termoservis.Common.Extensions;
 using Termoservis.Contracts.Services;
 using Termoservis.Models;
 
@@ -97,7 +98,7 @@ namespace Termoservis.DAL.Repositories
             // Assign creation date
             model.CreationDate = DateTime.UtcNow;
 
-            model.SearchKeywords = model.Name.ToLowerInvariant().Trim();
+            model.SearchKeywords = model.Name.AsSearchable();
 
             // Add customer to the repository and save
             try
