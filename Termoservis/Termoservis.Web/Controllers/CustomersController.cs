@@ -113,28 +113,28 @@ namespace Termoservis.Web.Controllers
                     .ToList();
                 var toSkip = result.CurrentPage * CustomersPageSize;
 
-                var customersNameQuery =
+                var customersNameQuery = await
                     this.context.Customers
                         .Where(c => splitKeywords.Any(k => c.SearchKeywords.Contains(k)))
                         .OrderBy(c => c.Name)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToListAsync();
-                var customersAddressQuery =
+                var customersAddressQuery = await
                     this.context.Customers
                         .Where(c => splitKeywords.Any(k => c.Address.SearchKeywords.Contains(k)))
                         .OrderBy(c => c.Name)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToListAsync();
-                var customersNoteQuery =
+                var customersNoteQuery = await
                     this.context.Customers
                         .Where(c => splitKeywords.Any(k => c.Note.Contains(k)))
                         .OrderBy(c => c.Name)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToListAsync();
-                var customersTelephoneQuery =
+                var customersTelephoneQuery = await
                     this.context.Customers
                         .Where(
                             c =>
@@ -145,19 +145,19 @@ namespace Termoservis.Web.Controllers
                         .Take(CustomersPageSize)
                         .ToListAsync();
 
-                // Wait all queries
-                await Task.WhenAll(
-                    customersNameQuery,
-                    customersAddressQuery,
-                    customersNoteQuery,
-                    customersTelephoneQuery);
+                //// Wait all queries
+                //await Task.WhenAll(
+                //    customersNameQuery,
+                //    customersAddressQuery,
+                //    customersNoteQuery,
+                //    customersTelephoneQuery);
 
                 // Combine all queries
                 var customersFiltered =
-                    customersNameQuery.Result.Union(
-                            customersAddressQuery.Result).Union(
-                            customersNoteQuery.Result).Union(
-                            customersTelephoneQuery.Result)
+                    customersNameQuery.Union(
+                            customersAddressQuery).Union(
+                            customersNoteQuery).Union(
+                            customersTelephoneQuery)
                         .Skip(toSkip)
                         .Take(CustomersPageSize)
                         .ToList();
