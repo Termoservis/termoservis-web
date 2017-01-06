@@ -29,7 +29,7 @@
     <div class="col-sm-12">
         <div class="form-group row">
             <div class="col-xs-12">
-                <input class="form-control customers-table-search-input" onkeyup="customersTableSearchInputSubmit()" type="search" aria-describedby="search-status" value="@Model.Keywords" placeholder="Trazi korisnika..." />
+                <input class="form-control customers-table-search-input" type="search" aria-describedby="search-status" value="@Model.Keywords" placeholder="Trazi korisnika..." />
                 @Ajax.ActionLink(
                         "Search",
                         "CustomersSearch",
@@ -44,10 +44,23 @@
                         new { @class = "customers-table-search-submit", hidden="hidden" })
             </div>
         </div>
+    </div>
+</div>
 
-        <script>
+<div class="row">
+    <div class="col-sm-12" id="search-result-content">
+        @Html.Partial("_CustomersTablePartial", Model)
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
             var initialValue;
-            function customersTableSearchInputSubmit() {
+
+            function customersTableSearchInputSubmitDebounced() {
+                console.log("debounced");
                 var keywords = $(".customers-table-search-input").val();
                 var submitLink = $(".customers-table-search-submit");
 
@@ -59,12 +72,8 @@
                 // Submit
                 submitLink.click();
             }
-        </script>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-sm-12" id="search-result-content">
-        @Html.Partial("_CustomersTablePartial", Model)
-    </div>
-</div>
+            $(".customers-table-search-input").keyup($.debounce(500, customersTableSearchInputSubmitDebounced));
+        });
+    </script>
+}

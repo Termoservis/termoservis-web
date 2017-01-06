@@ -42,6 +42,9 @@ namespace Termoservis.Web
 
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                 "~/Scripts/select2.min.js"));
-		}
+
+            bundles.Add(new ScriptBundle("~/bundles/throttledebounce").Include(
+                "~/Scripts/jquery.ba-throttle-debounce.min.js"));
+        }
 	}
 }
