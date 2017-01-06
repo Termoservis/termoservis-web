@@ -103,7 +103,11 @@ namespace Termoservis.Web.Controllers
                 Keywords = keywords
             };
 
-            // Filter customers using keywords
+
+            // Create query with all customers
+            var customers = this.context.Customers.AsQueryable();
+
+            // Apply filter if needed
             if (!string.IsNullOrWhiteSpace(keywords))
             {
                 var splitKeywords = keywords
@@ -111,36 +115,21 @@ namespace Termoservis.Web.Controllers
                     .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
                     .Where(k => !string.IsNullOrEmpty(k))
                     .ToList();
-                var toSkip = result.CurrentPage * CustomersPageSize;
-
-                var customersNameQuery = await
-                    this.context.Customers
-                        .Where(c => splitKeywords.All(k => c.SearchKeywords.Contains(k)))
-                        .OrderBy(c => c.Name)
-                        .Skip(toSkip)
-                        .Take(CustomersPageSize)
-                        .ToListAsync();
-
-                // Populate result
-                result.TotalPages = 1;
-                result.Customers = customersNameQuery;
+                customers = customers.Where(c => splitKeywords.All(k => c.SearchKeywords.Contains(k)));
             }
-            else
-            {
-                // Create query with all customers
-                var customers = this.context.Customers;
 
-                // Calculate total pages
-                var totalFound = customers.Count();
-                result.TotalPages = (int) Math.Ceiling((decimal) totalFound / CustomersPageSize);
+            // Set current page content
+            var toSkip = result.CurrentPage * CustomersPageSize;
+            result.Customers = await customers
+                .OrderBy(c => c.Name)
+                .Skip(toSkip)
+                .Take(CustomersPageSize)
+                .ToListAsync();
 
-                // Set current page content
-                result.Customers = await customers
-                    .OrderBy(c => c.Name)
-                    .Skip(result.CurrentPage * CustomersPageSize)
-                    .Take(CustomersPageSize)
-                    .ToListAsync();
-            }
+            // Calculate total pages
+            var totalFound = customers.Count();
+            result.TotalPages = (int) Math.Ceiling((decimal) totalFound / CustomersPageSize);
+
 
             return PartialView("_CustomersTablePartial", result);
         }
