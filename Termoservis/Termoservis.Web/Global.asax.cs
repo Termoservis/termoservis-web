@@ -1,18 +1,24 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Mindscape.Raygun4Net;
 using Termoservis.DAL;
 using Termoservis.DAL.Migrations;
 
 namespace Termoservis.Web
 {
-	/// <summary>
-	/// The MVC application entry-point.
-	/// </summary>
-	/// <seealso cref="System.Web.HttpApplication" />
-	public class MvcApplication : System.Web.HttpApplication
+    /// <summary>
+    /// The MVC application entry-point.
+    /// </summary>
+    /// <seealso cref="HttpApplication" />
+    public class MvcApplication : HttpApplication, IRaygunApplication
     {
+        private static readonly RaygunClient RaygunClient = new RaygunClient();
+
 		/// <summary>
 		/// Application starting point.
 		/// </summary>
@@ -25,6 +31,58 @@ namespace Termoservis.Web
 
             // Migrate database
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+
+            // Handle raygun message
+            RaygunClient.SendingMessage += RaygunClientOnSendingMessage;
+        }
+
+        /// <summary>
+        /// Handles the raygun client sending message.
+        /// This will set any additional data to the message and ignore the local exceptions.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RaygunSendingMessageEventArgs"/> instance containing the event data.</param>
+        private static void RaygunClientOnSendingMessage(object sender, RaygunSendingMessageEventArgs e)
+        {
+            SetApplicationVersion(e);
+            CancelLocalhostExceptions(e);
+        }
+
+        /// <summary>
+        /// Cancels the localhost exceptions for Raygun message.
+        /// </summary>
+        /// <param name="e">The <see cref="RaygunSendingMessageEventArgs"/> instance containing the event data.</param>
+        private static void CancelLocalhostExceptions(RaygunSendingMessageEventArgs e)
+        {
+            if (e.Message.Details.Request.HostName == "localhost")
+            {
+                e.Cancel = true;
+            }
+        }
+
+        /// <summary>
+        /// Sets the application version to Raygun message.
+        /// </summary>
+        /// <param name="e">The <see cref="RaygunSendingMessageEventArgs"/> instance containing the event data.</param>
+        private static void SetApplicationVersion(RaygunSendingMessageEventArgs e)
+        {
+            try
+            {
+                e.Message.Details.Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+            catch (Exception)
+            {
+                // Failed to set application version
+            }
+        }
+
+        /// <summary>
+        /// Generates the raygun client.
+        /// </summary>
+        /// <returns>Returns the Raygun client.</returns>
+        public RaygunClient GenerateRaygunClient()
+        {
+            return RaygunClient;
         }
     }
 }
