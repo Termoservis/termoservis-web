@@ -205,7 +205,7 @@ namespace Termoservis.Web.Controllers
 
             var createdCustomer = await this.customerService.CreateCustomerAsync(customer, streetName, placeId, viewModel.TelephoneNumbers, user);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new { id = createdCustomer.Id });
         }
 
         //
@@ -323,12 +323,12 @@ namespace Termoservis.Web.Controllers
             if (placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
 
             var telephoneNumbersList = telephoneNumbers?.ToList() ?? new List<TelephoneNumber>();
-            foreach (var telephoneNumber in telephoneNumbersList)
+            foreach (var telephoneNumber in telephoneNumbersList.Where(t => !string.IsNullOrWhiteSpace(t.Number)))
                 await this.telephoneNumbersRepository.AddAsync(telephoneNumber);
 
             var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
 
-            customerModel.TelephoneNumbers = telephoneNumbersList;
+            customerModel.TelephoneNumbers = telephoneNumbersList.Where(t => !string.IsNullOrWhiteSpace(t.Number)).ToList();
             customerModel.AddressId = address.Id;
             customerModel.ApplicationUserId = user.Id;
 
