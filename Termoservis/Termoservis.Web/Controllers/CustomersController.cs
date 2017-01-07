@@ -163,10 +163,7 @@ namespace Termoservis.Web.Controllers
         {
             var viewModel = new CustomerFormViewModel("Create");
 			await viewModel.PopulateLocationsAsync(this.context);
-			viewModel.TelephoneNumbers = new List<TelephoneNumber>
-			{
-				new TelephoneNumber()
-			};
+			viewModel.TelephoneNumbers = new List<TelephoneNumber>();
 
             return View(viewModel);
         }
@@ -346,7 +343,7 @@ namespace Termoservis.Web.Controllers
             if (placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
             
             // Create telephone numbers
-            var telephoneNumbersList = telephoneNumbers?.ToList() ?? new List<TelephoneNumber>();
+            var telephoneNumbersList = telephoneNumbers?.Where(t => !string.IsNullOrWhiteSpace(t.Number)).ToList() ?? new List<TelephoneNumber>();
             foreach (var telephoneNumber in telephoneNumbersList.Where(t => string.IsNullOrWhiteSpace(t.SearchKeywords)))
                 await this.telephoneNumbersRepository.AddAsync(telephoneNumber);
             

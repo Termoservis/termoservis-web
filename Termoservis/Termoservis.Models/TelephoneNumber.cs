@@ -25,7 +25,6 @@ namespace Termoservis.Models
 		/// <value>
 		/// The number.
 		/// </value>
-		[Required]
 		[DisplayName("Broj telefona")]
 		public string Number { get; set; }
 
