@@ -116,7 +116,7 @@ namespace Termoservis.DAL.Repositories
             // Assign creation date
             model.CreationDate = DateTime.UtcNow;
 
-            model.SearchKeywords = GetSearchKeywords(model);
+            model.SearchKeywords = this.GetSearchKeywords(model);
 
             // Add customer to the repository and save
             this.context.Customers.Add(model);
@@ -170,7 +170,7 @@ namespace Termoservis.DAL.Repositories
             customerDb.Email = model.Email;
             customerDb.Note = model.Note;
             customerDb.TelephoneNumbers = model.TelephoneNumbers;
-            customerDb.SearchKeywords = GetSearchKeywords(customerDb);
+            customerDb.SearchKeywords = this.GetSearchKeywords(customerDb);
 
             // Save context changes
             await this.context.SaveChangesAsync();
@@ -182,12 +182,17 @@ namespace Termoservis.DAL.Repositories
             return customerDb;
         }
 
-        private static string GetSearchKeywords(Customer customer)
+        private string GetSearchKeywords(Customer customer)
         {
+            // Retrieve address
+            var address = customer.Address ?? this.context.Addresses.FirstOrDefault(a => a.Id == customer.AddressId);
+            if (address == null)
+                throw new NullReferenceException("Couldn't find address of customer.");
+
             var sb = new StringBuilder();
             sb.Append(customer.Name.AsSearchable());
             sb.Append(' ');
-            sb.Append(customer.Address.SearchKeywords);
+            sb.Append(address.SearchKeywords);
             if (customer.TelephoneNumbers != null)
             {
                 foreach (var customerTelephoneNumber in customer.TelephoneNumbers)
