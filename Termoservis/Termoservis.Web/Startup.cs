@@ -1,5 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using System.Web.Http;
+using Microsoft.Owin;
 using Owin;
+using Swashbuckle.Application;
 
 [assembly: OwinStartupAttribute(typeof(Termoservis.Web.Startup))]
 namespace Termoservis.Web
@@ -15,6 +17,8 @@ namespace Termoservis.Web
 		/// <param name="app">The application.</param>
 		public void Configuration(IAppBuilder app)
         {
+            HttpConfiguration config = new HttpConfiguration();
+            WebApiConfig.Register(config);
             this.ConfigureAuth(app);
         }
     }
