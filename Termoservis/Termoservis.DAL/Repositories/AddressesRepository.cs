@@ -131,7 +131,7 @@ namespace Termoservis.DAL.Repositories
 		    }
 
 		    // Retrieve address with exact street name
-			var addressDb = this.TryMatchStreetName(address.StreetAddress);
+			var addressDb = this.TryMatchStreetName(address.StreetAddress, place);
 			if (addressDb?.PlaceId != null && place != null && addressDb.PlaceId.Value == place.Id)
 				return addressDb;
 
@@ -161,12 +161,13 @@ namespace Termoservis.DAL.Repositories
 			});
 		}
 
-		/// <summary>
-		/// Tries to match given street address with already existing address in the repository.
-		/// </summary>
-		/// <param name="streetAddress">The street address.</param>
-		/// <returns>Returns the matched address; <c>null</c> if no matching address is found.</returns>
-		private Address TryMatchStreetName(string streetAddress)
+	    /// <summary>
+	    /// Tries to match given street address with already existing address in the repository.
+	    /// </summary>
+	    /// <param name="streetAddress">The street address.</param>
+	    /// <param name="place"></param>
+	    /// <returns>Returns the matched address; <c>null</c> if no matching address is found.</returns>
+	    private Address TryMatchStreetName(string streetAddress, Place place)
 		{
 			if (string.IsNullOrWhiteSpace(streetAddress))
 				return null;
@@ -174,7 +175,7 @@ namespace Termoservis.DAL.Repositories
 			streetAddress = streetAddress.ToLower().Trim();
 
 			return this.context.Addresses.FirstOrDefault(address =>
-					address.StreetAddress.ToLower() == streetAddress);
+					address.StreetAddress.ToLower() == streetAddress && address.PlaceId == place.Id);
 		}
 
 		/// <summary>

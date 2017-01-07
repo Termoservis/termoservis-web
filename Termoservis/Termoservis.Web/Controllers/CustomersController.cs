@@ -366,7 +366,7 @@ namespace Termoservis.Web.Controllers
                     telephoneNumber);
 
             var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
-
+            
             customerModel.TelephoneNumbers = telephoneNumbersList;
             customerModel.AddressId = address.Id;
             customerModel.Address = address;

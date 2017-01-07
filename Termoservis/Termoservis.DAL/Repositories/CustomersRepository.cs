@@ -163,6 +163,9 @@ namespace Termoservis.DAL.Repositories
             // Retrieve from database
             var customerDb = this.Get(id);
 
+            if (!model.TelephoneNumbers.Any())
+                customerDb.TelephoneNumbers.Clear();
+
             // Edit the customer using the model data
             customerDb.Name = model.Name;
             customerDb.Address = null;
