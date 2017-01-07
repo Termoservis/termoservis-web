@@ -1,145 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Runtime.Serialization;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Newtonsoft.Json;
 using Termoservis.Common.Extensions;
 using Termoservis.Contracts.Services;
 using Termoservis.DAL.Repositories;
 using Termoservis.Models;
+using Termoservis.Web.Controllers.v1.Select2;
 
 namespace Termoservis.Web.Controllers.v1
 {
-    /// <summary>
-    /// The Select2 request data.
-    /// </summary>
-    /// <seealso cref="ISelect2RequestData" />
-    public interface ISelect2RequestData
-    {
-        /// <summary>
-        /// Gets or sets the term.
-        /// </summary>
-        /// <value>
-        /// The term.
-        /// </value>
-        string Term { get; set; }
-
-        /// <summary>
-        /// Gets or sets the page.
-        /// </summary>
-        /// <value>
-        /// The page.
-        /// </value>
-        string Page { get; set; }
-    }
-
-    /// <summary>
-    /// The Select2 request data.
-    /// </summary>
-    /// <seealso cref="ISelect2RequestData" />
-    [DataContract]
-    public class Select2RequestData : ISelect2RequestData
-    {
-        /// <summary>
-        /// Gets or sets the term.
-        /// </summary>
-        /// <value>
-        /// The term.
-        /// </value>
-        /// <remarks>
-        /// JSON Property Name: "q"
-        /// </remarks>
-        [DataMember(Name = "q")]
-        public string Term { get; set; }
-
-        /// <summary>
-        /// Gets or sets the page.
-        /// </summary>
-        /// <value>
-        /// The page.
-        /// </value>
-        /// <remarks>
-        /// JSON Property Name: "page"
-        /// </remarks>
-        [DataMember(Name = "page")]
-        public string Page { get; set; }
-    }
-
-    /// <summary>
-    /// The Select2 item.
-    /// </summary>
-    /// <seealso cref="ISelect2Item" />
-    [DataContract]
-    public class Select2Item : ISelect2Item
-    {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        /// <remarks>
-        /// JSON Property Name: "id"
-        /// </remarks>
-        [DataMember(Name = "id")]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the text.
-        /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
-        /// <remarks>
-        /// JSON Property Name: "text"
-        /// </remarks>
-        [DataMember(Name = "text")]
-        public string Text { get; set; }
-    }
-
-    /// <summary>
-    /// The Select2 item.
-    /// </summary>
-    public interface ISelect2Item
-    {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        string Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the text.
-        /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
-        string Text { get; set; }
-    }
-
-    /// <summary>
-    /// The Select2 reposnse.
-    /// </summary>
-    [DataContract]
-    public class Select2Response
-    {
-        /// <summary>
-        /// Gets or sets the items.
-        /// </summary>
-        /// <value>
-        /// The items.
-        /// </value>
-        [DataMember(Name = "items")]
-        public List<Select2Item> Items { get; set; }
-    }
-
     /// <summary>
     /// The <see cref="Place"/> API controller.
     /// </summary>
@@ -198,9 +68,9 @@ namespace Termoservis.Web.Controllers.v1
                 placesQuery = placesQuery.Where(place => place.SearchKeywords.Contains(term));
 
             // Calcualte how many items we need to skip
-            var page = 0;
-            int.TryParse(request.Page ?? string.Empty, out page);
-            var toSkip = page * Select2ItemPerPage;
+            int page;
+            var didParse = int.TryParse(request.Page ?? string.Empty, out page);
+            var toSkip = didParse ? (page - 1) * Select2ItemPerPage : 0;
 
             // Execute query and transform data to Select2 items
             response.Items = placesQuery

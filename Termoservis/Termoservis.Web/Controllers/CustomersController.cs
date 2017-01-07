@@ -236,6 +236,7 @@ namespace Termoservis.Web.Controllers
                 CustomerCountryId = customer.Address.Place?.CountryId,
                 CustomerDevices = customer.CustomerDevices,
                 CustomerPlaceId = customer.Address.PlaceId,
+                CustomerPlaceName = customer.Address.Place?.Name,
                 CustomerStreetName = customer.Address.StreetAddress,
                 Email = customer.Email,
                 Id = customer.Id,
