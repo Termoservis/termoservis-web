@@ -160,5 +160,16 @@ namespace Termoservis.DAL.Repositories
 			if (string.IsNullOrWhiteSpace(model.Number))
 				throw new InvalidDataException("Telephone number must not be empty.");
 		}
+
+	    public async Task<bool> DeleteAsync(long id)
+	    {
+	        return await this.DeleteAsync(this.context.TelephoneNumbers.FirstOrDefault(t => t.Id == id));
+	    }
+
+	    public async Task<bool> DeleteAsync(TelephoneNumber model)
+	    {
+	        this.context.TelephoneNumbers.Remove(model);
+	        return true;
+	    }
 	}
 }
