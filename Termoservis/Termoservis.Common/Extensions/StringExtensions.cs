@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Termoservis.Common.Extensions
+﻿namespace Termoservis.Common.Extensions
 {
 	/// <summary>
 	/// The <see cref="string"/> extensions.

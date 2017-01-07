@@ -1,5 +1,4 @@
 using System;
-using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -103,6 +102,7 @@ namespace Termoservis.DAL.Repositories
         /// <exception cref="ArgumentOutOfRangeException">
         /// Customer identifier must be zero.
         /// </exception>
+        // ReSharper disable once MethodOverloadWithOptionalParameter
         public async Task<Customer> AddAsync(Customer model, bool shouldSaveChanges = true)
         {
             if (model == null)
@@ -163,6 +163,7 @@ namespace Termoservis.DAL.Repositories
             // Retrieve from database
             var customerDb = this.Get(id);
 
+            // Clear telephone numbers list if new list is empty
             if (!model.TelephoneNumbers.Any())
                 customerDb.TelephoneNumbers.Clear();
 
@@ -185,6 +186,12 @@ namespace Termoservis.DAL.Repositories
             return customerDb;
         }
 
+        /// <summary>
+        /// Gets the search keywords for specified model.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        /// <returns>Returns the search keywords string.</returns>
+        /// <exception cref="System.NullReferenceException">Couldn't find address of customer.</exception>
         private string GetSearchKeywords(Customer customer)
         {
             // Retrieve address
@@ -192,6 +199,7 @@ namespace Termoservis.DAL.Repositories
             if (address == null)
                 throw new NullReferenceException("Couldn't find address of customer.");
 
+            // Construct keywords string
             var sb = new StringBuilder();
             sb.Append(customer.Name.AsSearchable());
             sb.Append(' ');

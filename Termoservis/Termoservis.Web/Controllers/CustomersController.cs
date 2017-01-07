@@ -6,32 +6,20 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using Serilog;
+using Termoservis.BLL;
 using Termoservis.Common.Extensions;
 using Termoservis.Contracts.Services;
 using Termoservis.DAL;
 using Termoservis.DAL.Extensions;
-using Termoservis.DAL.Repositories;
 using Termoservis.Models;
-using Termoservis.Web.Helpers;
 using Termoservis.Web.Models.Customer;
 
 namespace Termoservis.Web.Controllers
 {
-    public class CustomersSearchResult
-    {
-        public List<Customer> Customers { get; set; }
-
-        public int TotalPages { get; set; }
-
-        public int CurrentPage { get; set; }
-
-        public string Keywords { get; set; }
-    }
-
     /// <summary>
     /// The <see cref="Customer"/> controller.
     /// </summary>
-    /// <seealso cref="System.Web.Mvc.Controller" />
+    /// <seealso cref="Controller" />
     [Authorize]
     [RequireHttps]
     public class CustomersController : Controller
@@ -47,10 +35,13 @@ namespace Termoservis.Web.Controllers
         /// Initializes a new instance of the <see cref="CustomersController"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
+        /// <param name="customerService">The customer service.</param>
         /// <param name="loggingService">The logging service.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="System.ArgumentNullException">
         /// context
+        /// or
+        /// customerService
         /// or
         /// loggingService
         /// </exception>
@@ -62,7 +53,7 @@ namespace Termoservis.Web.Controllers
 
 		    this.context = context;
 	        this.customerService = customerService;
-	        this.logger = loggingService.GetLogger<CustomersController>();
+	        this.logger = loggingService?.GetLogger<CustomersController>();
 	    }
 
 
@@ -93,6 +84,13 @@ namespace Termoservis.Web.Controllers
             return View(result);
         }
 
+        //
+        // GET: CustomersSearch
+        /// <summary>
+        /// The customers search action. Returns partial.
+        /// </summary>
+        /// <param name="newPage">The new page.</param>
+        /// <param name="keywords">The keywords.</param>
         [HttpGet]
         public async Task<ActionResult> CustomersSearch(int newPage, string keywords)
         {
@@ -102,7 +100,6 @@ namespace Termoservis.Web.Controllers
                 CurrentPage = newPage,
                 Keywords = keywords
             };
-
 
             // Create query with all customers
             var customers = this.context.Customers.AsQueryable();
@@ -130,7 +127,7 @@ namespace Termoservis.Web.Controllers
             var totalFound = customers.Count();
             result.TotalPages = (int) Math.Ceiling((decimal) totalFound / CustomersPageSize);
 
-
+            // Return the partial with new data
             return PartialView("_CustomersTablePartial", result);
         }
 
@@ -178,6 +175,7 @@ namespace Termoservis.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CustomerFormViewModel viewModel)
         {
+            // Validate place
             if (!viewModel.CustomerPlaceId.HasValue)
             {
                 this.ModelState.AddModelError("", "Place is required.");
@@ -187,6 +185,7 @@ namespace Termoservis.Web.Controllers
                 return View(viewModel);
             }
 
+            // Populate model with view model data
             var customer = new Customer
             {
                 Name = viewModel.Name.Trim(),
@@ -194,32 +193,39 @@ namespace Termoservis.Web.Controllers
                 Note = viewModel.Note?.Trim(),
             };
 
+            // Retrieve required data
             var streetName = viewModel.CustomerStreetName.Trim();
             var placeId = viewModel.CustomerPlaceId.Value;
-
             var userName = this.User.Identity.Name;
             var user = this.context.Users.FirstOrDefault(u => u.UserName == userName);
 
+            // Create the customer
             var createdCustomer = await this.customerService.CreateCustomerAsync(customer, streetName, placeId, viewModel.TelephoneNumbers, user);
 
+            // Redirect to details of created customer
             return RedirectToAction("Details", new { id = createdCustomer.Id });
         }
 
         //
-        // GET: Customers/Edit/5
+        // GET: Customers/Edit/5        
+        /// <summary>
+        /// The edit customer view.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
         public async Task<ActionResult> Edit(long id)
         {
+            // Validate identifier
             if (id <= 0)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
+            // Retrieve customer
             var customer = this.context.Customers.FirstOrDefault(c => c.Id == id);
             if (customer == null)
             {
                 return HttpNotFound();
             }
 
+            // Populate view model
             var vm = new CustomerFormViewModel("Edit")
             {
                 TelephoneNumbers = customer.TelephoneNumbers,
@@ -238,15 +244,21 @@ namespace Termoservis.Web.Controllers
             };
             await vm.PopulateLocationsAsync(this.context);
 
+            // Return the edit view
             return View(vm);
         }
 
         //
-        // POST: Customers/Edit/5
+        // POST: Customers/Edit/5        
+        /// <summary>
+        /// Edits the customer.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(CustomerFormViewModel viewModel)
         {
+            // Validate place
             if (!viewModel.CustomerPlaceId.HasValue)
             {
                 this.ModelState.AddModelError("", "Place is required.");
@@ -256,6 +268,7 @@ namespace Termoservis.Web.Controllers
                 return View(viewModel);
             }
 
+            // Populate model from view model
             var customer = new Customer
             {
                 Id = viewModel.Id,
@@ -264,114 +277,15 @@ namespace Termoservis.Web.Controllers
                 Note = viewModel.Note?.Trim(),
             };
 
+            // Retrieve required data
             var streetName = viewModel.CustomerStreetName.Trim();
             var placeId = viewModel.CustomerPlaceId.Value;
 
+            // Edit the customer
             var editedCustomer = await this.customerService.EditCustomerAsync(customer, streetName, placeId, viewModel.TelephoneNumbers);
 
+            // Display edited customer details view
             return RedirectToAction("Details", new { id = editedCustomer.Id });
-        }
-    }
-
-    public interface ICustomerService
-    {
-        Task<Customer> CreateCustomerAsync(
-            Customer customerModel,
-            string streetName,
-            int placeId,
-            IEnumerable<TelephoneNumber> telephoneNumbers,
-            ApplicationUser user);
-
-        Task<Customer> EditCustomerAsync(
-            Customer customerModel, 
-            string streetName, 
-            int placeId, 
-            IEnumerable<TelephoneNumber> telephoneNumbers);
-    }
-
-    public class CustomerService : ICustomerService
-    {
-        private readonly ICustomersRepository customersRepository;
-        private readonly ITelephoneNumbersRepository telephoneNumbersRepository;
-        private readonly IAddressesRepository addressesRepository;
-
-
-        public CustomerService(IAddressesRepository addressesRepository, ICustomersRepository customersRepository, ITelephoneNumbersRepository telephoneNumbersRepository)
-        {
-            if (addressesRepository == null) throw new ArgumentNullException(nameof(addressesRepository));
-            if (customersRepository == null) throw new ArgumentNullException(nameof(customersRepository));
-            if (telephoneNumbersRepository == null) throw new ArgumentNullException(nameof(telephoneNumbersRepository));
-
-            this.customersRepository = customersRepository;
-            this.telephoneNumbersRepository = telephoneNumbersRepository;
-            this.addressesRepository = addressesRepository;
-        }
-
-
-        public async Task<Customer> CreateCustomerAsync(
-            Customer customerModel, 
-            string streetName, 
-            int placeId,
-            IEnumerable<TelephoneNumber> telephoneNumbers,
-            ApplicationUser user)
-        {
-            if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
-            if (string.IsNullOrEmpty(streetName)) throw new ArgumentException("Value cannot be null or empty.", nameof(streetName));
-            if (placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
-
-            var telephoneNumbersList = telephoneNumbers?.ToList() ?? new List<TelephoneNumber>();
-            foreach (var telephoneNumber in telephoneNumbersList.Where(t => !string.IsNullOrWhiteSpace(t.Number)))
-                await this.telephoneNumbersRepository.AddAsync(telephoneNumber);
-
-            var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
-
-            customerModel.TelephoneNumbers = telephoneNumbersList.Where(t => !string.IsNullOrWhiteSpace(t.Number)).ToList();
-            customerModel.AddressId = address.Id;
-            customerModel.ApplicationUserId = user.Id;
-
-            return await this.customersRepository.AddAsync(customerModel);
-        }
-
-        public async Task<Customer> EditCustomerAsync(
-            Customer customerModel, 
-            string streetName, 
-            int placeId, 
-            IEnumerable<TelephoneNumber> telephoneNumbers)
-        {
-            if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
-            if (string.IsNullOrEmpty(streetName)) throw new ArgumentException("Value cannot be null or empty.", nameof(streetName));
-            if (placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
-            
-            // Create telephone numbers
-            var telephoneNumbersList = telephoneNumbers?.Where(t => !string.IsNullOrWhiteSpace(t.Number)).ToList() ?? new List<TelephoneNumber>();
-            foreach (var telephoneNumber in telephoneNumbersList.Where(t => string.IsNullOrWhiteSpace(t.SearchKeywords)))
-                await this.telephoneNumbersRepository.AddAsync(telephoneNumber);
-            
-            // Assign telephone number id's
-            var customerDb = this.customersRepository.Get(customerModel.Id);
-            foreach (var telephoneNumber in telephoneNumbersList)
-            {
-                var matchedNumber = customerDb.TelephoneNumbers.FirstOrDefault(t =>
-                    t.SearchKeywords == telephoneNumber.SearchKeywords);
-                if (matchedNumber == null)
-                    continue;
-
-                telephoneNumber.Id = matchedNumber.Id;
-            }
-
-            // Recalculate telephone numbers search keywords for existing entities
-            foreach (var telephoneNumber in telephoneNumbersList.Where(t => t.Id != 0))
-                await telephoneNumbersRepository.EditAsync(
-                    telephoneNumber.Id,
-                    telephoneNumber);
-
-            var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
-            
-            customerModel.TelephoneNumbers = telephoneNumbersList;
-            customerModel.AddressId = address.Id;
-            customerModel.Address = address;
-
-            return await this.customersRepository.EditAsync(customerModel.Id, customerModel);
         }
     }
 }

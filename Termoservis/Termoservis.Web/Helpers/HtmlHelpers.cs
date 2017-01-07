@@ -13,7 +13,17 @@ namespace Termoservis.Web.Helpers
     /// </summary>
     public static class HtmlHelpers
 	{
-	    public static MvcHtmlString DisplayColumnNameFor<TModel, TClass, TProperty>(this HtmlHelper<TModel> helper,
+        /// <summary>
+        /// Displays the column name for specified model property.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the model.</typeparam>
+        /// <typeparam name="TClass">The type of the class.</typeparam>
+        /// <typeparam name="TProperty">The type of the property.</typeparam>
+        /// <param name="helper">The helper.</param>
+        /// <param name="model">The model.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>Returns the column name for model property.</returns>
+        public static MvcHtmlString DisplayColumnNameFor<TModel, TClass, TProperty>(this HtmlHelper<TModel> helper,
 	        IEnumerable<TClass> model, Expression<Func<TClass, TProperty>> expression)
 	    {
 	        var name = ExpressionHelper.GetExpressionText(expression);
@@ -64,7 +74,12 @@ namespace Termoservis.Web.Helpers
 			return MvcHtmlString.Create(tag);
 		}
 
-		private static string JsEncode(this string s)
+        /// <summary>
+        /// Encodes the string as JavaScript.
+        /// </summary>
+        /// <param name="s">The string.</param>
+        /// <returns>Returns the JavaScript encoded string.</returns>
+        private static string JsEncode(this string s)
 		{
 			if (string.IsNullOrEmpty(s)) return "";
 			int i;

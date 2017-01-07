@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Migrations.Model;
+﻿using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;

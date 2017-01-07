@@ -240,6 +240,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Models\Customer\CustomersSearchResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\WorkItemController.cs" />
@@ -407,6 +408,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Termoservis.BLL\Termoservis.BLL.csproj">
+      <Project>{ED967BEA-26F4-4C88-9FC3-418658EFC5AF}</Project>
+      <Name>Termoservis.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Termoservis.Common\Termoservis.Common.csproj">
       <Project>{08a0b513-755b-4ccc-8924-99cc332ec139}</Project>
       <Name>Termoservis.Common</Name>
