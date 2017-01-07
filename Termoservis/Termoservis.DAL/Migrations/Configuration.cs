@@ -1,3 +1,5 @@
+using Termoservis.Models;
+
 namespace Termoservis.DAL.Migrations
 {
 	using System.Data.Entity.Migrations;
@@ -21,19 +23,21 @@ namespace Termoservis.DAL.Migrations
 		/// </summary>
 		/// <param name="context">The context.</param>
 		protected override void Seed(ApplicationDbContext context)
-        {
-            //  This method will be called after migrating to the latest version.
+		{
+		    context.Countries.AddOrUpdate(c => c.Id, new Country {Name = "Hrvatska", SearchKeywords = "hrvatska"});
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-        }
+		    //  This method will be called after migrating to the latest version.
+
+		    //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+		    //  to avoid creating duplicate seed data. E.g.
+		    //
+		    //    context.People.AddOrUpdate(
+		    //      p => p.FullName,
+		    //      new Person { FullName = "Andrew Peters" },
+		    //      new Person { FullName = "Brice Lambson" },
+		    //      new Person { FullName = "Rowan Miller" }
+		    //    );
+		    //
+		}
     }
 }

@@ -124,6 +124,10 @@
     <Compile Include="Migrations\201611290206221_CustomerDeviceInCustomer.Designer.cs">
       <DependentUpon>201611290206221_CustomerDeviceInCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701071127104_TelephoneNumberNotRequired.cs" />
+    <Compile Include="Migrations\201701071127104_TelephoneNumberNotRequired.Designer.cs">
+      <DependentUpon>201701071127104_TelephoneNumberNotRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AddressesRepository.cs" />
@@ -181,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611290206221_CustomerDeviceInCustomer.resx">
       <DependentUpon>201611290206221_CustomerDeviceInCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701071127104_TelephoneNumberNotRequired.resx">
+      <DependentUpon>201701071127104_TelephoneNumberNotRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
