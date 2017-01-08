@@ -23,6 +23,24 @@ namespace Termoservis.Models
         /// The service work item type.
         /// </summary>
         [Display(Name = "Servis")]
-        Service
+        Service,
+
+        /// <summary>
+        /// The device commision work item type.
+        /// </summary>
+        [Display(Name = "Puštanje u pogon")]
+        Commision,
+
+        /// <summary>
+        /// The work in waranty work item type.
+        /// </summary>
+        [Display(Name = "Radovi u jamstvu")]
+        InWaranty,
+
+        /// <summary>
+        /// Other work item type.
+        /// </summary>
+        [Display(Name = "Ostalo")]
+        Other
     }
 }
