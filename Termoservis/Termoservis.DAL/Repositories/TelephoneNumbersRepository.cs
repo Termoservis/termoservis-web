@@ -110,6 +110,14 @@ namespace Termoservis.DAL.Repositories
 			return model;
 		}
 
+        /// <summary>
+        /// Edits the telephone number with specified identifier with given model data.
+        /// </summary>
+        /// <param name="id">The telephone number identifier to edit.</param>
+        /// <param name="model">The telephone number model with new data.</param>
+        /// <returns>Returns the edited telephone number instance.</returns>
+        /// <exception cref="System.ArgumentNullException">model</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Id - Telephone number identifier must not be zero.</exception>
         public async Task<TelephoneNumber> EditAsync(long id, TelephoneNumber model)
         {
             if (model == null)
@@ -137,7 +145,12 @@ namespace Termoservis.DAL.Repositories
             return telephoneNumberDb;
         }
 
-	    private static string GetSearchKeywords(TelephoneNumber telephoneNumber)
+        /// <summary>
+        /// Gets the search keywords for specified telephone number.
+        /// </summary>
+        /// <param name="telephoneNumber">The telephone number.</param>
+        /// <returns>Returns the search keywords string.</returns>
+        private static string GetSearchKeywords(TelephoneNumber telephoneNumber)
 	    {
 	        return telephoneNumber.Number.Aggregate(string.Empty, (s, c) => s + (char.IsDigit(c) ? c.ToString() : "")).Trim();
 	    }
@@ -161,15 +174,49 @@ namespace Termoservis.DAL.Repositories
 				throw new InvalidDataException("Telephone number must not be empty.");
 		}
 
+        /// <summary>
+		/// Deletes the telephone number.
+		/// </summary>
+		/// <param name="id">The telephone number identifier.</param>
+		/// <returns>Returns <c>True</c> if telephone number was deleted from repository; <c>False</c> otherwise.</returns>
 	    public async Task<bool> DeleteAsync(long id)
 	    {
-	        return await this.DeleteAsync(this.context.TelephoneNumbers.FirstOrDefault(t => t.Id == id));
+	        try
+	        {
+	            return await this.DeleteAsync(this.Get(id));
+	        }
+	        catch (Exception)
+	        {
+	            return false;
+	        }
 	    }
 
-	    public async Task<bool> DeleteAsync(TelephoneNumber model)
+        /// <summary>
+        /// Deletes the telephone number.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>Returns <c>True</c> if telephone number was deleted from repository; <c>False</c> otherwise.</returns>
+        /// <exception cref="System.ArgumentNullException">model</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Id - Telephone number identifier must not be zero.</exception>
+        public async Task<bool> DeleteAsync(TelephoneNumber model)
 	    {
-	        this.context.TelephoneNumbers.Remove(model);
-	        return true;
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+            if (model.Id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(model.Id), "Telephone number identifier must not be zero.");
+
+            try
+	        {
+                this.logger.Information("Deleting telephone number {TelephoneNumber} ({TelephoneNumberId})...", model.Number, model.Id);
+
+	            this.context.TelephoneNumbers.Remove(model);
+	            await this.context.SaveChangesAsync();
+	            return true;
+	        }
+	        catch (Exception)
+	        {
+	            return false;
+	        }
 	    }
 	}
 }

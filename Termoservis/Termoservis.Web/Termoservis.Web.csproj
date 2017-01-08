@@ -99,9 +99,12 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.AspNet.WebApi.4.0.1\lib\net45\Microsoft.Practices.Unity.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Mindscape.Raygun4Net, Version=5.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Mindscape.Raygun4Net.Core.5.3.1\lib\net40\Mindscape.Raygun4Net.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Mindscape.Raygun4Net.Mvc, Version=5.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mindscape.Raygun4Net.Mvc.5.3.1\lib\net40\Mindscape.Raygun4Net.Mvc.dll</HintPath>
@@ -123,10 +126,17 @@
       <HintPath>..\packages\Serilog.Sinks.ColoredConsole.2.0.0\lib\net45\Serilog.Sinks.ColoredConsole.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.5.3\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -134,6 +144,12 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -236,13 +252,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="App_Start\UnityWebApiActivator.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\v1\Select2\ISelect2Item.cs" />
+    <Compile Include="Controllers\v1\Select2\ISelect2RequestData.cs" />
+    <Compile Include="Controllers\v1\PlacesApiController.cs" />
+    <Compile Include="Controllers\v1\Select2\Select2Item.cs" />
+    <Compile Include="Controllers\v1\Select2\Select2RequestData.cs" />
+    <Compile Include="Controllers\v1\Select2\Select2Response.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Models\Customer\CustomersSearchResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\WorkItemController.cs" />
+    <Compile Include="Controllers\WorkItemsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -407,6 +434,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Termoservis.BLL\Termoservis.BLL.csproj">
+      <Project>{ED967BEA-26F4-4C88-9FC3-418658EFC5AF}</Project>
+      <Name>Termoservis.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Termoservis.Common\Termoservis.Common.csproj">
       <Project>{08a0b513-755b-4ccc-8924-99cc332ec139}</Project>
       <Name>Termoservis.Common</Name>

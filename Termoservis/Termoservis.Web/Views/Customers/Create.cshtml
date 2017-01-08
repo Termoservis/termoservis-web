@@ -15,7 +15,7 @@
 </div>
 
 <div class="row">
-	<h2 class="col-xs-12 p-t-1">Kreiraj korisnika</h2>
+	<h2 class="col-xs-12 p-b-1">Kreiraj korisnika</h2>
 </div>
 	
 @Html.Partial("_CustomerFormPartial", Model)
@@ -27,7 +27,25 @@
     <script>
         $(document).ready(function() {
             $(".select2-init").each(function() {
-                $(this).select2();
+                $(this).select2({
+                    ajax: {
+                        method: 'POST',
+                        url: '/api/v1/places/getall/select2',
+                        dataType: 'json',
+                        delay: 250,
+                        processResults: function(data, params) {
+                            params.page = params.page || 1;
+                            return {
+                                results: data.items,
+                                pagination: {
+                                    more: data.items.length >= 30
+                                }
+                            }
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 1
+                });
                 $(this).next('.select2').find('.select2-selection').one('focus', select2Focus).on('blur',
                     function() {
                         $(this).one('focus', select2Focus);

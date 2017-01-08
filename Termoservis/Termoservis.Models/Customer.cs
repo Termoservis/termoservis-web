@@ -84,9 +84,21 @@ namespace Termoservis.Models
 		[DisplayName("Ulica i kućni broj")]
 		public virtual Address Address { get; set; }
 
+        /// <summary>
+        /// Gets or sets the work items.
+        /// </summary>
+        /// <value>
+        /// The work items.
+        /// </value>
         [DisplayName("Stavke")]
         public virtual ICollection<WorkItem> WorkItems { get; set; }
 
+        /// <summary>
+        /// Gets or sets the customer devices.
+        /// </summary>
+        /// <value>
+        /// The customer devices.
+        /// </value>
         [DisplayName("Uredaji")]
         public virtual ICollection<CustomerDevice> CustomerDevices { get; set; }
 
@@ -126,6 +138,7 @@ namespace Termoservis.Models
 		[Required]
 		[DisplayName("Datum stvaranja")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime CreationDate { get; set; }
 	}
 }

@@ -92,11 +92,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerService.cs" />
+    <Compile Include="ICustomerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Termoservis.Contracts\Termoservis.Contracts.csproj">
+      <Project>{F962C1C5-6C1D-4BFB-9582-C96B5D8FB1D6}</Project>
+      <Name>Termoservis.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Termoservis.DAL\Termoservis.DAL.csproj">
+      <Project>{FADCB9C6-EB0F-4C85-BEC9-81FB022C65BE}</Project>
+      <Name>Termoservis.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Termoservis.Models\Termoservis.Models.csproj">
+      <Project>{226EE745-7C74-4B93-8FAD-873B1AE60F03}</Project>
+      <Name>Termoservis.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -50,11 +50,29 @@ namespace Termoservis.DAL
 		/// </value>
 		public IDbSet<TelephoneNumber> TelephoneNumbers { get; set; }
 
+        /// <summary>
+        /// Gets or sets the work items.
+        /// </summary>
+        /// <value>
+        /// The work items.
+        /// </value>
         public IDbSet<WorkItem> WorkItems { get; set; }
 
+        /// <summary>
+        /// Gets or sets the workers.
+        /// </summary>
+        /// <value>
+        /// The workers.
+        /// </value>
         public IDbSet<Worker> Workers { get; set; }
 
-	    public IDbSet<CustomerDevice> CustomerDevices { get; set; }
+        /// <summary>
+        /// Gets or sets the customer devices.
+        /// </summary>
+        /// <value>
+        /// The customer devices.
+        /// </value>
+        public IDbSet<CustomerDevice> CustomerDevices { get; set; }
 
 
 	    /// <summary>

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Termoservis.Web.Helpers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -9,6 +10,10 @@
     <link href="/bundles/css" rel="stylesheet" />
     <script src="/bundles/modernizr"></script>
     <script src="https://use.fontawesome.com/dad499dd89.js"></script>
+    <script src="/bundles/jquery"></script>
+    <script src="/bundles/tether"></script>
+    <script src="/bundles/bootstrap"></script>
+    <script src="/bundles/throttledebounce"></script>
 
 	<script type="text/javascript">
         var appInsights=window.appInsights||function(config){
@@ -30,11 +35,11 @@
 		</button>
 		<div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
 			@Html.ActionLink("TERMOSERVIS", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
-			<div class="nav navbar-nav">
-			    @Html.ActionLink("Početna", "Index", "Home", new {area = ""}, new {@class = "nav-item nav-link"})
-                @Html.ActionLink("Korisnici", "Index", "Customers", new { area = "" }, new { @class = "nav-item nav-link" })
-				@Html.Partial("_LoginPartial")
-			</div>
+		    <div class="nav navbar-nav">
+		        @Html.MenuLink("Početna", "Index", "Home", new { @class = "nav-item nav-link" }, true)
+                @Html.MenuLink("Korisnici", "Index", "Customers", new { @class = "nav-item nav-link" }, true)
+		        @Html.Partial("_LoginPartial")
+		    </div>
 		</div>
 	</div>
 </nav>
@@ -42,11 +47,6 @@
 <div class="container">
 	@RenderBody()
 </div>
-	
-<script src="/bundles/jquery"></script>
-<script src="/bundles/tether"></script>
-<script src="/bundles/bootstrap"></script>
-<script src="/bundles/throttledebounce"></script>
     
 @RenderSection("scripts", required: false)
 </body>

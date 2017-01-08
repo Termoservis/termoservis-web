@@ -13,7 +13,47 @@ namespace Termoservis.Web.Helpers
     /// </summary>
     public static class HtmlHelpers
 	{
-	    public static MvcHtmlString DisplayColumnNameFor<TModel, TClass, TProperty>(this HtmlHelper<TModel> helper,
+	    /// <summary>
+	    /// Bootstrap navbar menu link.
+	    /// </summary>
+	    /// <param name="htmlHelper">The HTML helper.</param>
+	    /// <param name="linkText">The link text.</param>
+	    /// <param name="actionName">Name of the action.</param>
+	    /// <param name="controllerName">Name of the controller.</param>
+	    /// <param name="htmlAttributes">The HTML attributes.</param>
+	    /// <param name="activeInController">If set to <c>True</c> link will be active as long the user is in specified controller, action name will not be checked.</param>
+	    /// <returns>Returns the bootstrap navbar menu link.</returns>
+	    /// <remarks>
+	    /// Source: http://chrisondotnet.com/2012/08/setting-active-link-twitter-bootstrap-navbar-aspnet-mvc/
+	    /// </remarks>
+	    public static MvcHtmlString MenuLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, object htmlAttributes, bool activeInController = false)
+	    {
+	        var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext, htmlHelper.RouteCollection);
+            var currentAction = htmlHelper.ViewContext.RouteData.GetRequiredString("action");
+            var currentController = htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
+
+            var link = new TagBuilder("a");
+            link.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            link.MergeAttribute("href", urlHelper.Action(actionName, controllerName));
+            link.SetInnerText(linkText);
+
+            if (controllerName == currentController && (activeInController || actionName == currentAction))
+                link.AddCssClass("active");
+
+            return new MvcHtmlString(link.ToString());
+        }
+
+        /// <summary>
+        /// Displays the column name for specified model property.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the model.</typeparam>
+        /// <typeparam name="TClass">The type of the class.</typeparam>
+        /// <typeparam name="TProperty">The type of the property.</typeparam>
+        /// <param name="helper">The helper.</param>
+        /// <param name="model">The model.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>Returns the column name for model property.</returns>
+        public static MvcHtmlString DisplayColumnNameFor<TModel, TClass, TProperty>(this HtmlHelper<TModel> helper,
 	        IEnumerable<TClass> model, Expression<Func<TClass, TProperty>> expression)
 	    {
 	        var name = ExpressionHelper.GetExpressionText(expression);
@@ -64,7 +104,12 @@ namespace Termoservis.Web.Helpers
 			return MvcHtmlString.Create(tag);
 		}
 
-		private static string JsEncode(this string s)
+        /// <summary>
+        /// Encodes the string as JavaScript.
+        /// </summary>
+        /// <param name="s">The string.</param>
+        /// <returns>Returns the JavaScript encoded string.</returns>
+        private static string JsEncode(this string s)
 		{
 			if (string.IsNullOrEmpty(s)) return "";
 			int i;

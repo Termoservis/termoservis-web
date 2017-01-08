@@ -1,10 +1,18 @@
+using System.Data.Entity.Migrations;
+using System.Data.Entity.Migrations.Infrastructure;
+
 namespace Termoservis.DAL.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
+    /// <summary>
+    /// Added work items and customer devices to the database.
+    /// </summary>
+    /// <seealso cref="DbMigration" />
+    /// <seealso cref="IMigrationMetadata" />
     public partial class CustomerDeviceInCustomer : DbMigration
     {
+        /// <summary>
+        /// Operations to be performed during the upgrade process.
+        /// </summary>
         public override void Up()
         {
             DropForeignKey("dbo.WorkItems", "DeviceId", "dbo.CustomerDevices");
@@ -14,7 +22,10 @@ namespace Termoservis.DAL.Migrations
             AddForeignKey("dbo.CustomerDevices", "Customer_Id", "dbo.Customers", "Id");
             DropColumn("dbo.WorkItems", "DeviceId");
         }
-        
+
+        /// <summary>
+        /// Operations to be performed during the downgrade process.
+        /// </summary>
         public override void Down()
         {
             AddColumn("dbo.WorkItems", "DeviceId", c => c.Long());

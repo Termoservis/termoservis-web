@@ -4,7 +4,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Termoservis.DAL;
-using Termoservis.Models;
 using Termoservis.Web.Models;
 
 namespace Termoservis.Web.Controllers

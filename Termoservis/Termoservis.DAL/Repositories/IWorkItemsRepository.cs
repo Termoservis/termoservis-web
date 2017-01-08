@@ -3,7 +3,11 @@ using Termoservis.Models;
 
 namespace Termoservis.DAL.Repositories
 {
-    public interface IWorkItemsRepository : IAddRepository<WorkItem, long>
+    /// <summary>
+    /// WorkItem repository.
+    /// </summary>
+    /// <seealso cref="IAddRepository{WorkItem, Int64}" />
+    public interface IWorkItemsRepository : IEditRepository<WorkItem, long>
     {
     }
 }

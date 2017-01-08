@@ -9,14 +9,6 @@ namespace Termoservis.DAL.ViewModels
 	public interface ILocationViewModel
 	{
 		/// <summary>
-		/// Gets or sets the available places.
-		/// </summary>
-		/// <value>
-		/// The available places.
-		/// </value>
-		IEnumerable<Place> AvailablePlaces { get; set; }
-
-		/// <summary>
 		/// Gets or sets the available countries.
 		/// </summary>
 		/// <value>
