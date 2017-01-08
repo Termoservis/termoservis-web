@@ -28,5 +28,14 @@ namespace Termoservis.Models
         [Required]
         [DisplayName("Ime i prezime")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the worker is active.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the worker is active; otherwise, <c>false</c>.
+        /// </value>
+        [DisplayName("Aktivan")]
+        public bool IsActive { get; set; }
     }
 }
