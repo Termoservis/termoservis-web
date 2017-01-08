@@ -66,7 +66,7 @@ namespace Termoservis.MigrationTool
         static void Main(string[] args)
         {
             var oneDrivePath = GetOneDrivePath();
-            var dataPath = Path.Combine(oneDrivePath, "Documents\\Development\\Termoservis\\Customers - Migration data");
+            var dataPath = Path.Combine(oneDrivePath, "Documents\\Development\\Termoservis\\Customers - Migration data\\20170102");
             const string placesDataSource = "naselja.csv";
             const string customersDataSource = "termoserviskorisnici.csv";
 

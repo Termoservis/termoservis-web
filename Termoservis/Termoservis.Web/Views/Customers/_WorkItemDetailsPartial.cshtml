@@ -40,16 +40,10 @@
                     @Html.LabelFor(model => model.WorkItem.Worker, htmlAttributes: new {@class = "form-control-label col-md-4"})
                     <div class="col-md-8">
                         <select class="form-control" data-val="true" data-val-number="The field Serviser must be a number." id="WorkItem_WorkerId" name="WorkItem.WorkerId" tabindex="3">
-                            @foreach (var worker in Model.AvailableWorkers)
+                            @foreach (var worker in Model.AvailableWorkers.OrderBy(w => w.Disabled))
                             {
-                                if (Model.WorkItem.WorkerId.HasValue && worker.Value == Model.WorkItem.WorkerId.Value.ToString())
-                                {
-                                    <option value="@worker.Value" selected="selected">@worker.Text</option>
-                                }
-                                else
-                                {
-                                    <option value="@worker.Value">@worker.Text</option>
-                                }
+                                var isSelected = Model.WorkItem.WorkerId.HasValue && worker.Value == Model.WorkItem.WorkerId.Value.ToString();
+                                <option value="@worker.Value" @(isSelected ? "selected='selected'" : "") @(worker.Disabled ? "disabled='disabled'" : "")>@worker.Text</option>
                             }
                         </select>
                     </div>
