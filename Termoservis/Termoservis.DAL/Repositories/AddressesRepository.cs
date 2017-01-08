@@ -89,12 +89,13 @@ namespace Termoservis.DAL.Repositories
 			// Validate
 			this.ValidateModel(model);
 
-            // Populate place 
-		    if (model.Place == null && model.PlaceId.HasValue)
-		        model.Place = this.placesRepository.Get(model.PlaceId.Value);
+            // Retrieve place (required for retrieving search keywords)
+		    var place = model.Place;
+		    if (place == null && model.PlaceId.HasValue)
+		        place = this.placesRepository.Get(model.PlaceId.Value);
 
             // Populate search keywords
-		    model.SearchKeywords = GetSearchKeywords(model);
+		    model.SearchKeywords = GetSearchKeywords(model.StreetAddress, place);
 
             // Add to the repository and save
             this.context.Addresses.Add(model);

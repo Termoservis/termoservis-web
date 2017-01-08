@@ -479,7 +479,12 @@ namespace Termoservis.MigrationTool
                                 WorkerId = context.Workers.Local.FirstOrDefault(w => w.Name.ToLower() == wraw.Item4)?.Id,
                                 Description = wraw.Item3,
                                 Price = wraw.Item2,
-                                Type = WorkItemType.Unknown
+                                Type =
+                                    wraw.Item3.Contains("servis") || wraw.Item3.Contains("ser.") ||
+                                    wraw.Item3.Contains("Servis") || wraw.Item3.Contains("Ser.") ||
+                                    wraw.Item3.Contains("SERVIS") || wraw.Item3.Contains("SER.")
+                                        ? WorkItemType.Service
+                                        : WorkItemType.Unknown
                             }).ToList(),
                             SearchKeywords = name.AsSearchable()
                         };
