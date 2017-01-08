@@ -1,11 +1,11 @@
 ﻿@model Termoservis.Web.Models.Customer.WorkItemFormViewModel
 
-@using (Html.BeginForm(Model.ActionName, "WorkItem", FormMethod.Post, new {@class = "col-xs-12", role = "form", style = "background-color: rgb(249, 249, 249)" }))
+@using (Html.BeginForm(Model.ActionName, "WorkItems", FormMethod.Post, new {@class = "col-xs-12", role = "form", style = "background-color: rgb(249, 249, 249)" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
     @Html.HiddenFor(model => model.WorkItem.Id)
-
+    @Html.HiddenFor(model => model.WorkItem.CustomerId)
 
     <div style="padding: 1em;">
         <div class="row">
@@ -39,7 +39,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.WorkItem.Worker, htmlAttributes: new {@class = "form-control-label col-md-4"})
                     <div class="col-md-8">
-                        @Html.DropDownListFor(model => model.WorkItem.WorkerId, Model.AvailableWorkers, htmlAttributes: new {@class = "form-control", tabindex = "3"})
+                        @Html.DropDownListFor(model => model.WorkItem.WorkerId, new SelectList(Model.AvailableWorkers, "Value", "Text"), htmlAttributes: new {@class = "form-control", tabindex = "3"})
                     </div>
                 </div>
             </div>

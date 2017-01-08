@@ -22,7 +22,7 @@ namespace Termoservis.DAL.Repositories
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="loggingService">The logging service.</param>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// context
         /// or
         /// loggingService
@@ -55,7 +55,7 @@ namespace Termoservis.DAL.Repositories
         /// <returns>
         /// Returns model with specified identifier; returns null if not found.
         /// </returns>
-        /// <exception cref="System.ArgumentOutOfRangeException">id - WorkItem identifier must not be zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">id - WorkItem identifier must not be zero.</exception>
         public WorkItem Get(long id)
         {
             if (id <= 0)
@@ -71,8 +71,8 @@ namespace Termoservis.DAL.Repositories
         /// <returns>
         /// Returns the work item instance that was added to the repository.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">model</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">Id - Work item identifier must be zero.</exception>
+        /// <exception cref="ArgumentNullException">model</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Id - Work item identifier must be zero.</exception>
         public async Task<WorkItem> AddAsync(WorkItem model)
         {
             if (model == null)
@@ -89,6 +89,49 @@ namespace Termoservis.DAL.Repositories
                 model.Id);
 
             return model;
+        }
+
+        /// <summary>
+        /// Edits the work item with specified identifier with given model data.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="model">The model.</param>
+        /// <returns>
+        /// Returns the edited work item instance.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">model</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Id - WorkItem identifier must not be zero.
+        /// or
+        /// CustomerId - WorkItem must heve Customer identifier assigned and can not be zero.
+        /// </exception>
+        public async Task<WorkItem> EditAsync(long id, WorkItem model)
+        {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+            if (model.Id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(model.Id), "WorkItem identifier must not be zero.");
+
+            // Retrieve from database
+            var workItemDb = this.Get(model.Id);
+
+            // Edit work item using model data
+            workItemDb.Worker = null;
+            workItemDb.WorkerId = model.WorkerId;
+            workItemDb.Date = model.Date;
+            workItemDb.Description = model.Description;
+            workItemDb.Price = model.Price;
+            workItemDb.Type = model.Type;
+            
+            // Save context changes
+            await this.context.SaveChangesAsync();
+
+            this.logger?.Information(
+                "Edited WorkItem ({WorkItemId}) for customer ({CustomerId})",
+                workItemDb.Id,
+                workItemDb.CustomerId);
+
+            return workItemDb;
         }
     }
 }

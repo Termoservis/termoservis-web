@@ -180,7 +180,7 @@ namespace Termoservis.Web.Controllers
             {
                 this.ModelState.AddModelError("", "Place is required.");
 
-                // Validate model
+                // Populate model
                 await viewModel.PopulateLocationsAsync(this.context);
                 return View(viewModel);
             }

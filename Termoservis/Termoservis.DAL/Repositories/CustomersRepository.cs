@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -49,7 +50,9 @@ namespace Termoservis.DAL.Repositories
         /// </returns>
         public IQueryable<Customer> GetAll()
         {
-            return this.context.Customers;
+            return this.context.Customers
+                .Include(c => c.WorkItems)
+                .Include(c => c.WorkItems.Select(i => i.Worker));
         }
 
         /// <summary>

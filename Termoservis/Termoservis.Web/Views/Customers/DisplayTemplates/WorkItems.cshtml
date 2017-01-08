@@ -1,18 +1,18 @@
 ﻿@using Termoservis.Models
 @using Termoservis.Web.Helpers
 @using Termoservis.Web.Models.Customer
-@model IEnumerable<WorkItem>
+@model Customer
     
 <div class="form-group row">
     <div class="col-md-12">
         <table class="table table-hover">
             <thead class="thead-default">
             <tr>
-                <th>@Html.DisplayColumnNameFor(Model, model => model.Type)</th>
-                <th>@Html.DisplayColumnNameFor(Model, model => model.Date)</th>
-                <th>@Html.DisplayColumnNameFor(Model, model => model.Price)</th>
-                <th>@Html.DisplayColumnNameFor(Model, model => model.Worker)</th>
-                <th>@Html.DisplayColumnNameFor(Model, model => model.Description)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Type)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Date)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Price)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Worker)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Description)</th>
             </tr>
             </thead>
             <tbody>
@@ -27,13 +27,13 @@
             <tr>
                 <td colspan="4" style="padding: 0 !important; border: none;">
                     <div class="accordion-body collapse" id="workItemEdit-new">
-                        @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Create", new WorkItem()))
+                        @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Create", new WorkItem {Customer = Model, CustomerId = Model.Id}))
                     </div>
                 </td>
             </tr>
-            @if (Model.Any())
+            @if (Model.WorkItems.Any())
             {
-                foreach (var workItem in Model.OrderByDescending(item => item.Date))
+                foreach (var workItem in Model.WorkItems.OrderByDescending(item => item.Date))
                 {
                     @Html.DisplayFor(model => workItem, "WorkItemTableRow")
                 }

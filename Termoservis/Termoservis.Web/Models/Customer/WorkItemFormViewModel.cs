@@ -32,7 +32,7 @@ namespace Termoservis.Web.Models.Customer
         {
             if (actionName == null) throw new ArgumentNullException(nameof(actionName));
             if (workItem == null) throw new ArgumentNullException(nameof(workItem));
-
+            
             this.ActionName = actionName;
             this.WorkItem = workItem;
         }
@@ -51,7 +51,7 @@ namespace Termoservis.Web.Models.Customer
         /// <value>
         /// The work item.
         /// </value>
-        public WorkItem WorkItem { get; }
+        public WorkItem WorkItem { get; set; } = new WorkItem();
 
         /// <summary>
         /// Gets the available workers.
@@ -59,7 +59,7 @@ namespace Termoservis.Web.Models.Customer
         /// <value>
         /// The available workers.
         /// </value>
-        public List<SelectListItem> AvailableWorkers => new List<SelectListItem>
+        public List<SelectListItem> AvailableWorkers { get; set; } = new List<SelectListItem>
         {
             // TODO Retrieve these values from database
             new SelectListItem {Text = "", Value = "0"},

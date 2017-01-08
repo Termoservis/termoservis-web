@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Eventing.Reader;
+using Newtonsoft.Json;
 
 namespace Termoservis.Models
 {
@@ -77,5 +79,26 @@ namespace Termoservis.Models
         [DisplayName("Serviser")]
         [ForeignKey(nameof(WorkerId))]
         public Worker Worker { get; set; }
+
+        /// <summary>
+        /// Gets or sets the customer identifier.
+        /// </summary>
+        /// <value>
+        /// The customer identifier.
+        /// </value>
+        [Required]
+        [Display(Name = "Korisnik")]
+        public long CustomerId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the customer.
+        /// </summary>
+        /// <value>
+        /// The customer.
+        /// </value>
+        [JsonIgnore]
+        [ForeignKey(nameof(CustomerId))]
+        [Display(Name = "Korisnik")]
+        public Customer Customer { get; set; }
     }
 }
