@@ -38,6 +38,9 @@
                 .Replace("-", " ")
                 .Replace(".", " ")
                 .Replace(",", " ")
+                .Replace("  ", " ")
+                .Replace("  ", " ")
+                .Replace("  ", " ")
                 .Trim();
 		}
 	}

@@ -76,7 +76,7 @@ namespace Termoservis.MigrationTool
             var defaultCountry = "Hrvatska";
             using (var context = new ApplicationDbContext())
             {
-                if (!context.Countries.Any(c => c.Name.ToLower() == defaultCountry))
+                if (!context.Countries.Any(c => c.Name.ToLower() == defaultCountry.ToLower()))
                 {
                     context.Countries.Add(new Country
                     {
@@ -168,6 +168,9 @@ namespace Termoservis.MigrationTool
             {
                 // Instantiate new context
                 var context = new ApplicationDbContext();
+                //context.Addresses.Load();
+                //context.Workers.Load();
+                //context.Places.Load();
                 var dbtcounter = 0;
                 const int dbtCounterLimit = 200;
                 var applicationUser = context.Users.FirstOrDefault(u => u.UserName.StartsWith("tatjana.toplek"))?.Id;
@@ -418,25 +421,34 @@ namespace Termoservis.MigrationTool
                         // Ensure address exists
                         if (string.IsNullOrWhiteSpace(addressCorrected))
                             addressCorrected = "Nepoznata adresa";
-                        var addressSearchable = addressCorrected.AsSearchable();
-                        var customerAddress =
-                            context.Addresses.Local.FirstOrDefault(a => a.SearchKeywords == addressSearchable);
-                        if (customerAddress == null)
-                        {
-                            var placeSearchable = place.AsSearchable();
-                            customerAddress = new Address
-                            {
-                                StreetAddress = TitleCaseString(addressCorrected),
-                                SearchKeywords = addressSearchable,
-                                PlaceId =
-                                    hasPlace
-                                        ? context.Places.FirstOrDefault(p => p.SearchKeywords == placeSearchable)?.Id
-                                        : null
-                            };
+                        var placeSearchable = place.AsSearchable();
+                        var placesRepo = new PlacesRepository(context, null);
+                        var addressRepo = new AddressesRepository(context, placesRepo, null);
+                        var customerAddressTask = addressRepo.EnsureExistsAsync(TitleCaseString(addressCorrected), hasPlace
+                            ? context.Places.FirstOrDefault(p => p.SearchKeywords == placeSearchable)?.Id
+                            : null,
+                            false);
+                        var customerAddress = customerAddressTask.Result;
 
-                            customerAddress = context.Addresses.Add(customerAddress);
-                            //context.SaveChanges();
-                        }
+                        //var addressSearchable = addressCorrected.AsSearchable();
+                        //var customerAddress =
+                        //    context.Addresses.Local.FirstOrDefault(a => a.SearchKeywords == addressSearchable);
+                        //if (customerAddress == null)
+                        //{
+                            
+                        //    customerAddress = new Address
+                        //    {
+                        //        StreetAddress = TitleCaseString(addressCorrected),
+                        //        SearchKeywords = addressSearchable,
+                        //        PlaceId =
+                        //            hasPlace
+                        //                ? context.Places.FirstOrDefault(p => p.SearchKeywords == placeSearchable)?.Id
+                        //                : null
+                        //    };
+
+                        //    customerAddress = context.Addresses.Add(customerAddress);
+                        //    //context.SaveChanges();
+                        //}
 
                         // Create customer device
                         List<CustomerDevice> customerDevices = new List<CustomerDevice>();
@@ -475,7 +487,7 @@ namespace Termoservis.MigrationTool
                         var repo = new CustomersRepository(context, null);
                         repo.AddAsync(customer, false).Wait();
 
-                        if (dbtcounter++ > dbtCounterLimit)
+                        if (dbtcounter++ >= dbtCounterLimit)
                         {
                             dbtcounter = 0;
                             Console.SetCursorPosition(0, statusTop);
@@ -512,6 +524,7 @@ namespace Termoservis.MigrationTool
                             context = new ApplicationDbContext();
                             context.Addresses.Load();
                             context.Workers.Load();
+                            context.Places.Load();
                             Console.SetCursorPosition(0, statusTop);
                             Console.WriteLine("                  ");
                         }

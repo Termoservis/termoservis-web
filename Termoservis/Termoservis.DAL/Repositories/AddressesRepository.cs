@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
+using Termoservis.Common.Extensions;
 using Termoservis.Contracts.Services;
 using Termoservis.Models;
 
@@ -37,12 +38,10 @@ namespace Termoservis.DAL.Repositories
 				throw new ArgumentNullException(nameof(context));
 			if (placesRepository == null)
 				throw new ArgumentNullException(nameof(placesRepository));
-			if (loggingService == null)
-				throw new ArgumentNullException(nameof(loggingService));
 
 			this.context = context;
 			this.placesRepository = placesRepository;
-			this.logger = loggingService.GetLogger<AddressesRepository>();
+			this.logger = loggingService?.GetLogger<AddressesRepository>();
 		}
 
 
@@ -90,29 +89,49 @@ namespace Termoservis.DAL.Repositories
 			// Validate
 			this.ValidateModel(model);
 
-		    model.SearchKeywords = model.StreetAddress.ToLowerInvariant().Trim();
+            // Populate place 
+		    if (model.Place == null && model.PlaceId.HasValue)
+		        model.Place = this.placesRepository.Get(model.PlaceId.Value);
 
-			// Add to the repository and save
-			this.context.Addresses.Add(model);
+            // Populate search keywords
+		    model.SearchKeywords = GetSearchKeywords(model);
+
+            // Add to the repository and save
+            this.context.Addresses.Add(model);
 			await this.context.SaveChangesAsync();
 
-			this.logger.Information(
+			this.logger?.Information(
 				"Added new address {StreetAddress} ({AddressId}) to Place ({PlaceId}).",
 				model.StreetAddress, model.Id, model.PlaceId);
 
 			return model;
 		}
 
-		/// <summary>
-		/// Ensures that the address exists in repository.
-		/// </summary>
-		/// <param name="address">The address.</param>
-		/// <returns>
-		/// Returns the address that matches specified address from repository.
-		/// </returns>
-		/// <exception cref="ArgumentNullException">address</exception>
-		/// <exception cref="InvalidDataException">Invalid place identifier.</exception>
-		public async Task<Address> EnsureExistsAsync(Address address)
+	    /// <summary>
+	    /// Ensures that the address exists in repository.
+	    /// </summary>
+	    /// <param name="address">The address.</param>
+	    /// <returns>
+	    /// Returns the address that matches specified address from repository.
+	    /// </returns>
+	    /// <exception cref="ArgumentNullException">address</exception>
+	    /// <exception cref="InvalidDataException">Invalid place identifier.</exception>
+	    public async Task<Address> EnsureExistsAsync(Address address)
+	    {
+	        return await EnsureExistsAsync(address, true);
+	    }
+
+	    /// <summary>
+	    /// Ensures that the address exists in repository.
+	    /// </summary>
+	    /// <param name="address">The address.</param>
+	    /// <param name="shouldSaveChanges">If set to <c>True</c> changes to the context will be saved.</param>
+	    /// <returns>
+	    /// Returns the address that matches specified address from repository.
+	    /// </returns>
+	    /// <exception cref="ArgumentNullException">address</exception>
+	    /// <exception cref="InvalidDataException">Invalid place identifier.</exception>
+	    public async Task<Address> EnsureExistsAsync(Address address, bool shouldSaveChanges)
 		{
 			if (address == null)
 				throw new ArgumentNullException(nameof(address));
@@ -132,7 +151,7 @@ namespace Termoservis.DAL.Repositories
 
 		    // Retrieve address with exact street name
 			var addressDb = this.TryMatchStreetName(address.StreetAddress, place);
-			if (addressDb?.PlaceId != null && place != null && addressDb.PlaceId.Value == place.Id)
+			if (addressDb != null)
 				return addressDb;
 
 			// Create new address
@@ -151,44 +170,85 @@ namespace Termoservis.DAL.Repositories
 		/// <exception cref="ArgumentOutOfRangeException">Place identifier must not be zero.</exception>
 		public async Task<Address> EnsureExistsAsync(string streetAddress, int? placeId)
 		{
-			if (string.IsNullOrWhiteSpace(streetAddress))
-				throw new ArgumentException("Value cannot be null or whitespace.", nameof(streetAddress));
-
-			return await this.EnsureExistsAsync(new Address
-			{
-				PlaceId = placeId,
-				StreetAddress = streetAddress
-			});
+		    return await EnsureExistsAsync(streetAddress, placeId, true);
 		}
 
-	    /// <summary>
-	    /// Tries to match given street address with already existing address in the repository.
-	    /// </summary>
-	    /// <param name="streetAddress">The street address.</param>
-	    /// <param name="place"></param>
-	    /// <returns>Returns the matched address; <c>null</c> if no matching address is found.</returns>
-	    private Address TryMatchStreetName(string streetAddress, Place place)
+        /// <summary>
+        /// Ensures that the address exists in repository.
+        /// </summary>
+        /// <param name="streetAddress">The street address.</param>
+        /// <param name="placeId">The place identifier.</param>
+        /// <param name="shouldSaveChanges">If set to <c>True</c> changes to the context will be saved.</param>
+        /// <returns>
+        /// Returns the address that matches specified address from repository.
+        /// </returns>
+        /// <exception cref="ArgumentException">Value cannot be null or whitespace.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Place identifier must not be zero.</exception>
+        public async Task<Address> EnsureExistsAsync(string streetAddress, int? placeId, bool shouldSaveChanges)
+        {
+            if (string.IsNullOrWhiteSpace(streetAddress))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(streetAddress));
+
+            return await this.EnsureExistsAsync(new Address
+            {
+                PlaceId = placeId,
+                StreetAddress = streetAddress
+            }, shouldSaveChanges);
+        }
+
+        /// <summary>
+        /// Tries to match given street address with already existing address in the repository.
+        /// </summary>
+        /// <param name="streetAddress">The street address.</param>
+        /// <param name="place"></param>
+        /// <returns>Returns the matched address; <c>null</c> if no matching address is found.</returns>
+        private Address TryMatchStreetName(string streetAddress, Place place)
 		{
 			if (string.IsNullOrWhiteSpace(streetAddress))
 				return null;
 
-			streetAddress = streetAddress.ToLower().Trim();
+		    var toMatch = GetSearchKeywords(streetAddress, place);
 
-			return this.context.Addresses.FirstOrDefault(address =>
-					address.StreetAddress.ToLower() == streetAddress && address.PlaceId == place.Id);
+		    if (place == null)
+		        return this.context.Addresses.FirstOrDefault(address =>
+		            !address.PlaceId.HasValue && address.SearchKeywords == toMatch);
+		    return this.context.Addresses.FirstOrDefault(address =>
+		        address.SearchKeywords == toMatch && address.PlaceId == place.Id);
 		}
 
-		/// <summary>
-		/// Validates the model.
-		/// </summary>
-		/// <param name="model">The model.</param>
-		/// <exception cref="ArgumentNullException">model</exception>
-		/// <exception cref="InvalidDataException">
-		/// Place must be assigned to the address.
-		/// or
-		/// Street address must not be null or empty.
-		/// </exception>
-		private void ValidateModel(Address model)
+        /// <summary>
+        /// Gets the search keywords.
+        /// </summary>
+        /// <param name="address">The address.</param>
+        /// <returns>Returns the search keywords.</returns>
+        private static string GetSearchKeywords(Address address)
+	    {
+	        return GetSearchKeywords(address.StreetAddress, address.Place);
+	    }
+
+	    /// <summary>
+	    /// Gets the search keywords.
+	    /// </summary>
+	    /// <param name="streetAddress">The street address.</param>
+	    /// <param name="place">The place.</param>
+	    /// <returns>Returns the search keywords.</returns>
+	    // ReSharper disable once SuggestBaseTypeForParameter
+	    private static string GetSearchKeywords(string streetAddress, Place place)
+        {
+            return (streetAddress.AsSearchable() + " " + (place?.SearchKeywords ?? string.Empty)).Trim();
+        }
+
+        /// <summary>
+        /// Validates the model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <exception cref="ArgumentNullException">model</exception>
+        /// <exception cref="InvalidDataException">
+        /// Place must be assigned to the address.
+        /// or
+        /// Street address must not be null or empty.
+        /// </exception>
+        private void ValidateModel(Address model)
 		{
 			if (model == null)
 				throw new ArgumentNullException(nameof(model));

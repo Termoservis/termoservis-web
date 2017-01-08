@@ -116,7 +116,6 @@ namespace Termoservis.DAL.Repositories
             var workItemDb = this.Get(model.Id);
 
             // Edit work item using model data
-            workItemDb.Worker = null;
             workItemDb.WorkerId = model.WorkerId;
             workItemDb.Date = model.Date;
             workItemDb.Description = model.Description;
