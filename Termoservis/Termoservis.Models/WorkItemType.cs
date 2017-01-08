@@ -10,7 +10,7 @@ namespace Termoservis.Models
         /// <summary>
         /// The unknown work item type.
         /// </summary>
-        [Display(Name = "Nepoznato")]
+        [Display(Name = "")]
         Unknown,
 
         /// <summary>
