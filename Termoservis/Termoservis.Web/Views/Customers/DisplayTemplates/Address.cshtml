@@ -7,9 +7,50 @@
             @if (Model.Place != null)
             {
                 <span>, </span><br />
-                <span>@Model.Place.Name, </span><br />
+                <span>@Model.Place.Name, </span><span class="zip-code"></span><br />
                 <span>@Model.Place.Country.Name </span>
             }
         </address>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        var zipRetrieveApiBase = "https://maps.googleapis.com/maps/api/geocode/json?sensor=true_or_false&address=";
+        var addressQuery =
+            "@Model.StreetAddress.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Union(Model.PlaceId.HasValue && Model.Place != null ? Model.Place.Name.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Union(new[] { Model.Place.Country.Name }) : new List<string>()).Aggregate(string.Empty, (c, s) => c + "+" + s)";
+        $.ajax({
+            url: zipRetrieveApiBase + addressQuery,
+            type: "GET",
+            dataType: "json"
+        }).done(function(data) {
+            console.warn(data);
+            try {
+                if (data.results.length) {
+                    var foundZipCode = false;
+                    for (var r = 0; r < data.results.length; r++) {
+                        var result = data.results[r];
+                        if (result.address_components.length) {
+                            for (var i = 0; i < result.address_components.length; i++) {
+                                var component = result.address_components[i];
+                                if (component.types) {
+                                    if (component.types[0] === "postal_code") {
+                                        var zipCode = component.long_name;
+                                        $(".zip-code").text(zipCode);
+                                        foundZipCode = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (foundZipCode) {
+                            break;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.warn("Failed to retrieve ZIP code.");
+            }
+        });
+    });
+</script>
