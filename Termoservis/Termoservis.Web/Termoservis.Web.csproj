@@ -265,6 +265,7 @@
     <Compile Include="Controllers\v1\Select2\Select2Item.cs" />
     <Compile Include="Controllers\v1\Select2\Select2RequestData.cs" />
     <Compile Include="Controllers\v1\Select2\Select2Response.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Models\Customer\CustomersSearchResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />

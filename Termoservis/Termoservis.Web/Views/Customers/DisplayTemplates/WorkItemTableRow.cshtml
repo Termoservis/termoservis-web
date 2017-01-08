@@ -1,9 +1,12 @@
-﻿@using Termoservis.Web.Models.Customer
+﻿@using Termoservis.Models
+@using Termoservis.Web.Helpers
+@using Termoservis.Web.Models.Customer
 @model Termoservis.Models.WorkItem
 
-<tr data-toggle="collapse" data-target="#workItemEdit-@Model.Id" class="accordion-toggle"> 
-    <td>@Html.DisplayFor(model => model.Date)</td>    
-    <td>@Html.DisplayFor(model => model.Price) kn</td>    
+<tr data-toggle="collapse" data-target="#workItemEdit-@Model.Id" class="accordion-toggle">
+    <td>@(EnumHelper<WorkItemType>.GetDisplayValue(Model.Type))</td>    
+    <td>@Html.DisplayFor(model => model.Date)</td>
+    <td>@Html.DisplayFor(model => model.Price) kn</td>
     <td>
         @if (Model.Worker != null)
         {
@@ -13,7 +16,7 @@
     <td>@Html.DisplayFor(model => model.Description)</td>
 </tr>
 <tr>
-    <td colspan="4" style="padding: 0 !important; border: none;">
+    <td colspan="5" style="padding: 0 !important; border: none;">
         <div class="accordion-body collapse" id="workItemEdit-@Model.Id" style="background-color: rgb(249, 249, 249)">
             @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Edit", Model))
         </div>

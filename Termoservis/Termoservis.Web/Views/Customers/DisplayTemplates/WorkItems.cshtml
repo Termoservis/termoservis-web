@@ -8,6 +8,7 @@
         <table class="table table-hover">
             <thead class="thead-default">
             <tr>
+                <th>@Html.DisplayColumnNameFor(Model, model => model.Type)</th>
                 <th>@Html.DisplayColumnNameFor(Model, model => model.Date)</th>
                 <th>@Html.DisplayColumnNameFor(Model, model => model.Price)</th>
                 <th>@Html.DisplayColumnNameFor(Model, model => model.Worker)</th>
@@ -16,7 +17,7 @@
             </thead>
             <tbody>
             <tr>
-                <td style="cursor: pointer; color: #1e90ff" colspan="4" data-toggle="collapse" data-target="#workItemEdit-new" class="accordion-toggle">
+                <td style="cursor: pointer; color: #1e90ff" colspan="5" data-toggle="collapse" data-target="#workItemEdit-new" class="accordion-toggle">
                     <div>
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         <span>Dodaj novu stavku</span>
