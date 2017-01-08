@@ -84,12 +84,19 @@
         <div class="col-md-offset-1 col-md-11">
             @if (Model.ActionName == "Create")
             {
-                <input type="submit" value="Kreiraj" class="btn btn-default btn-success"/>
+                <button class="btn btn-primary" click="$(this).closest('form').submit()">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    <span>&nbsp;Kreiraj</span>
+                </button>
             }
             else
             {
-                <input type="submit" value="Uredi" class="btn btn-default btn-success" />
+                <button class="btn btn-primary" click="$(this).closest('form').submit()">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    <span>&nbsp;Uredi</span>
+                </button>
             }
+            <input type="submit" value="Submit" hidden="hidden" />
         </div>
     </div>
 }

@@ -1,123 +1,140 @@
 ﻿@using Termoservis.Web.Helpers
 @model Termoservis.Web.Models.Customer.CustomersSearchResult
 
-        @using (Html.BeginForm())
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <table class="table table-hover" id="customers-table">
+        <thead class="thead-default">
+        <tr>
+            <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Name)</th>
+            <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Address)</th>
+            <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Note)</th>
+            <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.CreationDate)</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Customers)
         {
-            @Html.ValidationSummary(true)
-            ;
-
-            <table class="table table-hover">
-                <thead class="thead-default">
-                <tr>
-                    <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Name)</th>
-                    <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Address)</th>
-                    <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.Note)</th>
-                    <th>@Html.DisplayColumnNameFor(Model.Customers, model => model.CreationDate)</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var item in Model.Customers)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address, "AddressTableCell")
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Note)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreationDate)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                            @Html.ActionLink("Details", "Details", new {id = item.Id})
-                        </td>
-                    </tr>
-                }
-                </tbody>
-            </table>
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <nav>
-                        <ul class="pagination">
-                            @if (Model.CurrentPage == 0)
-                            {
-                                <li class="page-item disabled">
-                                    <span class="page-link disabled">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </span>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="page-item">
-                                    @Ajax.ActionLink(
-                                        "«",
-                                        "CustomersSearch",
-                                        "Customers",
-                                        new {newPage = Model.CurrentPage - 1, keywords = Model.Keywords ?? string.Empty },
-                                        new AjaxOptions
-                                        {
-                                            HttpMethod = "GET",
-                                            UpdateTargetId = "search-result-content",
-                                            InsertionMode = InsertionMode.Replace
-                                        },
-                                        new {@class = "page-link"})
-                                </li>
-                            }
-
-                            @for (int pageIndex = Math.Max(0, Model.CurrentPage - 2); pageIndex < Model.TotalPages && pageIndex < Math.Max(0, Model.CurrentPage - 2) + 5; pageIndex++)
-                            {
-                                <li class="page-item @(@Model.CurrentPage == pageIndex ? "active" : "")">
-                                    @Ajax.ActionLink(
-                                        (pageIndex + 1).ToString(),
-                                        "CustomersSearch",
-                                        "Customers",
-                                        new {newPage = pageIndex, keywords = Model.Keywords ?? string.Empty },
-                                        new AjaxOptions
-                                        {
-                                            HttpMethod = "GET",
-                                            UpdateTargetId = "search-result-content",
-                                            InsertionMode = InsertionMode.Replace
-                                        },
-                                        new {@class = "page-link"})
-                                </li>
-                            }
-                            @if (Model.CurrentPage == Model.TotalPages - 1)
-                            {
-                                <li class="page-item disabled">
-                                    <span class="page-link">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </span>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="page-item">
-                                    @Ajax.ActionLink(
-                                        "»",
-                                        "CustomersSearch",
-                                        "Customers",
-                                        new {newPage = Model.CurrentPage + 1, keywords = Model.Keywords ?? string.Empty},
-                                        new AjaxOptions
-                                        {
-                                            HttpMethod = "GET",
-                                            UpdateTargetId = "search-result-content",
-                                            InsertionMode = InsertionMode.Replace
-                                        },
-                                        new {@class = "page-link"})
-                                </li>
-                            }
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-
-            <input type="submit" id="submit-user-search" hidden="hidden"/>
+            <tr class="clickable-row" data-redirect="@Url.Action("Details", "Customers", new {id = item.Id})">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address, "AddressTableCell")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td style="padding: 0.6em;">
+                    <a href="@Url.Action("Edit", new {id = item.Id})" class="btn btn-secondary btn-sm">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
         }
+        </tbody>
+    </table>
 
+    <div class="row">
+        <div class="col-xs-12">
+            <nav>
+                <ul class="pagination">
+                    @if (Model.CurrentPage == 0)
+                    {
+                        <li class="page-item disabled">
+                            <span class="page-link disabled">
+                                <span aria-hidden="true">&laquo;</span>
+                            </span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            @Ajax.ActionLink(
+                                "«",
+                                "CustomersSearch",
+                                "Customers",
+                                new {newPage = Model.CurrentPage - 1, keywords = Model.Keywords ?? string.Empty},
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "GET",
+                                    UpdateTargetId = "search-result-content",
+                                    InsertionMode = InsertionMode.Replace
+                                },
+                                new {@class = "page-link"})
+                        </li>
+                    }
+
+                    @for (int pageIndex = Math.Max(0, Model.CurrentPage - 2); pageIndex < Model.TotalPages && pageIndex < Math.Max(0, Model.CurrentPage - 2) + 5; pageIndex++)
+                    {
+                        <li class="page-item @(@Model.CurrentPage == pageIndex ? "active" : "")">
+                            @Ajax.ActionLink(
+                                (pageIndex + 1).ToString(),
+                                "CustomersSearch",
+                                "Customers",
+                                new {newPage = pageIndex, keywords = Model.Keywords ?? string.Empty},
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "GET",
+                                    UpdateTargetId = "search-result-content",
+                                    InsertionMode = InsertionMode.Replace
+                                },
+                                new {@class = "page-link"})
+                        </li>
+                    }
+                    @if (Model.CurrentPage == Model.TotalPages - 1)
+                    {
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                <span aria-hidden="true">&raquo;</span>
+                            </span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            @Ajax.ActionLink(
+                                "»",
+                                "CustomersSearch",
+                                "Customers",
+                                new {newPage = Model.CurrentPage + 1, keywords = Model.Keywords ?? string.Empty},
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "GET",
+                                    UpdateTargetId = "search-result-content",
+                                    InsertionMode = InsertionMode.Replace
+                                },
+                                new {@class = "page-link"})
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <input type="submit" id="submit-user-search" hidden="hidden"/>
+}
+
+<script>
+        $(document).ready(function() {
+            $("#customers-table .clickable-row").each(function() {
+                $(this).click(function (e) {
+                    e.stopPropagation();
+                    var redirectUrl = $(this).data("redirect");
+                    if (e.originalEvent.ctrlKey) {
+                        setTimeout(function (){
+                            window.open(redirectUrl, "_blank").focus();
+                        }, 100);
+                    } else {
+                        window.location.href = redirectUrl;
+                    }
+                });
+            });
+        });
+</script>
