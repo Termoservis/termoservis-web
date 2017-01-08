@@ -7,8 +7,14 @@ using Swashbuckle.Application;
 
 namespace Termoservis.Web
 {
+    /// <summary>
+    /// The Swagger configuration.
+    /// </summary>
     public class SwaggerConfig
     {
+        /// <summary>
+        /// Registers this instance.
+        /// </summary>
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;

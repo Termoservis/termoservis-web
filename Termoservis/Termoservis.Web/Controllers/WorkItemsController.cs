@@ -80,8 +80,7 @@ namespace Termoservis.Web.Controllers
                 Description = viewModel.WorkItem.Description ?? string.Empty,
                 Price = viewModel.WorkItem.Price,
                 Type = viewModel.WorkItem.Type,
-                WorkerId = worker?.Id,
-                Worker = worker
+                WorkerId = worker?.Id
             };
 
             // Create work item
@@ -119,8 +118,7 @@ namespace Termoservis.Web.Controllers
                 Description = viewModel.WorkItem.Description ?? string.Empty,
                 Price = viewModel.WorkItem.Price,
                 Type = viewModel.WorkItem.Type,
-                WorkerId = worker?.Id,
-                Worker = worker
+                WorkerId = worker?.Id
             };
 
             // Edit work item

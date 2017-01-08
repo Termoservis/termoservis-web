@@ -117,7 +117,8 @@ namespace Termoservis.DAL.Repositories
             this.ValidateModel(model);
 
             // Assign creation date
-            model.CreationDate = DateTime.UtcNow;
+            if (model.CreationDate == default(DateTime))
+                model.CreationDate = DateTime.UtcNow;
 
             model.SearchKeywords = this.GetSearchKeywords(model);
 
