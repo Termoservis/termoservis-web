@@ -138,6 +138,7 @@ namespace Termoservis.Models
 		[Required]
 		[DisplayName("Datum stvaranja")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime CreationDate { get; set; }
 	}
 }

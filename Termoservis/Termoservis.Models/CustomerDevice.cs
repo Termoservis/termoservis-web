@@ -45,6 +45,8 @@ namespace Termoservis.Models
         /// The commission date.
         /// </value>
         [DisplayName("Pusten u pogon")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? CommissionDate { get; set; }
     }
 }

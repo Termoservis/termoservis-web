@@ -28,6 +28,7 @@ namespace Termoservis.Models
         /// </value>
         [DisplayName("Datum")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Date { get; set; } = DateTime.Today;
 
         /// <summary>
