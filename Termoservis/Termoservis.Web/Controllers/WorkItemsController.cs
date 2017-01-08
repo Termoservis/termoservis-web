@@ -30,7 +30,6 @@ namespace Termoservis.Web.Controllers
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="workItemsRepository">The work items repository.</param>
-        /// <param name="customersRepository">The customers repository.</param>
         /// <param name="loggingService">The logging service.</param>
         /// <exception cref="System.ArgumentNullException">
         /// context
