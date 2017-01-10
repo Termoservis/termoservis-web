@@ -1,5 +1,6 @@
 using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Termoservis.DAL.Extensions;
 using Termoservis.Models;
 
 namespace Termoservis.DAL
@@ -81,6 +82,8 @@ namespace Termoservis.DAL
 		public ApplicationDbContext()
 			: base("DefaultConnection", throwIfV1Schema: false)
 		{
+            // Enable text search interceptors
+            this.EnableEfFts();
 		}
 	}
 }
