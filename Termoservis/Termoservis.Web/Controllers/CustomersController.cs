@@ -107,12 +107,9 @@ namespace Termoservis.Web.Controllers
             // Apply filter if needed
             if (!string.IsNullOrWhiteSpace(keywords))
             {
-                var splitKeywords = keywords
-                    .AsSearchable()
-                    .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
-                    .Where(k => !string.IsNullOrEmpty(k))
-                    .ToList();
-                customers = customers.Where(c => splitKeywords.All(k => c.SearchKeywords.Contains(k)));
+                var searchableKeywords = keywords.AsSearchable();
+                var searchContainsQuery = searchableKeywords.AsFtsContainsString();
+                customers = customers.Where(c => c.SearchKeywords.Contains(searchContainsQuery));
             }
 
             // Set current page content

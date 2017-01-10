@@ -166,6 +166,7 @@ namespace Termoservis.MigrationTool
 
             // Scope variables
             {
+                var errors = "";
                 // Instantiate new context
                 var context = new ApplicationDbContext();
                 //context.Addresses.Load();
@@ -192,6 +193,7 @@ namespace Termoservis.MigrationTool
 
                     if (reader.CurrentRecord.Length != 20)
                     {
+                        errors += "ERROR: " + reader.Parser.RawRecord + Environment.NewLine;
                         //Console.WriteLine("ERROR: " + reader.Parser.RawRecord);
                     }
                     else
@@ -199,6 +201,7 @@ namespace Termoservis.MigrationTool
                         var name = reader[1];
                         if (string.IsNullOrWhiteSpace(name))
                         {
+                            errors += "INVALID NAME: " + reader.Parser.RawRecord + Environment.NewLine;
                             //Console.WriteLine("INVALID NAME: " + reader.Parser.RawRecord);
                             continue;
                         }
@@ -551,6 +554,8 @@ namespace Termoservis.MigrationTool
                 Console.WriteLine("UNIQUE PLACES: " + places.Distinct().Count());
                 var totalLocations = places.Distinct().Union(addressPlaces.Distinct()).Distinct();
                 Console.WriteLine("TOTAL UNIQUE LOCATIONS: " + totalLocations.Count());
+
+                File.WriteAllText("errors" + DateTime.Now.Ticks + ".txt", errors, Encoding.Unicode);
             }
 
 
