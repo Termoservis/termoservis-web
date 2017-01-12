@@ -27,9 +27,9 @@ namespace Termoservis.DAL.Extensions
         /// <returns>Returns keywords string seperated by AND keyword.</returns>
         private static string ConvertWithAll(string search)
         {
-            if (string.IsNullOrWhiteSpace(search) || !search.Contains(" ") || search.StartsWith("\"") && search.EndsWith("\""))
+            if (string.IsNullOrWhiteSpace(search) || search.StartsWith("\"") && search.EndsWith("\""))
                 return search;
-            return string.Join(" and ", search.Split(' ', '　').Where(c => c != "and"));
+            return "\"" + string.Join("*\" and \"", search.Split(' ', '　').Where(c => c != "and")) + "*\"";
         }
     }
 }
