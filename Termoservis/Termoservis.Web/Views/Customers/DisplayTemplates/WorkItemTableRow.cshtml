@@ -1,4 +1,5 @@
 ﻿@using Termoservis.Models
+@using Termoservis.Web.Extensions
 @using Termoservis.Web.Helpers
 @using Termoservis.Web.Models.Customer
 @model Termoservis.Models.WorkItem
@@ -9,16 +10,16 @@
 }
 
 <tr data-toggle="collapse" data-target="#workItemEdit-@Model.Id" class="accordion-toggle">
-    <td>@(EnumHelper<WorkItemType>.GetDisplayValue(Model.Type))</td>    
     <td>@Html.DisplayFor(model => model.Date)</td>
-    <td>@Html.DisplayFor(model => model.Price) kn</td>
+    <td>@(EnumHelper<WorkItemType>.GetDisplayValue(Model.Type))</td>
     <td>
         @if (Model.Worker != null)
         {
             @Model.Worker.Name
         }
     </td>
-    <td>@Html.DisplayFor(model => model.Description)</td>
+    <td>@Html.DisplayFor(model => model.Price) kn</td>
+    <td>@Html.DisplayWithBreaksFor(model => model.Description)</td>
 </tr>
 <tr>
     <td colspan="5" style="padding: 0 !important; border: none;">
