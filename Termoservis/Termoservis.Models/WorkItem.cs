@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -100,5 +101,14 @@ namespace Termoservis.Models
         [ForeignKey(nameof(CustomerId))]
         [Display(Name = "Korisnik")]
         public Customer Customer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the affected devices.
+        /// </summary>
+        /// <value>
+        /// The affected devices.
+        /// </value>
+        [Display(Name = "Uredaji")]
+        public virtual ICollection<CustomerDevice> AffectedDevices { get; set; }
     }
 }
