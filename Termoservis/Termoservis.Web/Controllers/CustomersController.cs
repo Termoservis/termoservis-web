@@ -135,7 +135,7 @@ namespace Termoservis.Web.Controllers
                 .ToListAsync();
 
             // Calculate total pages
-            var totalFound = customers.Count();
+            var totalFound = orderedCustomers.Count();
             result.TotalPages = (int) Math.Ceiling((decimal) totalFound / CustomersPageSize);
 
             // Return the partial with new data
