@@ -1,4 +1,5 @@
 ﻿@using Termoservis.Models
+@using Termoservis.Web.Extensions
 @using Termoservis.Web.Helpers
 @using Termoservis.Web.Models.Customer
 @model Termoservis.Models.WorkItem
@@ -18,7 +19,7 @@
             @Model.Worker.Name
         }
     </td>
-    <td>@Html.DisplayFor(model => model.Description)</td>
+    <td>@Html.DisplayWithBreaksFor(model => model.Description)</td>
 </tr>
 <tr>
     <td colspan="5" style="padding: 0 !important; border: none;">
