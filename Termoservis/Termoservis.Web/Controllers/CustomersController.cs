@@ -105,17 +105,31 @@ namespace Termoservis.Web.Controllers
             var customers = this.context.Customers.AsQueryable();
 
             // Apply filter if needed
+            IOrderedQueryable<Customer> orderedCustomers;
             if (!string.IsNullOrWhiteSpace(keywords))
             {
                 var searchableKeywords = keywords.AsSearchable();
                 var searchContainsQuery = searchableKeywords.AsFtsContainsString();
-                customers = customers.Where(c => c.SearchKeywords.Contains(searchContainsQuery));
+                var searchableKeywordsSplit = searchableKeywords.Split(
+                    new[] {' '},
+                    StringSplitOptions.RemoveEmptyEntries);
+                orderedCustomers =
+                    customers
+                        .Where(c =>
+                            c.Name.Contains(searchContainsQuery))
+                        .Concat(
+                            customers.Where(c =>
+                                c.SearchKeywords.Contains(searchContainsQuery)))
+                        .OrderBy(c => !searchableKeywordsSplit.Any(sk => c.Name.Contains(sk)));
+            }
+            else
+            {
+                orderedCustomers = customers.OrderBy(c => c.Name);
             }
 
             // Set current page content
             var toSkip = result.CurrentPage * CustomersPageSize;
-            result.Customers = await customers
-                .OrderBy(c => c.Name)
+            result.Customers = await orderedCustomers
                 .Skip(toSkip)
                 .Take(CustomersPageSize)
                 .ToListAsync();
