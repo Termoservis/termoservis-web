@@ -117,8 +117,8 @@ namespace Termoservis.DAL.Repositories
 
             // Edit affected devices collection
             var affectedDevicesOld = workItemDb.AffectedDevices.ToList();
-            var affectedDevicesToAdd = model.AffectedDevices.Where(newDevice =>
-                affectedDevicesOld.Any(oldDevice => oldDevice.Id != newDevice.Id));
+            var affectedDevicesToAdd = model.AffectedDevices.Where(newDevice => 
+                !affectedDevicesOld.Contains(newDevice));
             var affectedDevicesToRemove = affectedDevicesOld.Where(oldDevice =>
                 model.AffectedDevices.All(newDevice => oldDevice.Id != newDevice.Id));
             foreach (var newDevice in affectedDevicesToAdd)

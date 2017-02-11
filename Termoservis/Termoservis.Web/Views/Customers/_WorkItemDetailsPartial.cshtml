@@ -25,6 +25,7 @@
                     <div class="col-md-9">
                         @Html.TextBoxFor(model => model.WorkItem.Date, "{0:dd.MM.yyyy}", htmlAttributes: new {@class = "form-control workitem-edit-datepicker", tabindex = "2"})
                     </div>
+                    @Html.ValidationMessageFor(model => model.WorkItem.Date)
                 </div>
             </div>
             <div class="col-lg-3">
