@@ -41,8 +41,8 @@ namespace Termoservis.Web
 
             // Model binders
             var dateTimeBinder = new DateTimeModelBinder("dd.MM.yyyy");
-            ModelBinders.Binders.Add(typeof(DateTime), dateTimeBinder);
-            ModelBinders.Binders.Add(typeof(DateTime?), dateTimeBinder);
+            System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime), dateTimeBinder);
+            System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime?), dateTimeBinder);
         }
 
         /// <summary>
