@@ -38,10 +38,14 @@ namespace Termoservis.Web
 				"~/Content/tether/tether-theme-basic.css",
 				"~/Content/bootstrap.css",
 				"~/Content/site.css",
-                "~/Content/css/select2.min.css"));
+                "~/Content/css/select2.min.css",
+                "~/Content/bootstrap-datepicker.standalone.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                 "~/Scripts/select2.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapdatepicker")
+                .Include("~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/throttledebounce").Include(
                 "~/Scripts/jquery.ba-throttle-debounce.min.js"));

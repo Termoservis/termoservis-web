@@ -26,6 +26,8 @@
                          Text = GetDisplayName(v),
                          Value = v.ToString()
                      });
+
+    var htmlAttributes = ViewData.ContainsKey("htmlAttributes") ? ViewData["htmlAttributes"] : new {@class = "form-control"};
 }
 
-@Html.DropDownList("", values, htmlAttributes: new { @class = "form-control"})
+@Html.DropDownList("", values, htmlAttributes: htmlAttributes)
