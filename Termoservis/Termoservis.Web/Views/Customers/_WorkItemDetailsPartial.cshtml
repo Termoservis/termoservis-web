@@ -1,6 +1,6 @@
 ﻿@model Termoservis.Web.Models.Customer.WorkItemFormViewModel
 
-@using (Html.BeginForm(Model.ActionName, "WorkItems", FormMethod.Post, new {@class = "col-xs-12", role = "form", style = "background-color: rgb(249, 249, 249)" }))
+@using (Html.BeginForm(Model.ActionName, "WorkItems", FormMethod.Post, new {@class = "col-xs-12", role = "form", style = "background-color: rgb(249, 249, 249)"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -11,9 +11,9 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="row form-group">
-                    @Html.LabelFor(model => model.WorkItem.Type, htmlAttributes: new { @class = "form-control-label col-md-3" })
+                    @Html.LabelFor(model => model.WorkItem.Type, htmlAttributes: new {@class = "form-control-label col-md-3"})
                     <div class="col-md-9">
-                        @Html.EditorFor(model => model.WorkItem.Type, new { htmlAttributes = new { @class = "form-control", tabindex = "1" } })
+                        @Html.EditorFor(model => model.WorkItem.Type, new {htmlAttributes = new {@class = "form-control", tabindex = "1"}})
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.WorkItem.Date, htmlAttributes: new {@class = "form-control-label col-md-3"})
                     <div class="col-md-9">
-                        @Html.TextBoxFor(model => model.WorkItem.Date, "{0:dd.MM.yyyy}", htmlAttributes: new { @class = "form-control workitem-edit-datepicker", tabindex = "2" })
+                        @Html.TextBoxFor(model => model.WorkItem.Date, "{0:dd.MM.yyyy}", htmlAttributes: new {@class = "form-control workitem-edit-datepicker", tabindex = "2"})
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="row">
                     @Html.LabelFor(model => model.WorkItem.Description, htmlAttributes: new {@class = "form-control-label col-sm-12"})
                 </div>
@@ -61,17 +61,38 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-3">
+                <div class="row">
+                    @Html.LabelFor(model => model.WorkItem.AffectedDevices, htmlAttributes: new { @class = "form-control-label col-sm-12" })
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <select class="form-control affected-devices-select select2-hidden-accessible" id="AffectedDevices" multiple="multiple" name="AffectedDevices" style="width: 100%" tabindex="6" aria-hidden="true">
+                            @foreach (var device in Model.AvailableDevices)
+                            {
+                                <option value="@device.Value" @(Model.AffectedDevices.Select(ad => ad.ToString()).Contains(device.Value) ? "selected='selected'" : "")>@device.Text</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-group row">
             <div class="col-md-12">
-                
-                <button class="btn btn-primary" click="$(this).closest('form').submit()" tabindex="6">
+
+                <button class="btn btn-primary" click="$(this).closest('form').submit()" tabindex="7">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                     <span>&nbsp;Spremi</span>
                 </button>
-                
-                <input type="submit" value="Submit"  hidden="hidden" />
+
+                <input type="submit" value="Submit" hidden="hidden"/>
             </div>
         </div>
     </div>
 }
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function() {
+        $(".affected-devices-select").select2();
+    });
+</script>

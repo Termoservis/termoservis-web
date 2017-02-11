@@ -169,9 +169,7 @@ namespace Termoservis.BLL
             if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
             if (string.IsNullOrWhiteSpace(deviceName))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(deviceName));
-            if (string.IsNullOrWhiteSpace(deviceManufacturer))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(deviceManufacturer));
-            
+
             // Date database fix
             if (deviceCommisionDate.HasValue)
             {

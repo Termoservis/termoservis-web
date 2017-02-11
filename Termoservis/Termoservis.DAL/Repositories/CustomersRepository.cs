@@ -52,7 +52,8 @@ namespace Termoservis.DAL.Repositories
         {
             return this.context.Customers
                 .Include(c => c.WorkItems)
-                .Include(c => c.WorkItems.Select(i => i.Worker));
+                .Include(c => c.WorkItems.Select(i => i.Worker))
+                .Include(c => c.WorkItems.Select(i => i.AffectedDevices));
         }
 
         /// <summary>

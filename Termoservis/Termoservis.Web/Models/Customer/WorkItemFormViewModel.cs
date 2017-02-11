@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Termoservis.Models;
 
@@ -23,18 +24,25 @@ namespace Termoservis.Web.Models.Customer
         /// </summary>
         /// <param name="actionName">Name of the action.</param>
         /// <param name="workItem">The work item.</param>
+        /// <param name="customer">The customer.</param>
         /// <exception cref="System.ArgumentNullException">
         /// actionName
         /// or
         /// workItem
         /// </exception>
-        public WorkItemFormViewModel(string actionName, WorkItem workItem)
+        public WorkItemFormViewModel(string actionName, WorkItem workItem, Termoservis.Models.Customer customer)
         {
             if (actionName == null) throw new ArgumentNullException(nameof(actionName));
             if (workItem == null) throw new ArgumentNullException(nameof(workItem));
-            
+
             this.ActionName = actionName;
             this.WorkItem = workItem;
+            this.AvailableDevices = new MultiSelectList(customer.CustomerDevices, "Id", "Name");
+            this.AffectedDevices = workItem.AffectedDevices?.Select(device => device.Id).ToList() ?? new List<long>();
+
+            // Assign default if customer has only one device and work item is new
+            if (workItem.Id == 0 && this.AvailableDevices.Count() == 1)
+                this.AffectedDevices.Add(customer.CustomerDevices.First().Id);
         }
 
         /// <summary>
@@ -52,6 +60,22 @@ namespace Termoservis.Web.Models.Customer
         /// The work item.
         /// </value>
         public WorkItem WorkItem { get; set; } = new WorkItem();
+
+        /// <summary>
+        /// Gets or sets the affected devices.
+        /// </summary>
+        /// <value>
+        /// The affected devices.
+        /// </value>
+        public List<long> AffectedDevices { get; set; }
+
+        /// <summary>
+        /// Gets or sets the available devices.
+        /// </summary>
+        /// <value>
+        /// The available devices.
+        /// </value>
+        public MultiSelectList AvailableDevices { get; set; }
 
         /// <summary>
         /// Gets the available workers.

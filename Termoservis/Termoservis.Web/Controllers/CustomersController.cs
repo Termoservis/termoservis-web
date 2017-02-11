@@ -156,7 +156,11 @@ namespace Termoservis.Web.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 			// Retrieve customer
-			var customer = await this.context.Customers.Include(c => c.WorkItems).Include("WorkItems.Worker").FirstOrDefaultAsync(c => c.Id.Equals(id));
+			var customer = await this.context.Customers
+                .Include(c => c.WorkItems)
+                .Include(c => c.WorkItems.Select(i => i.Worker))
+                .Include(c => c.WorkItems.Select(i => i.AffectedDevices))
+                .FirstOrDefaultAsync(c => c.Id.Equals(id));
 			if (customer == null)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Customer with given identifier not found.");
 
