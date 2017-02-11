@@ -10,6 +10,7 @@
             <tr>
                 <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Date)</th>
                 <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Type)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.AffectedDevices)</th>
                 <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Worker)</th>
                 <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Price)</th>
                 <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Description)</th>
@@ -17,7 +18,7 @@
             </thead>
             <tbody>
             <tr>
-                <td style="cursor: pointer; color: #1e90ff" colspan="5" data-toggle="collapse" data-target="#workItemEdit-new" class="accordion-toggle">
+                <td style="cursor: pointer; color: #1e90ff" colspan="6" data-toggle="collapse" data-target="#workItemEdit-new" class="accordion-toggle">
                     <div>
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         <span>Dodaj novu stavku</span>
@@ -25,7 +26,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="5" style="padding: 0 !important; border: none;">
+                <td colspan="6" style="padding: 0 !important; border: none;">
                     <div class="accordion-body collapse" id="workItemEdit-new">
                         @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Create", new WorkItem {Customer = Model, CustomerId = Model.Id}))
                     </div>
@@ -41,10 +42,21 @@
             else
             {
                 <tr>
-                    <td class="text-muted" colspan="5">Korisnik nema stavki</td>
+                    <td class="text-muted" colspan="6">Korisnik nema stavki</td>
                 </tr>
             }
             </tbody>
         </table>
     </div>
 </div>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function() {
+        $(".workitem-edit-datepicker").datepicker({
+            format: "dd.mm.yyyy",
+            language: "hr",
+            calendarWeeks: true,
+            autoclose: true
+        });
+    });
+</script>

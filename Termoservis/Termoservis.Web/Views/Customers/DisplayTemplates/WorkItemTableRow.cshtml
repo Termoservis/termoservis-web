@@ -13,6 +13,15 @@
     <td>@Html.DisplayFor(model => model.Date)</td>
     <td>@(EnumHelper<WorkItemType>.GetDisplayValue(Model.Type))</td>
     <td>
+        @if (Model.AffectedDevices != null)
+        {
+            foreach (var affectedDevice in Model.AffectedDevices)
+            {
+                <div>@affectedDevice.Name</div>
+            }
+        }
+    </td>
+    <td>
         @if (Model.Worker != null)
         {
             @Model.Worker.Name
@@ -22,7 +31,7 @@
     <td>@Html.DisplayWithBreaksFor(model => model.Description)</td>
 </tr>
 <tr>
-    <td colspan="5" style="padding: 0 !important; border: none;">
+    <td colspan="6" style="padding: 0 !important; border: none;">
         <div class="accordion-body collapse" id="workItemEdit-@Model.Id" style="background-color: rgb(249, 249, 249)">
             @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Edit", Model))
         </div>

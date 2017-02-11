@@ -13,7 +13,7 @@
                 <div class="row form-group">
                     @Html.LabelFor(model => model.WorkItem.Type, htmlAttributes: new { @class = "form-control-label col-md-3" })
                     <div class="col-md-9">
-                        @Html.EditorFor(model => model.WorkItem.Type, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.WorkItem.Type, new { htmlAttributes = new { @class = "form-control", tabindex = "1" } })
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.WorkItem.Date, htmlAttributes: new {@class = "form-control-label col-md-3"})
                     <div class="col-md-9">
-                        @Html.TextBoxFor(model => model.WorkItem.Date, "{0:yyyy-MM-dd}", htmlAttributes: new { type = "date", @class = "form-control", tabindex = "1", autofocus = "true", style = "line-height: 1.5" })
+                        @Html.TextBoxFor(model => model.WorkItem.Date, "{0:dd.MM.yyyy}", htmlAttributes: new { @class = "form-control workitem-edit-datepicker", tabindex = "2" })
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.WorkItem.Price, htmlAttributes: new {@class = "form-control-label col-md-3"})
                     <div class="col-md-9">
-                        @Html.EditorFor(model => model.WorkItem.Price, new {htmlAttributes = new {@class = "form-control", tabindex = "2", step = "100"}})
+                        @Html.EditorFor(model => model.WorkItem.Price, new {htmlAttributes = new {@class = "form-control", tabindex = "3", step = "100"}})
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.WorkItem.Worker, htmlAttributes: new {@class = "form-control-label col-md-4"})
                     <div class="col-md-8">
-                        <select class="form-control" data-val="true" data-val-number="The field Serviser must be a number." id="WorkItem_WorkerId" name="WorkItem.WorkerId" tabindex="3">
+                        <select class="form-control" data-val="true" data-val-number="The field Serviser must be a number." id="WorkItem_WorkerId" name="WorkItem.WorkerId" tabindex="4">
                             @foreach (var worker in Model.AvailableWorkers.OrderBy(w => w.Disabled))
                             {
                                 var isSelected = Model.WorkItem.WorkerId.HasValue && worker.Value == Model.WorkItem.WorkerId.Value.ToString();
@@ -57,7 +57,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        @Html.TextAreaFor(model => model.WorkItem.Description, htmlAttributes: new {@class = "form-control", rows = "4", tabindex = "4", style = "max-width: 510px;"})
+                        @Html.TextAreaFor(model => model.WorkItem.Description, htmlAttributes: new {@class = "form-control", rows = "4", tabindex = "5", style = "max-width: 510px;"})
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
         <div class="form-group row">
             <div class="col-md-12">
                 
-                <button class="btn btn-primary" click="$(this).closest('form').submit()">
+                <button class="btn btn-primary" click="$(this).closest('form').submit()" tabindex="6">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                     <span>&nbsp;Spremi</span>
                 </button>

@@ -9,7 +9,8 @@
         <ol class="breadcrumb bg-faded">
             <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
             <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
-            <li class="breadcrumb-item active">Uredi @Model.Name</li>
+            <li class="breadcrumb-item">@Html.ActionLink(Model.Name, "Details", "Customers", new{id=Model.Id}, null)</li>
+            <li class="breadcrumb-item active">Uredi</li>
         </ol>
     </div>
 </div>
