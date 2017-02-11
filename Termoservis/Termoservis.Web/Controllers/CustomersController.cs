@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 using Serilog;
 using Termoservis.BLL;
@@ -155,7 +156,11 @@ namespace Termoservis.Web.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 			// Retrieve customer
-			var customer = await this.context.Customers.Include(c => c.WorkItems).Include("WorkItems.Worker").FirstOrDefaultAsync(c => c.Id.Equals(id));
+			var customer = await this.context.Customers
+                .Include(c => c.WorkItems)
+                .Include(c => c.WorkItems.Select(i => i.Worker))
+                .Include(c => c.WorkItems.Select(i => i.AffectedDevices))
+                .FirstOrDefaultAsync(c => c.Id.Equals(id));
 			if (customer == null)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Customer with given identifier not found.");
 
@@ -261,7 +266,7 @@ namespace Termoservis.Web.Controllers
         }
 
         //
-        // POST: Customers/Edit/5        
+        // POST: Customers/Edit
         /// <summary>
         /// Edits the customer.
         /// </summary>
@@ -298,6 +303,53 @@ namespace Termoservis.Web.Controllers
 
             // Display edited customer details view
             return RedirectToAction("Details", new { id = editedCustomer.Id });
+        }
+
+        //
+        // POST: /Customers/CreateCustomerDevice
+        /// <summary>
+        /// Creates the customer device.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">
+        /// viewModel
+        /// or
+        /// Device
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// CustomerId
+        /// </exception>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateCustomerDevice(CustomerDeviceFormViewModel viewModel)
+        {
+            if (viewModel == null)
+                throw new ArgumentNullException(nameof(viewModel));
+            if (viewModel.CustomerId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(viewModel.CustomerId));
+            if (viewModel.Device == null)
+                throw new ArgumentNullException(nameof(viewModel.Device));
+
+            // Retrieve customer
+            var customer = this.context.Customers.FirstOrDefault(c => c.Id == viewModel.CustomerId);
+            if (customer == null)
+                throw new ArgumentOutOfRangeException(nameof(viewModel.CustomerId));
+
+            // Retrieve required data
+            var deviceName = viewModel.Device.Name;
+            var deviceManufacturer = viewModel.Device.Manufacturer;
+            var deviceCommisionDate = viewModel.Device.CommissionDate;
+
+            // Create device for customer
+            await this.customerService.CreateNewCustomerDeviceAsync(
+                customer,
+                deviceName,
+                deviceManufacturer,
+                deviceCommisionDate);
+
+            // Display edited customer details view
+            return RedirectToAction("Details", new { id = customer.Id });
         }
     }
 }

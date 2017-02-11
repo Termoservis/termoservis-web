@@ -218,5 +218,13 @@ namespace Termoservis.DAL.Repositories
 	            return false;
 	        }
 	    }
-	}
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        public async Task Save()
+        {
+            await this.context.SaveChangesAsync();
+        }
+    }
 }

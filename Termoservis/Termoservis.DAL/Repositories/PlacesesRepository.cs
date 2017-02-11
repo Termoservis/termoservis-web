@@ -254,5 +254,13 @@ namespace Termoservis.DAL.Repositories
 			if (this.context.Places.Any(place => place.Name == model.Name))
 				throw new InvalidDataException("Duplicate place name.");
 		}
-	}
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        public async Task Save()
+        {
+            await this.context.SaveChangesAsync();
+        }
+    }
 }

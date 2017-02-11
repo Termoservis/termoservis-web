@@ -88,5 +88,13 @@ namespace Termoservis.DAL.Repositories
 
             return model;
         }
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        public async Task Save()
+        {
+            await this.context.SaveChangesAsync();
+        }
     }
 }

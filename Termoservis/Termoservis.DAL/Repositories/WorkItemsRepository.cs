@@ -115,13 +115,25 @@ namespace Termoservis.DAL.Repositories
             // Retrieve from database
             var workItemDb = this.Get(model.Id);
 
+            // Edit affected devices collection
+            var affectedDevicesOld = workItemDb.AffectedDevices.ToList();
+            var affectedDevicesToAdd = model.AffectedDevices.Where(newDevice =>
+                affectedDevicesOld.Any(oldDevice => oldDevice.Id != newDevice.Id));
+            var affectedDevicesToRemove = affectedDevicesOld.Where(oldDevice =>
+                model.AffectedDevices.All(newDevice => oldDevice.Id != newDevice.Id));
+            foreach (var newDevice in affectedDevicesToAdd)
+                workItemDb.AffectedDevices.Add(
+                    this.context.CustomerDevices.FirstOrDefault(device => device.Id == newDevice.Id));
+            foreach (var customerDevice in affectedDevicesToRemove)
+                workItemDb.AffectedDevices.Remove(customerDevice);
+
             // Edit work item using model data
             workItemDb.WorkerId = model.WorkerId;
             workItemDb.Date = model.Date;
             workItemDb.Description = model.Description;
             workItemDb.Price = model.Price;
             workItemDb.Type = model.Type;
-            
+
             // Save context changes
             await this.context.SaveChangesAsync();
 
@@ -131,6 +143,14 @@ namespace Termoservis.DAL.Repositories
                 workItemDb.CustomerId);
 
             return workItemDb;
+        }
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        public async Task Save()
+        {
+            await this.context.SaveChangesAsync();
         }
     }
 }

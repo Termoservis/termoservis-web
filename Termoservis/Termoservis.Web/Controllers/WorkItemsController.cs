@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -79,7 +80,10 @@ namespace Termoservis.Web.Controllers
                 Description = viewModel.WorkItem.Description ?? string.Empty,
                 Price = viewModel.WorkItem.Price,
                 Type = viewModel.WorkItem.Type,
-                WorkerId = worker?.Id
+                WorkerId = worker?.Id,
+                AffectedDevices = viewModel.AffectedDevices?
+                    .Select(deviceId => this.context.CustomerDevices.FirstOrDefault(device => device.Id == deviceId))
+                    .ToList() ?? new List<CustomerDevice>()
             };
 
             // Create work item
@@ -117,7 +121,10 @@ namespace Termoservis.Web.Controllers
                 Description = viewModel.WorkItem.Description ?? string.Empty,
                 Price = viewModel.WorkItem.Price,
                 Type = viewModel.WorkItem.Type,
-                WorkerId = worker?.Id
+                WorkerId = worker?.Id,
+                AffectedDevices = viewModel.AffectedDevices?
+                    .Select(deviceId => this.context.CustomerDevices.FirstOrDefault(device => device.Id == deviceId))
+                    .ToList() ?? new List<CustomerDevice>()
             };
 
             // Edit work item

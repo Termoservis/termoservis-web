@@ -23,5 +23,10 @@ namespace Termoservis.Contracts.Repository
 		/// <param name="model">The model.</param>
 		/// <returns>Returns <c>True</c> if specified model was deleted successfully; <c>False</c> otherwise.</returns>
 		Task<bool> DeleteAsync(TModel model);
-	}
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        Task Save();
+    }
 }

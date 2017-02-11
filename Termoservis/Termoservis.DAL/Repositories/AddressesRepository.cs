@@ -260,5 +260,13 @@ namespace Termoservis.DAL.Repositories
 			if (this.context.Addresses.Any(address => address.StreetAddress == model.StreetAddress && address.PlaceId == model.PlaceId))
 				throw new InvalidDataException("Duplicate street address.");
 		}
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        public async Task Save()
+	    {
+	        await this.context.SaveChangesAsync();
+	    }
 	}
 }

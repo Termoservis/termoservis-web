@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using Termoservis.DAL.Repositories;
@@ -15,6 +16,7 @@ namespace Termoservis.BLL
     {
         private readonly ICustomersRepository customersRepository;
         private readonly ITelephoneNumbersRepository telephoneNumbersRepository;
+        private readonly ICustomerDevicesRepository customerDevicesRepository;
         private readonly IAddressesRepository addressesRepository;
 
 
@@ -24,6 +26,7 @@ namespace Termoservis.BLL
         /// <param name="addressesRepository">The addresses repository.</param>
         /// <param name="customersRepository">The customers repository.</param>
         /// <param name="telephoneNumbersRepository">The telephone numbers repository.</param>
+        /// <param name="customerDevicesRepository">The customer devices repository.</param>
         /// <exception cref="System.ArgumentNullException">
         /// addressesRepository
         /// or
@@ -31,14 +34,16 @@ namespace Termoservis.BLL
         /// or
         /// telephoneNumbersRepository
         /// </exception>
-        public CustomerService(IAddressesRepository addressesRepository, ICustomersRepository customersRepository, ITelephoneNumbersRepository telephoneNumbersRepository)
+        public CustomerService(IAddressesRepository addressesRepository, ICustomersRepository customersRepository, ITelephoneNumbersRepository telephoneNumbersRepository, ICustomerDevicesRepository customerDevicesRepository)
         {
             if (addressesRepository == null) throw new ArgumentNullException(nameof(addressesRepository));
             if (customersRepository == null) throw new ArgumentNullException(nameof(customersRepository));
             if (telephoneNumbersRepository == null) throw new ArgumentNullException(nameof(telephoneNumbersRepository));
+            if (customerDevicesRepository == null) throw new ArgumentNullException(nameof(customerDevicesRepository));
 
             this.customersRepository = customersRepository;
             this.telephoneNumbersRepository = telephoneNumbersRepository;
+            this.customerDevicesRepository = customerDevicesRepository;
             this.addressesRepository = addressesRepository;
         }
 
@@ -137,6 +142,58 @@ namespace Termoservis.BLL
 
             // Edit the customer
             return await this.customersRepository.EditAsync(customerModel.Id, customerModel);
+        }
+
+        /// <summary>
+        /// Creates the new customer device.
+        /// </summary>
+        /// <param name="customerModel">The customer model.</param>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <param name="deviceManufacturer">The device manufacturer.</param>
+        /// <param name="deviceCommisionDate">The device commision date.</param>
+        /// <returns>
+        /// Returns the create customer device model.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">customerModel</exception>
+        /// <exception cref="System.ArgumentException">
+        /// Value cannot be null or whitespace. - deviceName
+        /// or
+        /// Value cannot be null or whitespace. - deviceManufacturer
+        /// </exception>
+        public async Task<CustomerDevice> CreateNewCustomerDeviceAsync(
+            Customer customerModel, 
+            string deviceName, 
+            string deviceManufacturer,
+            DateTime? deviceCommisionDate)
+        {
+            if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
+            if (string.IsNullOrWhiteSpace(deviceName))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(deviceName));
+
+            // Date database fix
+            if (deviceCommisionDate.HasValue)
+            {
+                if (deviceCommisionDate.Value < SqlDateTime.MinValue)
+                    deviceCommisionDate = SqlDateTime.MinValue.Value;
+                else if (deviceCommisionDate.Value > SqlDateTime.MaxValue)
+                    deviceCommisionDate = SqlDateTime.MaxValue.Value;
+            }
+
+            // Create device assigned to customer
+            var customer = this.customersRepository.Get(customerModel.Id);
+            var customerDevice = new CustomerDevice
+            {
+                Name = deviceName,
+                Manufacturer = deviceManufacturer,
+                CommissionDate = deviceCommisionDate
+            };
+            customer.CustomerDevices.Add(customerDevice);
+
+            // Save changes
+            await this.customersRepository.Save();
+
+            // Return create customer device model
+            return customerDevice;
         }
     }
 }

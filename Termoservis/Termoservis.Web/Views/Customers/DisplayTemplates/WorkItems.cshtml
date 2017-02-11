@@ -28,7 +28,7 @@
             <tr>
                 <td colspan="6" style="padding: 0 !important; border: none;">
                     <div class="accordion-body collapse" id="workItemEdit-new">
-                        @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Create", new WorkItem {Customer = Model, CustomerId = Model.Id}))
+                        @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Create", new WorkItem {Customer = Model, CustomerId = Model.Id}, Model))
                     </div>
                 </td>
             </tr>

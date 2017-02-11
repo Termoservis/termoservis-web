@@ -52,7 +52,8 @@ namespace Termoservis.DAL.Repositories
         {
             return this.context.Customers
                 .Include(c => c.WorkItems)
-                .Include(c => c.WorkItems.Select(i => i.Worker));
+                .Include(c => c.WorkItems.Select(i => i.Worker))
+                .Include(c => c.WorkItems.Select(i => i.AffectedDevices));
         }
 
         /// <summary>
@@ -243,6 +244,14 @@ namespace Termoservis.DAL.Repositories
             // Validate name
             if (string.IsNullOrWhiteSpace(model.Name))
                 throw new InvalidDataException("Customer's name must not be null or empty string.");
+        }
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        public async Task Save()
+        {
+            await this.context.SaveChangesAsync();
         }
     }
 }

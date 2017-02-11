@@ -15,5 +15,5 @@ namespace Termoservis.Contracts.Repository
 		/// <param name="id">The identifier.</param>
 		/// <param name="model">The model.</param>
 		Task<TModel> EditAsync(TModelIdentifier id, TModel model);
-	}
+    }
 }
