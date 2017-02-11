@@ -15,5 +15,10 @@ namespace Termoservis.Contracts.Repository
 		/// </summary>
 		/// <param name="model">The model.</param>
 		Task<TModel> AddAsync(TModel model);
-	}
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        Task Save();
+    }
 }

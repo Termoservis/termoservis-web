@@ -132,5 +132,13 @@ namespace Termoservis.DAL.Repositories
 
             return workItemDb;
         }
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        public async Task Save()
+        {
+            await this.context.SaveChangesAsync();
+        }
     }
 }

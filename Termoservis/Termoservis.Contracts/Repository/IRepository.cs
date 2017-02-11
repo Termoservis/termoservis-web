@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace Termoservis.Contracts.Repository
 {
 	/// <summary>

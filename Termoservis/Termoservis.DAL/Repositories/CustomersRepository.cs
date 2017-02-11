@@ -244,5 +244,13 @@ namespace Termoservis.DAL.Repositories
             if (string.IsNullOrWhiteSpace(model.Name))
                 throw new InvalidDataException("Customer's name must not be null or empty string.");
         }
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        public async Task Save()
+        {
+            await this.context.SaveChangesAsync();
+        }
     }
 }

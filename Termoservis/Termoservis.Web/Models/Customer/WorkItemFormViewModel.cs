@@ -8,7 +8,7 @@ namespace Termoservis.Web.Models.Customer
     /// <summary>
     /// The work item form view model.
     /// </summary>
-    /// <seealso cref="Termoservis.Web.Models.Customer.IFormViewModel" />
+    /// <seealso cref="IFormViewModel" />
     public class WorkItemFormViewModel : IFormViewModel
     {
         /// <summary>

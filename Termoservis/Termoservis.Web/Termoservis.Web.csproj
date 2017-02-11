@@ -267,6 +267,7 @@
     <Compile Include="Controllers\v1\Select2\Select2Response.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Models\Customer\CustomerDeviceFormViewModel.cs" />
     <Compile Include="Models\Customer\CustomersSearchResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -509,6 +510,7 @@
     <Content Include="Views\Customers\_CustomersTablePartial.cshtml" />
     <Content Include="Views\Customers\_WorkItemDetailsPartial.cshtml" />
     <Content Include="Views\Customers\EditorTemplates\Enum.cshtml" />
+    <Content Include="Views\Customers\_CustomerDeviceDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

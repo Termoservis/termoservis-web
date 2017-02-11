@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Termoservis.Models;
@@ -38,5 +39,19 @@ namespace Termoservis.BLL
             string streetName, 
             int placeId, 
             IEnumerable<TelephoneNumber> telephoneNumbers);
+
+        /// <summary>
+        /// Creates the new customer device.
+        /// </summary>
+        /// <param name="customerModel">The customer model.</param>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <param name="deviceManufacturer">The device manufacturer.</param>
+        /// <param name="deviceCommisionDate">The device commision date.</param>
+        /// <returns>Returns the create customer device model.</returns>
+        Task<CustomerDevice> CreateNewCustomerDeviceAsync(
+            Customer customerModel,
+            string deviceName,
+            string deviceManufacturer,
+            DateTime? deviceCommisionDate);
     }
 }

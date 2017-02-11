@@ -1,4 +1,6 @@
-﻿@using Termoservis.Web.Helpers
+﻿@using Termoservis.Models
+@using Termoservis.Web.Helpers
+@using Termoservis.Web.Models.Customer
 @model Termoservis.Models.Customer
 
 @{
@@ -129,6 +131,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr>
+                                    <td style="cursor: pointer; color: #1e90ff" colspan="3" data-toggle="collapse" data-target="#customerDeviceEdit-new" class="accordion-toggle">
+                                        <div>
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            <span>Dodaj novi uredaj</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="padding: 0 !important; border: none;">
+                                        <div class="accordion-body collapse" id="customerDeviceEdit-new">
+                                            @Html.Partial("_CustomerDeviceDetailsPartial", new CustomerDeviceFormViewModel("CreateCustomerDevice", Model.Id, new CustomerDevice()))
+                                        </div>
+                                    </td>
+                                </tr>
                                 @foreach (var device in Model.CustomerDevices)
                                 {
                                     <tr>
@@ -200,3 +217,14 @@
         </div>
     </div>
 </div>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function() {
+        $(".customerdevice-edit-datepicker").datepicker({
+            format: "dd.mm.yyyy",
+            language: "hr",
+            calendarWeeks: true,
+            autoclose: true
+        });
+    });
+</script>
