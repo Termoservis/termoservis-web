@@ -9,6 +9,7 @@ using System.Web.Routing;
 using Mindscape.Raygun4Net;
 using Termoservis.DAL;
 using Termoservis.DAL.Migrations;
+using Termoservis.Web.ModelBinders;
 using WebGrease.Configuration;
 
 namespace Termoservis.Web
@@ -37,6 +38,11 @@ namespace Termoservis.Web
 
             // Handle raygun message
             RaygunClient.SendingMessage += RaygunClientOnSendingMessage;
+
+            // Model binders
+            var dateTimeBinder = new DateTimeModelBinder("dd.MM.yyyy");
+            ModelBinders.Binders.Add(typeof(DateTime), dateTimeBinder);
+            ModelBinders.Binders.Add(typeof(DateTime?), dateTimeBinder);
         }
 
         /// <summary>
