@@ -1,4 +1,5 @@
-﻿@model Termoservis.Models.Customer
+﻿@using Termoservis.Web.Helpers
+@model Termoservis.Models.Customer
 
 @{
     ViewBag.Title = Model.Name;
@@ -109,6 +110,46 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12 h5">
+                            @Html.DisplayNameFor(model => model.CustomerDevices)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover table-sm">
+                                <thead class="thead-default">
+                                <tr>
+                                    <th>@Html.DisplayColumnNameFor(Model.CustomerDevices, model => model.Name)</th>
+                                    <th>@Html.DisplayColumnNameFor(Model.CustomerDevices, model => model.Manufacturer)</th>
+                                    <th>@Html.DisplayColumnNameFor(Model.CustomerDevices, model => model.CommissionDate)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var device in Model.CustomerDevices)
+                                {
+                                    <tr>
+                                        <td>@device.Name</td>
+                                        <td>@device.Manufacturer</td>
+                                        <td>
+                                            @if (device.CommissionDate.HasValue)
+                                            {
+                                                @device.CommissionDate.Value.ToString("dd.MM.yyyy")
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <br/>
 
             <div class="row">
                 <div class="col-sm-12">
