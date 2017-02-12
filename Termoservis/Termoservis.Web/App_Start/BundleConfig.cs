@@ -14,41 +14,30 @@ namespace Termoservis.Web
 		/// <param name="bundles">The bundles.</param>
 		public static void RegisterBundles(BundleCollection bundles)
 		{
-			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-				"~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery.unobtrusive-ajax.js"));
+            bundles.Add(new ScriptBundle("~/bundles/customers/create")
+                .Include("~/Scripts/Customers/Create.js"));
 
-			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-				"~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/standard")
+                .Include("~/Scripts/modernizr-*")
+                .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/jquery.unobtrusive-ajax.js")
+                .Include("~/Scripts/jquery.validate*")
+                .Include("~/Scripts/select2.js")
+                .Include("~/Scripts/tether/tether.js")
+                .Include("~/Scripts/bootstrap.js")
+                .Include("~/Scripts/respond.js")
+                .Include("~/Scripts/bootstrap-datepicker.js")
+                .Include("~/Scripts/jquery.ba-throttle-debounce.js"));
 
-			// Use the development version of Modernizr to develop with and learn from. Then, when you're
-			// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-				"~/Scripts/modernizr-*"));
-
-			bundles.Add(new ScriptBundle("~/bundles/tether").Include(
-				"~/Scripts/tether/tether.js"));
-
-			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-				"~/Scripts/bootstrap.js",
-				"~/Scripts/respond.js"));
-
-			bundles.Add(new StyleBundle("~/bundles/css").Include(
-				"~/Content/tether/tether.css",
-				"~/Content/tether/tether-theme-basic.css",
-				"~/Content/bootstrap.css",
-				"~/Content/site.css",
-                "~/Content/css/select2.min.css",
-                "~/Content/bootstrap-datepicker.standalone.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
-                "~/Scripts/select2.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrapdatepicker")
-                .Include("~/Scripts/bootstrap-datepicker.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/throttledebounce").Include(
-                "~/Scripts/jquery.ba-throttle-debounce.min.js"));
-        }
+		    bundles.Add(new StyleBundle("~/bundles/css")
+                .Include("~/Content/tether/tether.css")
+                .Include("~/Content/tether/tether-theme-basic.css")
+                .Include("~/Content/bootstrap-reboot.css")
+                .Include("~/Content/bootstrap-grid.css")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/site.css")
+                .Include("~/Content/css/select2.css")
+                .Include("~/Content/bootstrap-datepicker.standalone.css"));
+		}
 	}
 }

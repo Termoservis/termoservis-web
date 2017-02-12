@@ -1,7 +1,7 @@
 ﻿@model Termoservis.Models.TelephoneNumber
 	
 <div class="form-group row telephoneNumber">
-	<div class="col-md-12">
+	<div class="col">
 		@Html.EditorFor(model => model.Number, new {htmlAttributes = new {@class = "form-control", tabIndex = "5"}})
 		@Html.HiddenFor(model => model.SearchKeywords)
 	</div>

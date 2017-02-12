@@ -1,29 +1,21 @@
-﻿@model Termoservis.Web.Models.Customer.CustomerFormViewModel
+﻿@using Termoservis.Web.Helpers
+@model Termoservis.Web.Models.Customer.CustomerFormViewModel
 
 @{
-    ViewBag.Title = "Uredi korisnika";
+    ViewBag.Title = "Uredi " + Model.Name;
 }
 
-<div class="row">
-    <div class="col-sm-12">
-        <ol class="breadcrumb bg-faded">
-            <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
-            <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
-            <li class="breadcrumb-item">@Html.ActionLink(Model.Name, "Details", "Customers", new{id=Model.Id}, null)</li>
-            <li class="breadcrumb-item active">Uredi</li>
-        </ol>
-    </div>
-</div>
+@Html.Breadcrumbs(
+    "Uredi",
+    Html.ActionLink("Početna", "Index", "Home"),
+    Html.ActionLink("Korisnici", "Index", "Customers"),
+    Html.ActionLink(Model.Name, "Details", "Customers", new { id = Model.Id }, null))
 
-<div class="row">
-    <h2 class="col-xs-12 p-b-1">Uredi @Model.Name</h2>
-</div>
+@Html.Header()
 
 @Html.Partial("_CustomerFormPartial", Model)
 
 @section Scripts {
-    <script src="/bundles/jqueryval"></script>
-    <script src="/bundles/select2"></script>
 
     <script>
         $(document).ready(function() {
