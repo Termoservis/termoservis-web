@@ -48,7 +48,6 @@ namespace Termoservis.Web.Helpers
 
             var breadcrumbs = new TagBuilder("ol");
             breadcrumbs.AddCssClass("breadcrumb");
-            breadcrumbs.AddCssClass("bg-faded");
 
 	        foreach (var item in items)
 	        {
