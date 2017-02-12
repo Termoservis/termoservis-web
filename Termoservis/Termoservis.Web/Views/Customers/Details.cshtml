@@ -8,45 +8,57 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-sm-12">
-        <ol class="breadcrumb bg-faded">
-            <li class="breadcrumb-item">@Html.ActionLink("Početna", "Index", "Home")</li>
-            <li class="breadcrumb-item">@Html.ActionLink("Korisnici", "Index", "Customers")</li>
-            <li class="breadcrumb-item active">@Model.Name</li>
-        </ol>
-    </div>
-</div>
+@Html.Breadcrumbs(
+    Model.Name,
+    Html.ActionLink("Početna", "Index", "Home"),
+    Html.ActionLink("Korisnici", "Index", "Customers"))
 
-<div>
-    <div class="row">
-        <h2 class="col-xs-12 p-b-1">@Model.Name</h2>
-    </div>
+@Html.Header()
 
     <div class="row">
-        <div class="col-sm-12">
-            <p>
+        <div class="col pb-3">
                 <a href="@Url.Action("Edit", "Customers", new {id = Model.Id})" class="btn btn-primary">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                     <span>&nbsp;Uredi korisnika</span>
                 </a>
-            </p>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col">
 
             <div class="row">
-                <div class="col-sm-6">
+                
+                <!--  Address  -->
+                <div class="col-sm">
                     <div class="row">
-                        <div class="col-sm-12 h5">
+                        <div class="col h5">
+                            @Html.DisplayNameFor(model => model.Address.StreetAddress)
+                            <button type="button" class="btn btn-secondary btn-sm" style="padding: .05rem .15rem;" data-toggle="modal" data-target="#address-modal">
+                                <svg style="width: 24px; height: 24px; margin-bottom: -6px" viewBox="0 0 24 24">
+                                    <path fill="#444" d="M15,19L9,16.89V5L15,7.11M20.5,3C20.44,3 20.39,3 20.34,3L15,5.1L9,3L3.36,4.9C3.15,4.97 3,5.15 3,5.38V20.5A0.5,0.5 0 0,0 3.5,21C3.55,21 3.61,21 3.66,20.97L9,18.9L15,21L20.64,19.1C20.85,19 21,18.85 21,18.62V3.5A0.5,0.5 0 0,0 20.5,3Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            @Html.DisplayFor(model => model.Address)
+                        </div>
+                    </div>
+                </div>
+                
+                <!--  Note  -->
+                <div class="col-sm">
+                    <div class="row">
+                        <div class="col h5">
                             @Html.DisplayNameFor(model => model.Note)
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col">
                             @if (!string.IsNullOrWhiteSpace(Model.Note))
                             {
                                 @Html.DisplayFor(model => model.Note)
@@ -58,70 +70,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-12 h5">
-                            @Html.DisplayNameFor(model => model.Address.StreetAddress)
-                            <button type="button" class="btn btn-secondary btn-sm" style="padding: .05rem .15rem;" data-toggle="modal" data-target="#address-modal">
-                                <svg style="width: 24px; height: 24px; margin-bottom: -6px" viewBox="0 0 24 24">
-                                    <path fill="#444" d="M15,19L9,16.89V5L15,7.11M20.5,3C20.44,3 20.39,3 20.34,3L15,5.1L9,3L3.36,4.9C3.15,4.97 3,5.15 3,5.38V20.5A0.5,0.5 0 0,0 3.5,21C3.55,21 3.61,21 3.66,20.97L9,18.9L15,21L20.64,19.1C20.85,19 21,18.85 21,18.62V3.5A0.5,0.5 0 0,0 20.5,3Z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            @Html.DisplayFor(model => model.Address)
-                        </div>
-                    </div>
-                </div>
+                
             </div>
 
             <div class="row">
-                <div class="col-sm-6">
+                
+                <!-- Customer devices -->
+                <div class="col-sm pt-3">
                     <div class="row">
-                        <div class="col-sm-12 h5">
-                            @Html.DisplayNameFor(model => model.TelephoneNumbers)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            @Html.DisplayFor(model => model.TelephoneNumbers, "TelephoneNumbers")
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-12 h5">
-                            @Html.DisplayNameFor(model => model.Email)
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            @if (!string.IsNullOrWhiteSpace(Model.Email))
-                            {
-                                @Html.DisplayFor(model => model.Email)
-                            }
-                            else
-                            {
-                                <div class="text-muted small">Nema zapisa</div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-12 h5">
+                        <div class="col h5 pb-1">
                             @Html.DisplayNameFor(model => model.CustomerDevices)
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col">
                             <table class="table table-hover table-sm">
                                 <thead class="thead-default">
                                 <tr>
@@ -164,20 +126,70 @@
                         </div>
                     </div>
                 </div>
+
+                <!--  Contact info  -->
+                <div class="col-sm pt-3">
+                    <div class="row">
+                
+                        <!-- Telephone numbers -->
+                        <div class="col">
+                            <div class="row">
+                                <div class="col h5">
+                                    @Html.DisplayNameFor(model => model.TelephoneNumbers)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    @Html.DisplayFor(model => model.TelephoneNumbers, "TelephoneNumbers")
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    @if (!string.IsNullOrWhiteSpace(Model.Email))
+                    {
+                        <div class="row">
+
+                            <!-- Email -->
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col h5">
+                                        @Html.DisplayNameFor(model => model.Email)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        @if (!string.IsNullOrWhiteSpace(Model.Email))
+                                        {
+                                            @Html.DisplayFor(model => model.Email)
+                                        }
+                                        else
+                                        {
+                                            <div class="text-muted small">Nema zapisa</div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
             </div>
             
-            <br/>
-
+            <!--  Work items  -->
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col pt-3">
                     <div class="row">
-                        <div class="col-sm-12 h5">
+                        <div class="col h5 pb-1">
                             @Html.DisplayNameFor(model => model.WorkItems)
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col">
                             @Html.DisplayFor(model => model, "WorkItems")
                         </div>
                     </div>
@@ -185,9 +197,9 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col">
                     <div class="row">
-                        <div class="col-sm-12 text-muted small">
+                        <div class="col text-muted small">
                             Korisnik je stvoren @Html.DisplayFor(model => model.CreationDate) (@Html.DisplayFor(model => model.ApplicationUser.UserName))
                         </div>
                     </div>
@@ -196,7 +208,6 @@
 
         </div>
     </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="address-modal" tabindex="-1" role="dialog" aria-labelledby="address-modal-title" aria-hidden="true">
@@ -209,9 +220,8 @@
                 <h4 class="modal-title" id="address-modal-title">@Model.Name</h4>
             </div>
             <div class="modal-body">
-                    <iframe width="870"
+                    <iframe width="770" style="max-width: 100%; border: 0"
                             height="620"
-                            frameborder="0" style="border: 0"
                             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyANxFs2LiQt22BTYv16dSviRiZSHGLpmCQ&q=@Model.Address.StreetAddress.Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries).Union(Model.Address.PlaceId.HasValue ? Model.Address.Place.Name.Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries).Union(new[]{Model.Address.Place.Country.Name}) : new List<string>()).Aggregate(string.Empty,(c,s) => c + "+" + s)" allowfullscreen></iframe>
             </div>
         </div>

@@ -20,3 +20,11 @@ textarea {
 .table .clickable-row {
     cursor: pointer;
 }
+
+.h5, .h4, .h3, .h2, .h1, h5, h4, h3, h2, h1 {
+    font-weight: normal;
+}
+
+th {
+    font-weight: normal;
+}

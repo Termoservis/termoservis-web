@@ -13,6 +13,66 @@ namespace Termoservis.Web.Helpers
     /// </summary>
     public static class HtmlHelpers
 	{
+        /// <summary>
+        /// Header with title from ViewBag.Title
+        /// </summary>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <returns>Returns the header.</returns>
+        public static MvcHtmlString Header(this HtmlHelper htmlHelper)
+	    {
+	        var title = htmlHelper.ViewBag.Title;
+            var titleRow = new TagBuilder("div");
+            titleRow.AddCssClass("row");
+            var titleColumn = new TagBuilder("h3");
+            titleColumn.AddCssClass("col");
+            titleColumn.AddCssClass("pb-3");
+            titleColumn.SetInnerText(title);
+	        titleRow.InnerHtml = titleColumn.ToString();
+            return new MvcHtmlString(titleRow.ToString());
+	    }
+
+        /// <summary>
+        /// Renders the breadcrumbs component.
+        /// </summary>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <param name="activeItem">The active item text.</param>
+        /// <param name="items">The ordered breadcrumb links.</param>
+        /// <returns>Returns the breadcrumb component containing provided items.</returns>
+        public static MvcHtmlString Breadcrumbs(this HtmlHelper htmlHelper, string activeItem, params MvcHtmlString[] items)
+	    {
+	        var row = new TagBuilder("div");
+            row.AddCssClass("row");
+
+            var column = new TagBuilder("div");
+            column.AddCssClass("col");
+
+            var breadcrumbs = new TagBuilder("ol");
+            breadcrumbs.AddCssClass("breadcrumb");
+            breadcrumbs.AddCssClass("bg-faded");
+
+	        foreach (var item in items)
+	        {
+	            var itemHtml = new TagBuilder("li");
+                itemHtml.AddCssClass("breadcrumb-item");
+	            itemHtml.InnerHtml = item.ToHtmlString();
+	            breadcrumbs.InnerHtml += itemHtml.ToString();
+	        }
+
+	        if (!string.IsNullOrWhiteSpace(activeItem))
+	        {
+	            var activeItemHtml = new TagBuilder("li");
+	            activeItemHtml.AddCssClass("breadcrumb-item");
+	            activeItemHtml.AddCssClass("active");
+	            activeItemHtml.SetInnerText(activeItem);
+	            breadcrumbs.InnerHtml += activeItemHtml.ToString();
+	        }
+
+	        column.InnerHtml = breadcrumbs.ToString();
+	        row.InnerHtml = column.ToString();
+
+            return new MvcHtmlString(row.ToString());
+	    }
+
 	    /// <summary>
 	    /// Bootstrap navbar menu link.
 	    /// </summary>

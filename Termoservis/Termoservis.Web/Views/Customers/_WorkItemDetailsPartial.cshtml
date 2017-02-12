@@ -1,6 +1,6 @@
 ﻿@model Termoservis.Web.Models.Customer.WorkItemFormViewModel
 
-@using (Html.BeginForm(Model.ActionName, "WorkItems", FormMethod.Post, new {@class = "col-xs-12", role = "form", style = "background-color: rgb(249, 249, 249)"}))
+@using (Html.BeginForm(Model.ActionName, "WorkItems", FormMethod.Post, new {@class = "col", role = "form", style = "background-color: rgb(249, 249, 249)"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -9,37 +9,37 @@
 
     <div style="padding: 1em;">
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="row form-group">
-                    @Html.LabelFor(model => model.WorkItem.Type, htmlAttributes: new {@class = "form-control-label col-md-3"})
-                    <div class="col-md-9">
+                    @Html.LabelFor(model => model.WorkItem.Type, htmlAttributes: new {@class = "col-form-label col-3"})
+                    <div class="col-9">
                         @Html.EditorFor(model => model.WorkItem.Type, new {htmlAttributes = new {@class = "form-control", tabindex = "1"}})
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.WorkItem.Date, htmlAttributes: new {@class = "form-control-label col-md-3"})
-                    <div class="col-md-9">
+                    @Html.LabelFor(model => model.WorkItem.Date, htmlAttributes: new {@class = "col-form-label col-3"})
+                    <div class="col-9">
                         @Html.TextBoxFor(model => model.WorkItem.Date, "{0:dd.MM.yyyy}", htmlAttributes: new {@class = "form-control workitem-edit-datepicker", tabindex = "2"})
                     </div>
                     @Html.ValidationMessageFor(model => model.WorkItem.Date)
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.WorkItem.Price, htmlAttributes: new {@class = "form-control-label col-md-3"})
-                    <div class="col-md-9">
+                    @Html.LabelFor(model => model.WorkItem.Price, htmlAttributes: new {@class = "col-form-label col-3"})
+                    <div class="col-9">
                         @Html.EditorFor(model => model.WorkItem.Price, new {htmlAttributes = new {@class = "form-control", tabindex = "3", step = "100"}})
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.WorkItem.Worker, htmlAttributes: new {@class = "form-control-label col-md-4"})
-                    <div class="col-md-8">
+                    @Html.LabelFor(model => model.WorkItem.Worker, htmlAttributes: new {@class = "col-form-label col-3"})
+                    <div class="col-9">
                         <select class="form-control" data-val="true" data-val-number="The field Serviser must be a number." id="WorkItem_WorkerId" name="WorkItem.WorkerId" tabindex="4">
                             @foreach (var worker in Model.AvailableWorkers.OrderBy(w => w.Disabled))
                             {
@@ -51,23 +51,25 @@
                 </div>
             </div>
         </div>
+        
+        <!--  Description and affected devices  -->
         <div class="form-group row">
-            <div class="col-sm-6">
+            <div class="col-sm-12 col-md-8 col-lg-6">
                 <div class="row">
-                    @Html.LabelFor(model => model.WorkItem.Description, htmlAttributes: new {@class = "form-control-label col-sm-12"})
+                    @Html.LabelFor(model => model.WorkItem.Description, htmlAttributes: new {@class = "col-form-label col-sm-12"})
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col">
                         @Html.TextAreaFor(model => model.WorkItem.Description, htmlAttributes: new {@class = "form-control", rows = "4", tabindex = "5", style = "max-width: 510px;"})
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="row">
-                    @Html.LabelFor(model => model.WorkItem.AffectedDevices, htmlAttributes: new { @class = "form-control-label col-sm-12" })
+                    @Html.LabelFor(model => model.WorkItem.AffectedDevices, htmlAttributes: new { @class = "col-form-label col-sm-12" })
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col">
                         <select class="form-control affected-devices-select select2-hidden-accessible" id="AffectedDevices" multiple="multiple" name="AffectedDevices" style="width: 100%" tabindex="6" aria-hidden="true">
                             @foreach (var device in Model.AvailableDevices)
                             {
@@ -78,6 +80,8 @@
                 </div>
             </div>
         </div>
+        
+
         <div class="form-group row">
             <div class="col-md-12">
 
