@@ -28,3 +28,7 @@ textarea {
 th {
     font-weight: normal;
 }
+
+.breadcrumb {
+    background-color: transparent !important;
+}
