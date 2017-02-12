@@ -257,12 +257,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\v1\AnalyticsController.cs" />
     <Compile Include="Controllers\v1\Select2\ISelect2Item.cs" />
     <Compile Include="Controllers\v1\Select2\ISelect2RequestData.cs" />
     <Compile Include="Controllers\v1\PlacesApiController.cs" />
     <Compile Include="Controllers\v1\Select2\Select2Item.cs" />
     <Compile Include="Controllers\v1\Select2\Select2RequestData.cs" />
     <Compile Include="Controllers\v1\Select2\Select2Response.cs" />
+    <Compile Include="Models\Analytics\v1\WorkItemsVsLastYearPerformanceReport.cs" />
+    <Compile Include="Models\Analytics\v1\WorkItemsVsLastYearPerformanceReportItem.cs" />
     <Compile Include="ModelBinders\DateTimeModelBinder.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
@@ -472,6 +475,10 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />

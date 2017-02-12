@@ -3,5 +3,49 @@
 }
 
 <div class="row">
-
+    <div class="col-5 py-4">
+        <div class="card">
+            <div class="card-header">
+                Stavke <small class="text-muted">Nove stavke vs. proslogodisnje stavke</small>
+            </div>
+            <div class="card-block">
+                <div id="workItemsOverDayGraph" class='pt-1'></div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section scripts
+{
+<script type="text/javascript">
+        google.charts.load('current', { 'packages': ['line'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                url: '/api/v1/analytics/newwivslastyear',
+                success: function(result) {
+                    var dataArray = [
+                        ['', 'Novo', 'Prijasnje']
+                    ];
+
+                    for (var index = 0; index < result.Items.length; index++) {
+                        var currentItem = result.Items[index];
+                        dataArray.push([moment(currentItem.Date).format("DD.MM.YY."), currentItem.NewCount, currentItem.OldCount]);
+                    }
+
+                    var data = google.visualization.arrayToDataTable(dataArray);
+
+                    var options = {
+                        colors: ['#1e90ff', '#cacaca'],
+                        legend: { position: 'none' }
+                    };
+
+                    var chart = new google.charts.Line(document.getElementById('workItemsOverDayGraph'));
+
+                    chart.draw(data, options);
+                }
+            });
+        }
+</script>
+}
