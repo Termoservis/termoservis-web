@@ -9,6 +9,10 @@
                 Stavke <small class="text-muted">Nove stavke vs. proslogodisnje stavke</small>
             </div>
             <div class="card-block">
+                <div id="workItemsOverDayGraph-data-loading-container">
+                    <small>Loading...</small>
+                    <div id="workItemsOverDayGraph-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+                </div>
                 <div id="workItemsOverDayGraph" class='pt-1'></div>
             </div>
         </div>
@@ -17,14 +21,26 @@
 
 @section scripts
 {
-<script type="text/javascript">
+    <script type="text/javascript">
+        var workItemsOverDayGraphProgress;
+        $(document).ready(function() {
+            workItemsOverDayGraphProgress = new Mprogress({
+                template: 3,
+                parent: '#workItemsOverDayGraph-data-loading-progress',
+                start: true
+            });
+        });
+
         google.charts.load('current', { 'packages': ['line'] });
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
             $.ajax({
                 url: '/api/v1/analytics/newwivslastyear',
-                success: function(result) {
+                success: function (result) {
+                    workItemsOverDayGraphProgress.end(true);
+                    $("#workItemsOverDayGraph-data-loading-container").hide();
+
                     var dataArray = [
                         ['', 'Novo', 'Prijasnje']
                     ];
@@ -47,5 +63,5 @@
                 }
             });
         }
-</script>
+    </script>
 }

@@ -28,7 +28,8 @@ namespace Termoservis.Web
                 .Include("~/Scripts/respond.js")
                 .Include("~/Scripts/bootstrap-datepicker.js")
                 .Include("~/Scripts/jquery.ba-throttle-debounce.js")
-                .Include("~/Scripts/moment-with-locales.js"));
+                .Include("~/Scripts/moment-with-locales.js")
+                .Include("~/Scripts/mprogress.js"));
 
 		    bundles.Add(new StyleBundle("~/bundles/css")
                 .Include("~/Content/tether/tether.css")
@@ -38,7 +39,8 @@ namespace Termoservis.Web
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/site.css")
                 .Include("~/Content/css/select2.css")
-                .Include("~/Content/bootstrap-datepicker.standalone.css"));
+                .Include("~/Content/bootstrap-datepicker.standalone.css")
+                .Include("~/Content/mprogress.css"));
 		}
 	}
 }
