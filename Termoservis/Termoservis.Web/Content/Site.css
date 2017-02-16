@@ -33,3 +33,8 @@ th {
     background-color: transparent !important;
 }
 
+.navbar {
+    border-bottom: 1px solid #DADADA;
+    border-top: 2px solid red;
+}
+
