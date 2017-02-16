@@ -144,6 +144,10 @@
     <Compile Include="Migrations\201702052046317_WorkItemCustomerDevices.Designer.cs">
       <DependentUpon>201702052046317_WorkItemCustomerDevices.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.cs" />
+    <Compile Include="Migrations\201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.Designer.cs">
+      <DependentUpon>201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AddressesRepository.cs" />
@@ -213,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702052046317_WorkItemCustomerDevices.resx">
       <DependentUpon>201702052046317_WorkItemCustomerDevices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.resx">
+      <DependentUpon>201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -50,6 +50,14 @@ namespace Termoservis.Models
         public DateTime? CommissionDate { get; set; }
 
         /// <summary>
+        /// Gets or sets the work items.
+        /// </summary>
+        /// <value>
+        /// The work items.
+        /// </value>
+        public virtual ICollection<WorkItem> WorkItems { get; set; }
+
+        /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
