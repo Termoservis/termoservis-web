@@ -33,6 +33,8 @@ namespace Termoservis.Web.ModelBinders
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+            if (string.IsNullOrWhiteSpace(value?.AttemptedValue))
+                return null;
             return DateTime.ParseExact(value.AttemptedValue, customFormat, CultureInfo.InvariantCulture);
         }
     }
