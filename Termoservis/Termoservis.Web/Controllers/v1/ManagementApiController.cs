@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -72,7 +74,8 @@ namespace Termoservis.Web.Controllers.v1
 
             var databaseSerialized = JsonConvert.SerializeObject(database, new JsonSerializerSettings
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                Culture = CultureInfo.GetCultureInfo("hr-HR")
             });
 
             var streamContent = new PushStreamContent((outputStream, httpContext, transportContent) =>
@@ -81,6 +84,8 @@ namespace Termoservis.Web.Controllers.v1
                 {
                     using (var zip = new ZipFile())
                     {
+                        zip.AlternateEncodingUsage = ZipOption.Always;
+                        zip.AlternateEncoding = Encoding.UTF8;
                         zip.AddEntry("Termoservis.json", databaseSerialized);
                         zip.Save(outputStream);
                     }
@@ -93,7 +98,7 @@ namespace Termoservis.Web.Controllers.v1
             streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
             streamContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
-                FileName = $"TermoservisDb-{DateTime.Now:yyyyMMddhhmmss}.zip",
+                FileName = $"TermoservisDb-{DateTime.Now:yyyyMMddHHmmss}.zip",
             };
 
             return new HttpResponseMessage(HttpStatusCode.OK)
