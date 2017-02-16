@@ -29,7 +29,8 @@ namespace Termoservis.Web
                 .Include("~/Scripts/bootstrap-datepicker.js")
                 .Include("~/Scripts/jquery.ba-throttle-debounce.js")
                 .Include("~/Scripts/moment-with-locales.js")
-                .Include("~/Scripts/mprogress.js"));
+                .Include("~/Scripts/mprogress.js")
+                .Include("~/Scripts/markdown.js"));
 
 		    bundles.Add(new StyleBundle("~/bundles/css")
                 .Include("~/Content/tether/tether.css")

@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using CsvHelper;
+using Newtonsoft.Json;
 using Termoservis.Common.Extensions;
 using Termoservis.DAL;
 using Termoservis.DAL.Repositories;
@@ -65,6 +66,23 @@ namespace Termoservis.MigrationTool
 
         static void Main(string[] args)
         {
+            var content = File.ReadAllText("C:\\Users\\aleks\\Desktop\\TermoservisDb-20170216114503\\Termoservis.json");
+            var data = JsonConvert.DeserializeAnonymousType(content, new
+            {
+                Addresses = new List<Address>(),
+                Users = new List<ApplicationUser>(),
+                Countries = new List<Country>(),
+                Customers = new List<Customer>(),
+                CustomerDevices = new List<CustomerDevice>(),
+                Places = new List<Place>(),
+                TelephoneNumbers = new List<TelephoneNumber>(),
+                Workers = new List<Worker>(),
+                WorkItems = new List<WorkItem>()
+            });
+
+            return;
+            
+
             var oneDrivePath = GetOneDrivePath();
             var dataPath = Path.Combine(oneDrivePath, "Documents\\Development\\Termoservis\\Customers - Migration data\\20170102");
             const string placesDataSource = "naselja.csv";
