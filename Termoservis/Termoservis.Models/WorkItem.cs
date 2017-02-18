@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.Eventing.Reader;
 using Newtonsoft.Json;
 
 namespace Termoservis.Models
@@ -40,7 +39,7 @@ namespace Termoservis.Models
         /// The price.
         /// </value>
         [DisplayName("Cijena")]
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         /// <summary>
         /// Gets or sets the description.

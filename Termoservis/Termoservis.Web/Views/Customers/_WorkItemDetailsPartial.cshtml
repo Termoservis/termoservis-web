@@ -32,8 +32,9 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.WorkItem.Price, htmlAttributes: new {@class = "col-form-label col-3"})
                     <div class="col-9">
-                        @Html.EditorFor(model => model.WorkItem.Price, new {htmlAttributes = new {@class = "form-control", tabindex = "3", step = "100"}})
+                        @Html.EditorFor(model => model.WorkItem.Price, new {htmlAttributes = new {@class = "form-control", tabindex = "3"}})
                     </div>
+                    @Html.ValidationMessageFor(model => model.WorkItem.Price)
                 </div>
             </div>
             <div class="col-sm-12 col-md-4 col-lg-3">

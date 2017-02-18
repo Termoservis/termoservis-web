@@ -3,7 +3,7 @@
 }
 
 <div class="row">
-    <div class="col-5 py-4">
+    <div class="col-xl-6 pt-4">
         <div class="card">
             <div class="card-header">
                 Stavke <small class="text-muted">Nove stavke vs. proslogodisnje stavke</small>
@@ -19,9 +19,56 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-3 pt-4">
+        <div class="card">
+            <div class="card-header">
+                Backup
+            </div>
+            <div class="card-block">
+                <button class="btn btn-outline-primary" id="download-backup-button">
+                    <i class="fa fa-download"></i>
+                    <span>&nbsp;Preuzmi</span>
+                </button>
+                <div>
+                    <small class="text-muted">s datumom @DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 pt-4">
+        <div class="card">
+            <div class="card-header">
+                U novoj verziji
+            </div>
+            <div class="card-block">
+                <div id="new-in-release-container" style="font-size: 0.9em;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts
 {
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#download-backup-button").click(function () {
+                $(this).prop('disabled', true);
+                window.location = '/api/v1/management/backup';
+            });
+
+            $.ajax({
+                url: '/ChangeLog.md',
+                async: false,
+                success: function (data) {
+                    console.log(data);
+                    console.log(markdown.toHTML(data));
+                    $("#new-in-release-container").html(markdown.toHTML(data));
+                }
+            });
+        });
+
         var workItemsOverDayGraphProgress;
         $(document).ready(function() {
             workItemsOverDayGraphProgress = new Mprogress({
