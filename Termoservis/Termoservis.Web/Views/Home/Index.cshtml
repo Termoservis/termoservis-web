@@ -31,7 +31,7 @@
                     <span>&nbsp;Preuzmi</span>
                 </button>
                 <div>
-                    <small class="text-muted">s datumom @DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")</small>
+                    <small class="text-muted">s datumom @TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time")).ToString("dd.MM.yyyy HH:mm:ss")</small>
                 </div>
             </div>
         </div>
@@ -42,7 +42,14 @@
                 U novoj verziji
             </div>
             <div class="card-block">
+                <div id="inNewVersion-data-loading-container">
+                    <small>Loading...</small>
+                    <div id="inNewVersion-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+                </div>
                 <div id="new-in-release-container" style="font-size: 0.9em;">
+                </div>
+                <div>
+                    @Html.ActionLink("Pregled prijasnjih verzija...", "Releases", "Status")
                 </div>
             </div>
         </div>
@@ -52,7 +59,31 @@
 @section scripts
 {
     <script type="text/javascript">
-        $(document).ready(function() {
+        var loadingProgressBars = {
+            workItemsOverDayGraph: {
+                progressBarContainer: '#workItemsOverDayGraph-data-loading-container',
+                progressBarId: '#workItemsOverDayGraph-data-loading-progress',
+                progressBar: undefined
+            },
+            inNewVersion: {
+                progressBarContainer: '#inNewVersion-data-loading-container',
+                progressBarId: '#inNewVersion-data-loading-progress',
+                progressBar: undefined
+            }
+        };
+       
+        $(document).ready(function () {
+            loadingProgressBars.workItemsOverDayGraph.progressBar = new Mprogress({
+                template: 3,
+                parent: loadingProgressBars.workItemsOverDayGraph.progressBarId,
+                start: true
+            });
+            loadingProgressBars.inNewVersion.progressBar = new Mprogress({
+                template: 3,
+                parent: loadingProgressBars.inNewVersion.progressBarId,
+                start: true
+            });
+
             $("#download-backup-button").click(function () {
                 $(this).prop('disabled', true);
                 window.location = '/api/v1/management/backup';
@@ -62,19 +93,10 @@
                 url: '/ChangeLog.md',
                 async: false,
                 success: function (data) {
-                    console.log(data);
-                    console.log(markdown.toHTML(data));
-                    $("#new-in-release-container").html(markdown.toHTML(data));
+                    loadingProgressBars.inNewVersion.progressBar.end(true);
+                    $(loadingProgressBars.inNewVersion.progressBarContainer).hide();
+                    $("#new-in-release-container").html(markdown.toHTML(data.split("----")[0]));
                 }
-            });
-        });
-
-        var workItemsOverDayGraphProgress;
-        $(document).ready(function() {
-            workItemsOverDayGraphProgress = new Mprogress({
-                template: 3,
-                parent: '#workItemsOverDayGraph-data-loading-progress',
-                start: true
             });
         });
 
@@ -85,8 +107,8 @@
             $.ajax({
                 url: '/api/v1/analytics/newwivslastyear',
                 success: function (result) {
-                    workItemsOverDayGraphProgress.end(true);
-                    $("#workItemsOverDayGraph-data-loading-container").hide();
+                    loadingProgressBars.workItemsOverDayGraph.progressBar.end(true);
+                    $(loadingProgressBars.workItemsOverDayGraph.progressBarContainer).hide();
 
                     var dataArray = [
                         ['', 'Novo', 'Prijasnje']
@@ -94,7 +116,9 @@
 
                     for (var index = 0; index < result.Items.length; index++) {
                         var currentItem = result.Items[index];
-                        dataArray.push([moment(currentItem.Date).format("DD.MM.YY."), currentItem.NewCount, currentItem.OldCount]);
+                        dataArray.push([
+                            moment(currentItem.Date).format("DD.MM.YY."), currentItem.NewCount, currentItem.OldCount
+                        ]);
                     }
 
                     var data = google.visualization.arrayToDataTable(dataArray);

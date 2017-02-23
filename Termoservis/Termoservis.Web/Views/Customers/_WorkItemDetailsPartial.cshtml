@@ -32,7 +32,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.WorkItem.Price, htmlAttributes: new {@class = "col-form-label col-3"})
                     <div class="col-9">
-                        @Html.EditorFor(model => model.WorkItem.Price, new {htmlAttributes = new {@class = "form-control", tabindex = "3"}})
+                        @Html.EditorFor(model => model.WorkItem.Price, new {htmlAttributes = new {@class = "form-control workitem-edit-priceinput", tabindex = "3"}})
                     </div>
                     @Html.ValidationMessageFor(model => model.WorkItem.Price)
                 </div>
@@ -41,7 +41,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.WorkItem.Worker, htmlAttributes: new {@class = "col-form-label col-3"})
                     <div class="col-9">
-                        <select class="form-control" data-val="true" data-val-number="The field Serviser must be a number." id="WorkItem_WorkerId" name="WorkItem.WorkerId" tabindex="4">
+                        <select class="form-control" id="WorkItem_WorkerId" name="WorkItem.WorkerId" tabindex="4">
                             @foreach (var worker in Model.AvailableWorkers.OrderBy(w => w.Disabled))
                             {
                                 var isSelected = Model.WorkItem.WorkerId.HasValue && worker.Value == Model.WorkItem.WorkerId.Value.ToString();
@@ -101,4 +101,13 @@
     $(document).ready(function() {
         $(".affected-devices-select").select2();
     });
+
+    $.validator.methods.range = function (value, element, param) {
+            var globalizedValue = value.replace(",", ".");
+            return this.optional(element) || (globalizedValue >= param[0] && globalizedValue <= param[1]);
+    }
+
+    $.validator.methods.number = function (value, element) {
+            return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+    }
 </script>

@@ -40,9 +40,11 @@ namespace Termoservis.Web
             RaygunClient.SendingMessage += RaygunClientOnSendingMessage;
 
             // Model binders
+            var doubleBinder = new DoubleModelBinder();
             var dateTimeBinder = new DateTimeModelBinder("dd.MM.yyyy");
             System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime), dateTimeBinder);
             System.Web.Mvc.ModelBinders.Binders.Add(typeof(DateTime?), dateTimeBinder);
+            System.Web.Mvc.ModelBinders.Binders.Add(typeof(double), doubleBinder);
         }
 
         /// <summary>

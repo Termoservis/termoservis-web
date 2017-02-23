@@ -191,16 +191,6 @@ namespace Termoservis.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CustomerFormViewModel viewModel)
         {
-            // Validate place
-            if (!viewModel.CustomerPlaceId.HasValue)
-            {
-                this.ModelState.AddModelError("", "Place is required.");
-
-                // Populate model
-                await viewModel.PopulateLocationsAsync(this.context);
-                return View(viewModel);
-            }
-
             // Populate model with view model data
             var customer = new Customer
             {
@@ -211,7 +201,7 @@ namespace Termoservis.Web.Controllers
 
             // Retrieve required data
             var streetName = viewModel.CustomerStreetName.Trim();
-            var placeId = viewModel.CustomerPlaceId.Value;
+            var placeId = viewModel.CustomerPlaceId;
             var userName = this.User.Identity.Name;
             var user = this.context.Users.FirstOrDefault(u => u.UserName == userName);
 
@@ -275,16 +265,6 @@ namespace Termoservis.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(CustomerFormViewModel viewModel)
         {
-            // Validate place
-            if (!viewModel.CustomerPlaceId.HasValue)
-            {
-                this.ModelState.AddModelError("", "Place is required.");
-
-                // Validate model
-                await viewModel.PopulateLocationsAsync(this.context);
-                return View(viewModel);
-            }
-
             // Populate model from view model
             var customer = new Customer
             {
@@ -296,7 +276,7 @@ namespace Termoservis.Web.Controllers
 
             // Retrieve required data
             var streetName = viewModel.CustomerStreetName.Trim();
-            var placeId = viewModel.CustomerPlaceId.Value;
+            var placeId = viewModel.CustomerPlaceId;
 
             // Edit the customer
             var editedCustomer = await this.customerService.EditCustomerAsync(customer, streetName, placeId, viewModel.TelephoneNumbers);

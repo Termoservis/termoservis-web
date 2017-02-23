@@ -260,6 +260,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\v1\AnalyticsController.cs" />
     <Compile Include="Controllers\v1\ManagementApiController.cs" />
     <Compile Include="Controllers\v1\Select2\ISelect2Item.cs" />
@@ -268,6 +269,8 @@
     <Compile Include="Controllers\v1\Select2\Select2Item.cs" />
     <Compile Include="Controllers\v1\Select2\Select2RequestData.cs" />
     <Compile Include="Controllers\v1\Select2\Select2Response.cs" />
+    <Compile Include="Filters\LocalHostTelemetryFilter.cs" />
+    <Compile Include="ModelBinders\DoubleModelBinder.cs" />
     <Compile Include="Models\Analytics\v1\WorkItemsVsLastYearPerformanceReport.cs" />
     <Compile Include="Models\Analytics\v1\WorkItemsVsLastYearPerformanceReportItem.cs" />
     <Compile Include="ModelBinders\DateTimeModelBinder.cs" />
@@ -536,6 +539,7 @@
     <Content Include="Views\Customers\_CustomerDeviceDetailsPartial.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Status\Releases.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

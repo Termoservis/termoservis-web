@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -82,7 +83,7 @@ namespace Termoservis.Web.Controllers
                 Type = viewModel.WorkItem.Type,
                 WorkerId = worker?.Id,
                 AffectedDevices = viewModel.AffectedDevices?
-                    .Select(deviceId => this.context.CustomerDevices.FirstOrDefault(device => device.Id == deviceId))
+                    .Select(deviceId => this.context.CustomerDevices.AsNoTracking().FirstOrDefault(device => device.Id == deviceId))
                     .ToList() ?? new List<CustomerDevice>()
             };
 
