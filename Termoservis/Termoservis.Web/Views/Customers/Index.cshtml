@@ -23,19 +23,26 @@
 
 <div class="form-group row">
     <div class="col">
-        <input class="form-control customers-table-search-input" type="search" aria-describedby="search-status" value="@Model.Keywords" placeholder="Trazi korisnika..." />
+        <div class="input-group">
+            <input class="form-control customers-table-search-input" type="search" aria-describedby="search-status" value="@Model.Keywords" placeholder="Trazi korisnika..." />
+            <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button" id="customers-search-button">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </span>
+        </div>
         @Ajax.ActionLink(
             "Search",
             "CustomersSearch",
             "Customers",
-            new { newPage = 0 },
+            new {newPage = 0},
             new AjaxOptions
             {
                 HttpMethod = "GET",
                 UpdateTargetId = "search-result-content",
                 InsertionMode = InsertionMode.Replace
             },
-            new { @class = "customers-table-search-submit", hidden="hidden" })
+            new {@class = "customers-table-search-submit", hidden = "hidden"})
     </div>
 </div>
 
@@ -48,11 +55,26 @@
 @section scripts
 {
     <script>
+        var isSearchInProgress = false;
+        function enableSearchButton() {
+            isSearchInProgress = false;
+            $("#customers-search-button").prop("disabled", false);
+        }
+
+        function disableSearchButton() {
+            isSearchInProgress = true;
+            $("#customers-search-button").prop("disabled", true);
+        }
+
         $(document).ready(function() {
             var initialValue;
 
             function customersTableSearchInputSubmitDebounced() {
-                console.log("debounced");
+                if (isSearchInProgress)
+                    return;
+
+                disableSearchButton();
+
                 var keywords = $(".customers-table-search-input").val();
                 var submitLink = $(".customers-table-search-submit");
 
@@ -65,7 +87,13 @@
                 submitLink.click();
             }
 
-            $(".customers-table-search-input").keyup($.debounce(250, customersTableSearchInputSubmitDebounced));
+            $(".customers-table-search-input").on("keydown", function (event) {
+                console.log(event.keyCode);
+                if (event.which == 13 || event.keyCode == 13) {
+                    $("#customers-search-button").click();
+                }
+            });
+            $("#customers-search-button").click($.throttle(1000, customersTableSearchInputSubmitDebounced));
         });
     </script>
 }
