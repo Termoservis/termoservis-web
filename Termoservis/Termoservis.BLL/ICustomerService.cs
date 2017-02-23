@@ -22,7 +22,7 @@ namespace Termoservis.BLL
         Task<Customer> CreateCustomerAsync(
             Customer customerModel,
             string streetName,
-            int placeId,
+            int? placeId,
             IEnumerable<TelephoneNumber> telephoneNumbers,
             ApplicationUser user);
 
@@ -37,7 +37,7 @@ namespace Termoservis.BLL
         Task<Customer> EditCustomerAsync(
             Customer customerModel, 
             string streetName, 
-            int placeId, 
+            int? placeId, 
             IEnumerable<TelephoneNumber> telephoneNumbers);
 
         /// <summary>

@@ -59,17 +59,17 @@ namespace Termoservis.BLL
         /// <returns>Returns the created customer model.</returns>
         /// <exception cref="System.ArgumentNullException">customerModel</exception>
         /// <exception cref="System.ArgumentException">Value cannot be null or empty. - streetName</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">placeId</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">placeId - cant't be less than or equal to zero; use <c>null</c> for address with no specified place.</exception>
         public async Task<Customer> CreateCustomerAsync(
             Customer customerModel, 
             string streetName, 
-            int placeId,
+            int? placeId,
             IEnumerable<TelephoneNumber> telephoneNumbers,
             ApplicationUser user)
         {
             if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
             if (string.IsNullOrEmpty(streetName)) throw new ArgumentException("Value cannot be null or empty.", nameof(streetName));
-            if (placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
+            if (placeId.HasValue && placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
 
             // Ensure all telephone number are created and have Id's
             var telephoneNumbersList = telephoneNumbers?.ToList() ?? new List<TelephoneNumber>();
@@ -98,16 +98,16 @@ namespace Termoservis.BLL
         /// <returns>Returns the edited customer model.</returns>
         /// <exception cref="System.ArgumentNullException">customerModel</exception>
         /// <exception cref="System.ArgumentException">Value cannot be null or empty. - streetName</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">placeId</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">placeId - cant't be less than or equal to zero; use <c>null</c> for address with no specified place.</exception>
         public async Task<Customer> EditCustomerAsync(
             Customer customerModel, 
             string streetName, 
-            int placeId, 
+            int? placeId, 
             IEnumerable<TelephoneNumber> telephoneNumbers)
         {
             if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
             if (string.IsNullOrEmpty(streetName)) throw new ArgumentException("Value cannot be null or empty.", nameof(streetName));
-            if (placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
+            if (placeId.HasValue && placeId <= 0) throw new ArgumentOutOfRangeException(nameof(placeId));
             
             // Create telephone numbers
             var telephoneNumbersList = telephoneNumbers?.Where(t => !string.IsNullOrWhiteSpace(t.Number)).ToList() ?? new List<TelephoneNumber>();
