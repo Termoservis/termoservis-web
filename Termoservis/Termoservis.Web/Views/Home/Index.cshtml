@@ -31,7 +31,7 @@
                     <span>&nbsp;Preuzmi</span>
                 </button>
                 <div>
-                    <small class="text-muted">s datumom @DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")</small>
+                    <small class="text-muted">s datumom @TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time")).ToString("dd.MM.yyyy HH:mm:ss")</small>
                 </div>
             </div>
         </div>
@@ -48,9 +48,9 @@
                 </div>
                 <div id="new-in-release-container" style="font-size: 0.9em;">
                 </div>
-            </div>
-            <div class="card-block">
-                @Html.ActionLink("Pregled prijasnjih verzija...", "Releases", "Status")
+                <div>
+                    @Html.ActionLink("Pregled prijasnjih verzija...", "Releases", "Status")
+                </div>
             </div>
         </div>
     </div>
