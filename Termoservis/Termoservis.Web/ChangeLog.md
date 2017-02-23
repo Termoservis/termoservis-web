@@ -1,4 +1,11 @@
-﻿##### v2.2.0 (_2017.02.18_)
+﻿##### v2.2.1 (v.next)
+
+- Dodano: Izvjestaj svih projena verzija
+- Promjena: Izvjestaj promjena u verziji prikazuje samo najnovije promjene
+
+----
+
+##### v2.2.0 (_2017.02.18_)
 
 - Dodano: Backup baze na pocetnoj stranici
 - Dodano: Izvjestaj promjena u verziji na pocetnoj stranici
