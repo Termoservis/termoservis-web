@@ -1,4 +1,10 @@
-﻿##### v2.2.1 (_2017.02.24_)
+﻿#### v2.2.2 (_2017.03.12_)
+
+Popravljeno: Ubrzan backup baze (uklonjen timeout bug)
+
+----
+
+##### v2.2.1 (_2017.02.24_)
 
 - Dodano: Izvjestaj svih projena verzija
 - Promjena: Pretraga korisnika sad zahtjeva klik na gumb ili enter na tipkovnici
