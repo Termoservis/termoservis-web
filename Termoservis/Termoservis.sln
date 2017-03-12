@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.25920.0
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.Web", "Termoservis.Web\Termoservis.Web.csproj", "{FEEE2308-8A1C-4DAA-A3E7-4B24526527F3}"
 EndProject
@@ -16,6 +16,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.BLL", "Termoservis.BLL\Termoservis.BLL.csproj", "{ED967BEA-26F4-4C88-9FC3-418658EFC5AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.MigrationTool", "Termoservis.MigrationTool\Termoservis.MigrationTool.csproj", "{BD5800EB-F356-4F3D-B4A6-2C3692BC11D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8FB71424-5818-4704-8BFC-B7A6FA87B475}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

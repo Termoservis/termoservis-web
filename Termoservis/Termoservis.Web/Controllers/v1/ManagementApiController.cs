@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -59,52 +61,69 @@ namespace Termoservis.Web.Controllers.v1
         [Route("backup")]
         public HttpResponseMessage GetDbBackup()
         {
-            var database = new
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
-                Addresses = this.context.Addresses.ToList(),
-                Users = this.context.Users.ToList(),
-                Countries = this.context.Countries.ToList(),
-                Customers = this.context.Customers.ToList(),
-                CustomerDevices = this.context.CustomerDevices.ToList(),
-                Places = this.context.Places.ToList(),
-                TelephoneNumbers = this.context.TelephoneNumbers.ToList(),
-                Workers = this.context.Workers.ToList(),
-                WorkItems = this.context.WorkItems.ToList()
-            };
+                var queryString = @"
+		            DECLARE @sql nvarchar(max) = '';
+		            SELECT @sql += 'SELECT * FROM [' + [TABLE_SCHEMA] + '].[' + [TABLE_NAME] + '];' FROM INFORMATION_SCHEMA.TABLES;
+		            EXEC sp_executesql @sql;";
+                var command = new SqlCommand(queryString, connection);
+                command.Connection.Open();
+                var reader = command.ExecuteReader();
 
-            var databaseSerialized = JsonConvert.SerializeObject(database, new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                Culture = CultureInfo.GetCultureInfo("hr-HR")
-            });
-
-            var streamContent = new PushStreamContent((outputStream, httpContext, transportContent) =>
-            {
-                try
+                var sb = new StringBuilder();
+                sb.AppendLine("\"Sets\": [");
+                while (reader.NextResult())
                 {
-                    using (var zip = new ZipFile())
+                    if (!reader.HasRows)
+                        continue;
+
+                    var currentSchema = reader.GetSchemaTable();
+                    sb.AppendLine("[");
+                    while (reader.Read())
                     {
-                        zip.AlternateEncodingUsage = ZipOption.Always;
-                        zip.AlternateEncoding = Encoding.UTF8;
-                        zip.AddEntry("Termoservis.json", databaseSerialized);
-                        zip.Save(outputStream);
+                        sb.AppendLine("    {");
+                        for (var i = 0; i < reader.FieldCount; i++)
+                            sb.AppendLine("        \"" + currentSchema.Rows[i][0] + "\": \"" + reader[i] + "\",");
+                        sb.AppendLine("    },");
                     }
+                    sb.AppendLine("],");
                 }
-                finally
-                {
-                    outputStream.Close();
-                }
-            });
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
-            streamContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-            {
-                FileName = $"TermoservisDb-{DateTime.Now:yyyyMMddHHmmss}.zip",
-            };
+                sb.AppendLine("]");
 
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = streamContent
-            };
+                var databaseSerialized = sb.ToString();
+
+                reader.Close();
+                command.Connection.Close();
+
+                var streamContent = new PushStreamContent((outputStream, httpContext, transportContent) =>
+                {
+                    try
+                    {
+                        using (var zip = new ZipFile())
+                        {
+                            zip.AlternateEncodingUsage = ZipOption.Always;
+                            zip.AlternateEncoding = Encoding.UTF8;
+                            zip.AddEntry("Termoservis.json", databaseSerialized);
+                            zip.Save(outputStream);
+                        }
+                    }
+                    finally
+                    {
+                        outputStream.Close();
+                    }
+                });
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
+                streamContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = $"TermoservisDb-{DateTime.Now:yyyyMMddHHmmss}.zip",
+                };
+
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = streamContent
+                };
+            }
         }
     }
 }
