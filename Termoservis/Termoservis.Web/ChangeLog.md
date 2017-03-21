@@ -2,6 +2,7 @@
 
 - Dodano: Mogucnost brisanja stavki korisnika
 - Popravljeno: Unos uredaja bez naziva se ispravno validira (nije dozvoljeno kreiranje uredaja bez naziva)
+- Popravljeno: Unos istog telefonskog broja vise ne baca gresku
 
 ----
 

@@ -120,11 +120,17 @@ namespace Termoservis.BLL
             {
                 var matchedNumber = customerDb.TelephoneNumbers.FirstOrDefault(t =>
                     t.SearchKeywords == telephoneNumber.SearchKeywords);
-                if (matchedNumber == null)
+                if (matchedNumber == null || telephoneNumber.Id > 0)
                     continue;
-
+                
                 telephoneNumber.Id = matchedNumber.Id;
             }
+
+            // Distinct by identifier
+            telephoneNumbersList = telephoneNumbersList
+                .GroupBy(tel => tel.Id)
+                .Select(telGroup => telGroup.First())
+                .ToList();
 
             // Recalculate telephone numbers search keywords for existing entities
             foreach (var telephoneNumber in telephoneNumbersList.Where(t => t.Id != 0))
