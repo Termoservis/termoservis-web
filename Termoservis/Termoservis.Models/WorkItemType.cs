@@ -11,36 +11,36 @@ namespace Termoservis.Models
         /// The unknown work item type.
         /// </summary>
         [Display(Name = "")]
-        Unknown,
+        Unknown = 0,
 
         /// <summary>
         /// The repair work item type.
         /// </summary>
         [Display(Name = "Popravak")]
-        Repair,
+        Repair = 1,
 
         /// <summary>
         /// The service work item type.
         /// </summary>
         [Display(Name = "Servis")]
-        Service,
+        Service = 2,
 
         /// <summary>
         /// The device commision work item type.
         /// </summary>
         [Display(Name = "Puštanje u pogon")]
-        Commision,
+        Commision = 3,
 
         /// <summary>
         /// The work in waranty work item type.
         /// </summary>
         [Display(Name = "Radovi u jamstvu")]
-        InWaranty,
+        InWaranty = 4,
 
         /// <summary>
-        /// Other work item type.
+        /// Service and repair item type.
         /// </summary>
-        [Display(Name = "Ostalo")]
-        Other
+        [Display(Name = "Servis i popravak")]
+        ServiceAndRepair = 5
     }
 }
