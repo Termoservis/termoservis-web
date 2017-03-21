@@ -1,6 +1,7 @@
 ﻿##### v2.3.0 
 
 - Dodano: Mogucnost brisanja stavki korisnika
+- Popravljeno: Unos uredaja bez naziva se ispravno validira (nije dozvoljeno kreiranje uredaja bez naziva)
 
 ----
 
