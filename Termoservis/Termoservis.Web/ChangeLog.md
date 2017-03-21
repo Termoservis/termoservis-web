@@ -1,6 +1,7 @@
 ﻿##### v2.3.0 
 
 - Dodano: Mogucnost brisanja stavki korisnika
+- Promjena: Vrsta stavke "Ostalo" preimenovana u "Servis i popravak"
 - Popravljeno: Unos uredaja bez naziva se ispravno validira (nije dozvoljeno kreiranje uredaja bez naziva)
 - Popravljeno: Unos istog telefonskog broja vise ne baca gresku
 
