@@ -146,6 +146,54 @@ namespace Termoservis.DAL.Repositories
         }
 
         /// <summary>
+        /// Deletes the work item.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Returns <c>True</c> if work item was deleted successfully; <c>False</c> otherwise.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">id - Identifier can't be less or equal to zero.</exception>
+        /// <exception cref="NullReferenceException">WorkItem with specified identifier doesn't exist.</exception>
+        public async Task<bool> DeleteAsync(long id)
+        {
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Identifier can't be less or equal to zero.");
+
+            // Retrieve work item
+            var workItem = this.Get(id);
+            if (workItem == null)
+                throw new NullReferenceException("WorkItem with specified identifier doesn't exist.");
+
+            return await this.DeleteAsync(workItem);
+        }
+
+        /// <summary>
+        /// Deletes the work item.
+        /// </summary>
+        /// <param name="model">The work item model.</param>
+        /// <returns>Returns <c>True</c> if work item was deleted successfully; <c>False</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">model</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Id - WorkItem identifier must not be zero.</exception>
+        public async Task<bool> DeleteAsync(WorkItem model)
+        {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+            if (model.Id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(model.Id), "WorkItem identifier must not be zero.");
+
+            // Mark work item to remove
+            this.context.WorkItems.Remove(model);
+
+            // Save context changes
+            await this.context.SaveChangesAsync();
+
+            this.logger?.Information(
+                "Deleted WorkItem ({WorkItemId}) for customer ({CustomerId})",
+                model.Id,
+                model.CustomerId);
+
+            return true;
+        }
+
+        /// <summary>
         /// Saves the changes.
         /// </summary>
         public async Task Save()

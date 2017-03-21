@@ -1,6 +1,12 @@
-﻿#### v2.2.2 (_2017.03.12_)
+﻿##### v2.3.0 
 
-Popravljeno: Ubrzan backup baze (uklonjen timeout bug)
+- Dodano: Mogucnost brisanja stavki korisnika
+
+----
+
+##### v2.2.2 (_2017.03.12_)
+
+- Popravljeno: Ubrzan backup baze (uklonjen timeout bug)
 
 ----
 
