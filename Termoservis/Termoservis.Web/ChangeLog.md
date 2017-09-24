@@ -1,4 +1,4 @@
-﻿##### v2.3.0 
+##### v2.3.0 (_2017.09.25_) 
 
 - Dodano: Mogucnost brisanja stavki korisnika
 - Promjena: Vrsta stavke "Ostalo" preimenovana u "Servis i popravak"
