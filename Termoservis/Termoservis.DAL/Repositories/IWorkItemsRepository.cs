@@ -6,8 +6,9 @@ namespace Termoservis.DAL.Repositories
     /// <summary>
     /// WorkItem repository.
     /// </summary>
-    /// <seealso cref="IAddRepository{WorkItem, Int64}" />
-    public interface IWorkItemsRepository : IEditRepository<WorkItem, long>
+    /// <seealso cref="IEditRepository{WorkItem, Int64}" />
+    /// <seealso cref="IDeleteRepository{WorkItem, Int64}" />
+    public interface IWorkItemsRepository : IEditRepository<WorkItem, long>, IDeleteRepository<WorkItem, long>
     {
     }
 }

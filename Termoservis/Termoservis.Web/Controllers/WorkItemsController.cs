@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using Serilog;
 using Termoservis.Contracts.Services;
@@ -18,7 +19,7 @@ namespace Termoservis.Web.Controllers
     /// The work item controller.
     /// </summary>
     /// <seealso cref="Controller" />
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     [RequireHttps]
     public class WorkItemsController : Controller
     {
@@ -60,7 +61,7 @@ namespace Termoservis.Web.Controllers
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <exception cref="InvalidDataException">WorkItem is null.</exception>
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(WorkItemFormViewModel viewModel)
         {
@@ -101,7 +102,7 @@ namespace Termoservis.Web.Controllers
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <exception cref="InvalidDataException">WorkItem is null.</exception>
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(WorkItemFormViewModel viewModel)
         {
@@ -133,6 +134,31 @@ namespace Termoservis.Web.Controllers
 
             // Redirect to details
             return RedirectToAction("Details", "Customers", new { id = editedWorkItem.CustomerId });
+        }
+
+        // 
+        // DELETE: WorkItems/Delete/{id}        
+        /// <summary>
+        /// Deletes the work item with specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Returns the Customer Details view.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">id</exception>
+        [System.Web.Mvc.HttpGet]
+        public async Task<ActionResult> Delete([FromUri]long id)
+        {
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id));
+
+            // Check if work item exists
+            var workItem = this.workItemsRepository.Get(id);
+            if (workItem == null)
+                return HttpNotFound("WorkItem with specified identifier was not found.");
+
+            // Delete the work item
+            await this.workItemsRepository.DeleteAsync(id);
+
+            return RedirectToAction("Details", "Customers", new {id = workItem.CustomerId});
         }
     }
 }

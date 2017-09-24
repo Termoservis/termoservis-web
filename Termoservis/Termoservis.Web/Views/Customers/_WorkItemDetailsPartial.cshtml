@@ -84,7 +84,8 @@
         
 
         <div class="form-group row">
-            <div class="col-md-12">
+            <!--  Save button  -->
+            <div class="col">
 
                 <button class="btn btn-primary" click="$(this).closest('form').submit()" tabindex="7">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
@@ -92,6 +93,20 @@
                 </button>
 
                 <input type="submit" value="Submit" hidden="hidden"/>
+            </div>
+
+            <!-- Delete button -->
+            <div class="col text-right">
+                @Html.ActionLink(
+                   "Obriši",
+                   "Delete",
+                   "WorkItems",
+                   new { id = Model.WorkItem.Id },
+                   new
+                   {
+                       @class="btn btn-secondary right",
+                       onclick ="return confirm(\"Jeste li sigurni da zelite obrisati stavku '" + @Model.WorkItem.Description + "' s datumom " + Model.WorkItem.Date?.Date.ToString("dd.MM.yyyy") + "?\");"
+                   })
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@
                     @Html.LabelFor(model => model.Device.Name, htmlAttributes: new { @class = "form-control-label col-md-4" })
                     <div class="col-md-8">
                         @Html.EditorFor(model => model.Device.Name, new { htmlAttributes = new { @class = "form-control", tabindex = "1" } })
+                        @Html.ValidationMessageFor(model => model.Device.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -24,6 +25,7 @@
                     @Html.LabelFor(model => model.Device.Manufacturer, htmlAttributes: new { @class = "form-control-label col-md-4" })
                     <div class="col-md-8">
                         @Html.EditorFor(model => model.Device.Manufacturer, new { htmlAttributes = new { @class = "form-control", tabindex = "2" } })
+                        @Html.ValidationMessageFor(model => model.Device.Manufacturer, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -34,6 +36,7 @@
                     @Html.LabelFor(model => model.Device.CommissionDate, htmlAttributes: new { @class = "form-control-label col-md-4" })
                     <div class="col-md-8">
                         @Html.TextBoxFor(model => model.Device.CommissionDate, "{0:dd.MM.yyyy}", htmlAttributes: new { @class = "form-control customerdevice-edit-datepicker", tabindex = "3" })
+                        @Html.ValidationMessageFor(model => model.Device.CommissionDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

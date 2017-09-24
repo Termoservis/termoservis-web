@@ -27,6 +27,7 @@ namespace Termoservis.Models
         /// <value>
         /// The name.
         /// </value>
+        [Required]
         [DisplayName("Model")]
         public string Name { get; set; }
 

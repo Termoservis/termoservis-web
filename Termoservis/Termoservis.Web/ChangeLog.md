@@ -1,6 +1,15 @@
-﻿#### v2.2.2 (_2017.03.12_)
+##### v2.3.0 (_2017.09.25_) 
 
-Popravljeno: Ubrzan backup baze (uklonjen timeout bug)
+- Dodano: Mogucnost brisanja stavki korisnika
+- Promjena: Vrsta stavke "Ostalo" preimenovana u "Servis i popravak"
+- Popravljeno: Unos uredaja bez naziva se ispravno validira (nije dozvoljeno kreiranje uredaja bez naziva)
+- Popravljeno: Unos istog telefonskog broja vise ne baca gresku
+
+----
+
+##### v2.2.2 (_2017.03.12_)
+
+- Popravljeno: Ubrzan backup baze (uklonjen timeout bug)
 
 ----
 
