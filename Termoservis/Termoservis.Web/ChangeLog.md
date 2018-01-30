@@ -1,3 +1,9 @@
+##### v2.3.1 (_2018.01.30_)
+
+- Promjena: Zaposlenici
+
+----
+
 ##### v2.3.0 (_2017.09.25_) 
 
 - Dodano: Mogucnost brisanja stavki korisnika
