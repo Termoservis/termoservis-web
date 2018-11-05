@@ -27,7 +27,7 @@
 
 ##### v2.2.1 (_2017.02.24_)
 
-- Dodano: Izvjestaj svih projena verzija
+- Dodano: Izvjestaj svih promjena verzija
 - Promjena: Pretraga korisnika sad zahtjeva klik na gumb ili enter na tipkovnici
 - Promjena: Izvjestaj promjena u verziji prikazuje samo najnovije promjene
 - Promjena: Fokusiranje cijene stavke sad oznaci cijelu vrijednost
