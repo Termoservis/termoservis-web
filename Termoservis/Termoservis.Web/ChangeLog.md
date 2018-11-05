@@ -1,3 +1,9 @@
+##### v2.3.2 (_2018.11.05_)
+
+- Popravljeno: Ažurirani paketi
+
+----
+
 ##### v2.3.1 (_2018.01.30_)
 
 - Promjena: Zaposlenici
