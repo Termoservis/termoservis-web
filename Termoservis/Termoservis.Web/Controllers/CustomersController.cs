@@ -82,7 +82,7 @@ namespace Termoservis.Web.Controllers
 		        .Take(CustomersPageSize)
 		        .ToList();
 
-            return View(result);
+            return this.View(result);
         }
 
         //
@@ -140,7 +140,7 @@ namespace Termoservis.Web.Controllers
             result.TotalPages = (int) Math.Ceiling((decimal) totalFound / CustomersPageSize);
 
             // Return the partial with new data
-            return PartialView("_CustomersTablePartial", result);
+            return this.PartialView("_CustomersTablePartial", result);
         }
 
         //
@@ -164,7 +164,7 @@ namespace Termoservis.Web.Controllers
 			if (customer == null)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Customer with given identifier not found.");
 
-			return View(customer);
+			return this.View(customer);
         }
 
         //
@@ -178,7 +178,7 @@ namespace Termoservis.Web.Controllers
 			await viewModel.PopulateLocationsAsync(this.context);
 			viewModel.TelephoneNumbers = new List<TelephoneNumber>();
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         //
@@ -209,7 +209,7 @@ namespace Termoservis.Web.Controllers
             var createdCustomer = await this.customerService.CreateCustomerAsync(customer, streetName, placeId, viewModel.TelephoneNumbers, user);
 
             // Redirect to details of created customer
-            return RedirectToAction("Details", new { id = createdCustomer.Id });
+            return this.RedirectToAction("Details", new { id = createdCustomer.Id });
         }
 
         //
@@ -228,7 +228,7 @@ namespace Termoservis.Web.Controllers
             var customer = this.context.Customers.FirstOrDefault(c => c.Id == id);
             if (customer == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             // Populate view model
@@ -252,7 +252,7 @@ namespace Termoservis.Web.Controllers
             await vm.PopulateLocationsAsync(this.context);
 
             // Return the edit view
-            return View(vm);
+            return this.View(vm);
         }
 
         //
@@ -282,7 +282,7 @@ namespace Termoservis.Web.Controllers
             var editedCustomer = await this.customerService.EditCustomerAsync(customer, streetName, placeId, viewModel.TelephoneNumbers);
 
             // Display edited customer details view
-            return RedirectToAction("Details", new { id = editedCustomer.Id });
+            return this.RedirectToAction("Details", new { id = editedCustomer.Id });
         }
 
         //
@@ -329,7 +329,7 @@ namespace Termoservis.Web.Controllers
                 deviceCommisionDate);
 
             // Display edited customer details view
-            return RedirectToAction("Details", new { id = customer.Id });
+            return this.RedirectToAction("Details", new { id = customer.Id });
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            CreateTable(
+            this.CreateTable(
                 "dbo.CustomerDevices",
                 c => new
                     {
@@ -23,8 +23,8 @@ namespace Termoservis.DAL.Migrations
                         Name = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.WorkItems",
                 c => new
                     {
@@ -49,12 +49,12 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            DropForeignKey("dbo.WorkItems", "Customer_Id", "dbo.Customers");
-            DropForeignKey("dbo.WorkItems", "DeviceId", "dbo.CustomerDevices");
-            DropIndex("dbo.WorkItems", new[] { "Customer_Id" });
-            DropIndex("dbo.WorkItems", new[] { "DeviceId" });
-            DropTable("dbo.WorkItems");
-            DropTable("dbo.CustomerDevices");
+            this.DropForeignKey("dbo.WorkItems", "Customer_Id", "dbo.Customers");
+            this.DropForeignKey("dbo.WorkItems", "DeviceId", "dbo.CustomerDevices");
+            this.DropIndex("dbo.WorkItems", new[] { "Customer_Id" });
+            this.DropIndex("dbo.WorkItems", new[] { "DeviceId" });
+            this.DropTable("dbo.WorkItems");
+            this.DropTable("dbo.CustomerDevices");
         }
     }
 }

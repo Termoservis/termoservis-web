@@ -15,7 +15,7 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            CreateTable(
+            this.CreateTable(
                 "dbo.Workers",
                 c => new
                     {
@@ -23,10 +23,10 @@ namespace Termoservis.DAL.Migrations
                         Name = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            AddColumn("dbo.WorkItems", "WorkerId", c => c.Long());
-            CreateIndex("dbo.WorkItems", "WorkerId");
-            AddForeignKey("dbo.WorkItems", "WorkerId", "dbo.Workers", "Id");
+
+            this.AddColumn("dbo.WorkItems", "WorkerId", c => c.Long());
+            this.CreateIndex("dbo.WorkItems", "WorkerId");
+            this.AddForeignKey("dbo.WorkItems", "WorkerId", "dbo.Workers", "Id");
         }
 
         /// <summary>
@@ -34,10 +34,10 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            DropForeignKey("dbo.WorkItems", "WorkerId", "dbo.Workers");
-            DropIndex("dbo.WorkItems", new[] { "WorkerId" });
-            DropColumn("dbo.WorkItems", "WorkerId");
-            DropTable("dbo.Workers");
+            this.DropForeignKey("dbo.WorkItems", "WorkerId", "dbo.Workers");
+            this.DropIndex("dbo.WorkItems", new[] { "WorkerId" });
+            this.DropColumn("dbo.WorkItems", "WorkerId");
+            this.DropTable("dbo.Workers");
         }
     }
 }

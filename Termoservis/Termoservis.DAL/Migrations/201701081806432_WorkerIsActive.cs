@@ -15,7 +15,7 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            AddColumn("dbo.Workers", "IsActive", c => c.Boolean(nullable: false, defaultValue: true));
+            this.AddColumn("dbo.Workers", "IsActive", c => c.Boolean(nullable: false, defaultValue: true));
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            DropColumn("dbo.Workers", "IsActive");
+            this.DropColumn("dbo.Workers", "IsActive");
         }
     }
 }

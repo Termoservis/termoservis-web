@@ -35,7 +35,7 @@ namespace Termoservis.Web.Helpers
         /// </returns>
         public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
         {
-            return ajax == controllerContext.HttpContext.Request.IsAjaxRequest();
+            return this.ajax == controllerContext.HttpContext.Request.IsAjaxRequest();
         }
     }
 }

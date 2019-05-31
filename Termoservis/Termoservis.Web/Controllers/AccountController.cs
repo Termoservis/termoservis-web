@@ -62,7 +62,7 @@ namespace Termoservis.Web.Controllers
         {
 			// Validate model
 			if (!this.ModelState.IsValid)
-				return View(model);
+				return this.View(model);
 
 			// This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -74,7 +74,7 @@ namespace Termoservis.Web.Controllers
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
 	            default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    this.ModelState.AddModelError("", "Invalid login attempt.");
                     return this.View(model);
             }
         }
@@ -174,7 +174,7 @@ namespace Termoservis.Web.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                this.ModelState.AddModelError("", error);
             }
         }
 
@@ -185,11 +185,11 @@ namespace Termoservis.Web.Controllers
 		/// <returns>Redirect to URL.</returns>
 		private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (this.Url.IsLocalUrl(returnUrl))
             {
-                return Redirect(returnUrl);
+                return this.Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home");
         }
 
         #endregion

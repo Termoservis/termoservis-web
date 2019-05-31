@@ -35,7 +35,7 @@ namespace Termoservis.Web.ModelBinders
             var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
             if (string.IsNullOrWhiteSpace(value?.AttemptedValue))
                 return null;
-            return DateTime.ParseExact(value.AttemptedValue, customFormat, CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(value.AttemptedValue, this.customFormat, CultureInfo.InvariantCulture);
         }
     }
 }

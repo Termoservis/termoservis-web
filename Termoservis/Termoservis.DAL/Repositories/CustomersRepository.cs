@@ -89,7 +89,7 @@ namespace Termoservis.DAL.Repositories
         /// </exception>
         public async Task<Customer> AddAsync(Customer model)
         {
-            return await AddAsync(model, true);
+            return await this.AddAsync(model, true);
         }
 
         /// <summary>

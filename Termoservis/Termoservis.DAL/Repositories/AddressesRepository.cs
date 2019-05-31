@@ -119,7 +119,7 @@ namespace Termoservis.DAL.Repositories
 	    /// <exception cref="InvalidDataException">Invalid place identifier.</exception>
 	    public async Task<Address> EnsureExistsAsync(Address address)
 	    {
-	        return await EnsureExistsAsync(address, true);
+	        return await this.EnsureExistsAsync(address, true);
 	    }
 
 	    /// <summary>
@@ -171,7 +171,7 @@ namespace Termoservis.DAL.Repositories
 		/// <exception cref="ArgumentOutOfRangeException">Place identifier must not be zero.</exception>
 		public async Task<Address> EnsureExistsAsync(string streetAddress, int? placeId)
 		{
-		    return await EnsureExistsAsync(streetAddress, placeId, true);
+		    return await this.EnsureExistsAsync(streetAddress, placeId, true);
 		}
 
         /// <summary>

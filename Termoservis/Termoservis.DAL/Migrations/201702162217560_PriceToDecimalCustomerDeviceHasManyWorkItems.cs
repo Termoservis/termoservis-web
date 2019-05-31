@@ -15,9 +15,9 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            DropForeignKey("dbo.CustomerDevices", "WorkItem_Id", "dbo.WorkItems");
-            DropIndex("dbo.CustomerDevices", new[] { "WorkItem_Id" });
-            CreateTable(
+            this.DropForeignKey("dbo.CustomerDevices", "WorkItem_Id", "dbo.WorkItems");
+            this.DropIndex("dbo.CustomerDevices", new[] { "WorkItem_Id" });
+            this.CreateTable(
                 "dbo.WorkItemCustomerDevices",
                 c => new
                     {
@@ -29,9 +29,9 @@ namespace Termoservis.DAL.Migrations
                 .ForeignKey("dbo.CustomerDevices", t => t.CustomerDevice_Id, cascadeDelete: true)
                 .Index(t => t.WorkItem_Id)
                 .Index(t => t.CustomerDevice_Id);
-            
-            AlterColumn("dbo.WorkItems", "Price", c => c.Double(nullable: false));
-            DropColumn("dbo.CustomerDevices", "WorkItem_Id");
+
+            this.AlterColumn("dbo.WorkItems", "Price", c => c.Double(nullable: false));
+            this.DropColumn("dbo.CustomerDevices", "WorkItem_Id");
         }
 
         /// <summary>
@@ -39,15 +39,15 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            AddColumn("dbo.CustomerDevices", "WorkItem_Id", c => c.Long());
-            DropForeignKey("dbo.WorkItemCustomerDevices", "CustomerDevice_Id", "dbo.CustomerDevices");
-            DropForeignKey("dbo.WorkItemCustomerDevices", "WorkItem_Id", "dbo.WorkItems");
-            DropIndex("dbo.WorkItemCustomerDevices", new[] { "CustomerDevice_Id" });
-            DropIndex("dbo.WorkItemCustomerDevices", new[] { "WorkItem_Id" });
-            AlterColumn("dbo.WorkItems", "Price", c => c.Int(nullable: false));
-            DropTable("dbo.WorkItemCustomerDevices");
-            CreateIndex("dbo.CustomerDevices", "WorkItem_Id");
-            AddForeignKey("dbo.CustomerDevices", "WorkItem_Id", "dbo.WorkItems", "Id");
+            this.AddColumn("dbo.CustomerDevices", "WorkItem_Id", c => c.Long());
+            this.DropForeignKey("dbo.WorkItemCustomerDevices", "CustomerDevice_Id", "dbo.CustomerDevices");
+            this.DropForeignKey("dbo.WorkItemCustomerDevices", "WorkItem_Id", "dbo.WorkItems");
+            this.DropIndex("dbo.WorkItemCustomerDevices", new[] { "CustomerDevice_Id" });
+            this.DropIndex("dbo.WorkItemCustomerDevices", new[] { "WorkItem_Id" });
+            this.AlterColumn("dbo.WorkItems", "Price", c => c.Int(nullable: false));
+            this.DropTable("dbo.WorkItemCustomerDevices");
+            this.CreateIndex("dbo.CustomerDevices", "WorkItem_Id");
+            this.AddForeignKey("dbo.CustomerDevices", "WorkItem_Id", "dbo.WorkItems", "Id");
         }
     }
 }

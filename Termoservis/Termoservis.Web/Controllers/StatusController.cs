@@ -17,7 +17,7 @@ namespace Termoservis.Web.Controllers
         /// </summary>
         public ActionResult Releases()
         {
-            return View();
+            return this.View();
         }
     }
 }

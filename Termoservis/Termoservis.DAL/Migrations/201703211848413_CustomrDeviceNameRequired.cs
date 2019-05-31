@@ -15,7 +15,7 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            AlterColumn("dbo.CustomerDevices", "Name", c => c.String(nullable: false));
+            this.AlterColumn("dbo.CustomerDevices", "Name", c => c.String(nullable: false));
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            AlterColumn("dbo.CustomerDevices", "Name", c => c.String());
+            this.AlterColumn("dbo.CustomerDevices", "Name", c => c.String());
         }
     }
 }

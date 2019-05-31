@@ -117,7 +117,7 @@ namespace Termoservis.Web.Controllers.v1
             // Assign report items to the report
             report.Items = reportItems.OrderBy(item => item.Date).ToList();
 
-            return Ok(report);
+            return this.Ok(report);
         }
     }
 }

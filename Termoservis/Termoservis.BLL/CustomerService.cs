@@ -77,7 +77,7 @@ namespace Termoservis.BLL
                 await this.telephoneNumbersRepository.AddAsync(telephoneNumber);
 
             // Endure address had Id
-            var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
+            var address = await this.addressesRepository.EnsureExistsAsync(streetName, placeId);
 
             // Populate model
             customerModel.TelephoneNumbers = telephoneNumbersList.Where(t => !string.IsNullOrWhiteSpace(t.Number)).ToList();
@@ -134,12 +134,12 @@ namespace Termoservis.BLL
 
             // Recalculate telephone numbers search keywords for existing entities
             foreach (var telephoneNumber in telephoneNumbersList.Where(t => t.Id != 0))
-                await telephoneNumbersRepository.EditAsync(
+                await this.telephoneNumbersRepository.EditAsync(
                     telephoneNumber.Id,
                     telephoneNumber);
 
             // Make sure address had Id
-            var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
+            var address = await this.addressesRepository.EnsureExistsAsync(streetName, placeId);
             
             // Populate customer model
             customerModel.TelephoneNumbers = telephoneNumbersList;
