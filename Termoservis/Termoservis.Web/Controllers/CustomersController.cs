@@ -63,7 +63,7 @@ namespace Termoservis.Web.Controllers
 		/// <summary>
 		/// The index page.
 		/// </summary>
-		public async Task<ActionResult> Index()
+		public ActionResult Index()
 		{
             var result = new CustomersSearchResult
             {
