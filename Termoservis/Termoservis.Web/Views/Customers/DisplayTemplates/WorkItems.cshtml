@@ -6,7 +6,7 @@
 <div class="form-group row">
     <div class="col">
         <table class="table table-hover table-responsive">
-            <thead class="thead-default">
+            <thead class="bg-light">
             <tr>
                 <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Date)</th>
                 <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Type)</th>
@@ -44,7 +44,7 @@
             else
             {
                 <tr>
-                    <td class="text-muted" colspan="6">Korisnik nema stavki</td>
+                    <td class="text-muted small" colspan="6">Korisnik nema stavki</td>
                 </tr>
             }
             </tbody>

@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <META name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
 	<meta name="description" content="Termoservis" />
     <title>@ViewBag.Title - Termoservis</title>
@@ -43,13 +43,13 @@
 </head>
 <body>
 
-<nav class="navbar navbar-toggleable-md fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainToggler" 
+        @Html.ActionLink("TERMOSERVIS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainToggler"
                 aria-controls="navbarMainToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        @Html.ActionLink("TERMOSERVIS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         <div class="collapse navbar-collapse" id="navbarMainToggler">
             <div class="navbar-nav mr-auto">
                 @Html.MenuLink("Početna", "Index", "Home", new { @class = "nav-item nav-link" }, true)

@@ -5,10 +5,10 @@
 <div class="row">
     <div class="col-xl-6 pt-4">
         <div class="card">
-            <div class="card-header">
-                Stavke <small class="text-muted">Nove stavke vs. proslogodisnje stavke</small>
+            <div class="card-header bg-light">
+                Stavke <small class="text-muted">Nove stavke vs. prošlogodisnje stavke</small>
             </div>
-            <div class="card-block">
+            <div class="card-body">
                 <div id="workItemsOverDayGraph-data-loading-container">
                     <small>Loading...</small>
                     <div id="workItemsOverDayGraph-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
@@ -22,10 +22,10 @@
 <div class="row">
     <div class="col-md-3 pt-4">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-light">
                 Backup
             </div>
-            <div class="card-block">
+            <div class="card-body">
                 <button class="btn btn-outline-primary" id="download-backup-button">
                     <i class="fa fa-download"></i>
                     <span>&nbsp;Preuzmi</span>
@@ -38,10 +38,10 @@
     </div>
     <div class="col-md-9 pt-4">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-light">
                 U novoj verziji
             </div>
-            <div class="card-block">
+            <div class="card-body">
                 <div id="inNewVersion-data-loading-container">
                     <small>Loading...</small>
                     <div id="inNewVersion-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
@@ -49,7 +49,7 @@
                 <div id="new-in-release-container" style="font-size: 0.9em;">
                 </div>
                 <div>
-                    @Html.ActionLink("Pregled prijasnjih verzija...", "Releases", "Status")
+                    @Html.ActionLink("Pregled prijašnjih verzija...", "Releases", "Status")
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@
                     $(loadingProgressBars.workItemsOverDayGraph.progressBarContainer).hide();
 
                     var dataArray = [
-                        ['', 'Novo', 'Prijasnje']
+                        ['', 'Novo', 'Prijašnje']
                     ];
 
                     for (var index = 0; index < result.Items.length; index++) {

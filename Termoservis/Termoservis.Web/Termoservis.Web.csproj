@@ -151,8 +151,8 @@
     <Reference Include="Serilog.Sinks.ColoredConsole, Version=3.0.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.ColoredConsole.3.0.1\lib\net45\Serilog.Sinks.ColoredConsole.dll</HintPath>
     </Reference>
-    <Reference Include="Serilog.Sinks.Console, Version=3.0.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.Console.3.0.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    <Reference Include="Serilog.Sinks.Console, Version=3.1.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -160,8 +160,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
@@ -335,14 +335,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
-    <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
-    <Content Include="Content\bootstrap-datepicker3.min.css.map" />
-    <Content Include="Content\bootstrap-datepicker3.css.map" />
-    <Content Include="Content\bootstrap-datepicker.standalone.min.css.map" />
-    <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
-    <Content Include="Content\bootstrap-datepicker.min.css.map" />
-    <Content Include="Content\bootstrap-datepicker.css.map" />
     <Content Include="ChangeLog.md" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -350,6 +342,10 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.css.map" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker.css.map" />
     <None Include="Properties\PublishProfiles\termoservis - Web Deploy.pubxml" />
     <Content Include="Scripts\ai.1.0.4-build00190.js" />
     <Content Include="Scripts\ai.1.0.4-build00190.min.js" />
@@ -360,17 +356,30 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Customers\Create.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
     <Content Include="Scripts\i18n\bg.js" />
+    <Content Include="Scripts\i18n\bn.js" />
+    <Content Include="Scripts\i18n\bs.js" />
     <Content Include="Scripts\i18n\ca.js" />
     <Content Include="Scripts\i18n\cs.js" />
     <Content Include="Scripts\i18n\da.js" />
     <Content Include="Scripts\i18n\de.js" />
+    <Content Include="Scripts\i18n\dsb.js" />
     <Content Include="Scripts\i18n\el.js" />
     <Content Include="Scripts\i18n\en.js" />
     <Content Include="Scripts\i18n\es.js" />
@@ -383,11 +392,14 @@
     <Content Include="Scripts\i18n\he.js" />
     <Content Include="Scripts\i18n\hi.js" />
     <Content Include="Scripts\i18n\hr.js" />
+    <Content Include="Scripts\i18n\hsb.js" />
     <Content Include="Scripts\i18n\hu.js" />
+    <Content Include="Scripts\i18n\hy.js" />
     <Content Include="Scripts\i18n\id.js" />
     <Content Include="Scripts\i18n\is.js" />
     <Content Include="Scripts\i18n\it.js" />
     <Content Include="Scripts\i18n\ja.js" />
+    <Content Include="Scripts\i18n\ka.js" />
     <Content Include="Scripts\i18n\km.js" />
     <Content Include="Scripts\i18n\ko.js" />
     <Content Include="Scripts\i18n\lt.js" />
@@ -395,47 +407,47 @@
     <Content Include="Scripts\i18n\mk.js" />
     <Content Include="Scripts\i18n\ms.js" />
     <Content Include="Scripts\i18n\nb.js" />
+    <Content Include="Scripts\i18n\ne.js" />
     <Content Include="Scripts\i18n\nl.js" />
     <Content Include="Scripts\i18n\pl.js" />
+    <Content Include="Scripts\i18n\ps.js" />
     <Content Include="Scripts\i18n\pt-BR.js" />
     <Content Include="Scripts\i18n\pt.js" />
     <Content Include="Scripts\i18n\ro.js" />
     <Content Include="Scripts\i18n\ru.js" />
     <Content Include="Scripts\i18n\sk.js" />
+    <Content Include="Scripts\i18n\sl.js" />
+    <Content Include="Scripts\i18n\sq.js" />
     <Content Include="Scripts\i18n\sr-Cyrl.js" />
     <Content Include="Scripts\i18n\sr.js" />
     <Content Include="Scripts\i18n\sv.js" />
     <Content Include="Scripts\i18n\th.js" />
+    <Content Include="Scripts\i18n\tk.js" />
     <Content Include="Scripts\i18n\tr.js" />
     <Content Include="Scripts\i18n\uk.js" />
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\jquery.ba-throttle-debounce.js" />
     <Content Include="Scripts\jquery.ba-throttle-debounce.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker-en-CA.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.br.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bs.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ca.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.cs.min.js" />
@@ -444,7 +456,11 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.de.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.el.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.en-AU.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-CA.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-IE.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-NZ.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-ZA.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.eo.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.es.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.et.min.js" />
@@ -456,6 +472,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.fr.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.gl.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hi.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.hr.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.hu.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.hy.min.js" />
@@ -467,6 +484,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.ka.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.kh.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.km.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ko.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.kr.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.lt.min.js" />
@@ -475,10 +493,10 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.mk.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.mn.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ms.min.js" />
-    <Content Include="Scripts\locales\bootstrap-datepicker.nb.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.nl-BE.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.nl.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.oc.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pl.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pt-BR.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.pt.min.js" />
@@ -486,6 +504,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.rs-latin.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.rs.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.si.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.sk.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.sl.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.sq.min.js" />
@@ -493,9 +512,14 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.sr.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.sv.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ta.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tg.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tk.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.tr.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uz-cyrl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uz-latn.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
@@ -561,9 +585,9 @@
     <Content Include="Views\Customers\_WorkItemDetailsPartial.cshtml" />
     <Content Include="Views\Customers\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Customers\_CustomerDeviceDetailsPartial.cshtml" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Status\Releases.cshtml" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -609,10 +633,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -20,7 +20,9 @@ namespace Termoservis.Web.Controllers
     /// </summary>
     /// <seealso cref="Controller" />
     [System.Web.Mvc.Authorize]
+#if !DEBUG
     [RequireHttps]
+#endif
     public class WorkItemsController : Controller
     {
         private readonly ApplicationDbContext context;

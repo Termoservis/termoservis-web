@@ -22,7 +22,9 @@ namespace Termoservis.Web.Controllers
     /// </summary>
     /// <seealso cref="Controller" />
     [Authorize]
+#if !DEBUG
     [RequireHttps]
+#endif
     public class CustomersController : Controller
     {
 	    private readonly ApplicationDbContext context;

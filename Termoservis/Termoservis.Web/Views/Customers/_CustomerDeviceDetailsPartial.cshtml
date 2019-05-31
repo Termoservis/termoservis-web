@@ -1,6 +1,6 @@
 ﻿@model Termoservis.Web.Models.Customer.CustomerDeviceFormViewModel
     
-@using (Html.BeginForm(Model.ActionName, "Customers", FormMethod.Post, new {@class = "col-xs-12", role = "form", style = "background-color: rgb(249, 249, 249)"}))
+@using (Html.BeginForm(Model.ActionName, "Customers", FormMethod.Post, new {@class = "col-xs-12 bg-light shadow-sm", role = "form", style = ""}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
