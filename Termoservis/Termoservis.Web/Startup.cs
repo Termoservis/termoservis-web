@@ -17,7 +17,7 @@ namespace Termoservis.Web
 		/// <param name="app">The application.</param>
 		public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
+            var config = new HttpConfiguration();
             WebApiConfig.Register(config);
             this.ConfigureAuth(app);
         }

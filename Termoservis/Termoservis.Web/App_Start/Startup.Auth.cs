@@ -5,10 +5,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
-using Microsoft.Practices.Unity;
 using Owin;
 using Termoservis.DAL;
 using Termoservis.Models;
+using Unity;
 
 namespace Termoservis.Web
 {
