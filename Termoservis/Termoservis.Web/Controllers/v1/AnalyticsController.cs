@@ -58,7 +58,7 @@ namespace Termoservis.Web.Controllers.v1
         [Route("newwivslastyear")]
         public async Task<IHttpActionResult> GetWorkItemsVsLastYearPerformance()
         {
-            const int reportItemsCount = 14;
+            const int reportItemsCount = 30;
 
             var report = new WorkItemsVsLastYearPerformanceReport();
 

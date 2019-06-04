@@ -33,7 +33,7 @@
 <tr>
     <td colspan="6" style="padding: 0 !important; border: none;">
         <div class="accordion-body collapse" id="workItemEdit-@Model.Id" style="background-color: rgb(249, 249, 249)">
-            @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Edit", Model, Model.Customer))
+            @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Edit", false, Model, Model.Customer))
         </div>
     </td>
 </tr>

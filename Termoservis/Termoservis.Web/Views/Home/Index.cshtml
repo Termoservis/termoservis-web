@@ -90,8 +90,7 @@
             });
 
             $.ajax({
-                url: '/ChangeLog.md',
-                async: false,
+                url: '/ChangeLog.md#' + new Date(),
                 success: function (data) {
                     loadingProgressBars.inNewVersion.progressBar.end(true);
                     $(loadingProgressBars.inNewVersion.progressBarContainer).hide();

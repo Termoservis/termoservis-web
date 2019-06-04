@@ -1,6 +1,7 @@
 ##### v2.4.0 (_2019.06.04_)
 
 - Dodano: Mogucnost uredivanja uredaja
+- Promjena: Analitika Stavke raspon povecan s 14 na 30 dana
 
 ----
 
