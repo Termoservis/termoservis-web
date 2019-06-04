@@ -2,6 +2,8 @@
 
 - Dodano: Mogucnost uredivanja uredaja
 - Promjena: Analitika Stavke raspon povecan s 14 na 30 dana
+- Promjena: Kreiranje nove stavke ne prikazuje gumb Obrisi
+- Popravljeno: Uredivanje stavke mice odabir uredaja
 
 ----
 
