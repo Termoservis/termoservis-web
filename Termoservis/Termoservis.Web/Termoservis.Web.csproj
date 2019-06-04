@@ -584,7 +584,7 @@
     <Content Include="Views\Customers\_CustomersTablePartial.cshtml" />
     <Content Include="Views\Customers\_WorkItemDetailsPartial.cshtml" />
     <Content Include="Views\Customers\EditorTemplates\Enum.cshtml" />
-    <Content Include="Views\Customers\_CustomerDeviceDetailsPartial.cshtml" />
+    <Content Include="Views\Customers\_CustomerDeviceCreateFormPartial.cshtml" />
     <Content Include="Views\Status\Releases.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
@@ -597,6 +597,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Customers\_CustomerDeviceUpdateFormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,3 +1,9 @@
+##### v2.4.0 (_2019.06.04_)
+
+- Dodano: Mogucnost uredivanja uredaja
+
+----
+
 ##### v2.3.2 (_2018.11.05_)
 
 - Popravljeno: Ažurirani paketi

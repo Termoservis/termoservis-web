@@ -333,5 +333,55 @@ namespace Termoservis.Web.Controllers
             // Display edited customer details view
             return this.RedirectToAction("Details", new { id = customer.Id });
         }
+
+        //
+        // POST: /Customers/UpdateCustomerDevice
+        /// <summary>
+        /// Updates the customer device.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">viewModel</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// CustomerId
+        /// or
+        /// DeviceId
+        /// or
+        /// CustomerId
+        /// </exception>
+        /// <exception cref="ArgumentException">Value cannot be null or whitespace. - DeviceName</exception>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateCustomerDevice(CustomerDeviceFormViewModel viewModel)
+        {
+            if (viewModel == null) throw new ArgumentNullException(nameof(viewModel));
+            if (viewModel.CustomerId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(viewModel.CustomerId));
+            if (viewModel.Device.Id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(viewModel.Device.Id));
+            if (string.IsNullOrWhiteSpace(viewModel.Device.Name))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(viewModel.Device.Name));
+
+            // Retrieve customer
+            var customer = this.context.Customers.FirstOrDefault(c => c.Id == viewModel.CustomerId);
+            if (customer == null)
+                throw new ArgumentOutOfRangeException(nameof(viewModel.CustomerId));
+
+            // Retrieve required data
+            var deviceId = viewModel.Device.Id;
+            var deviceName = viewModel.Device.Name;
+            var deviceManufacturer = viewModel.Device.Manufacturer;
+            var deviceCommisionDate = viewModel.Device.CommissionDate;
+
+            // Update device for customer
+            await this.customerService.EditCustomerDeviceAsync(
+                customer,
+                deviceId,
+                deviceName,
+                deviceManufacturer,
+                deviceCommisionDate);
+
+            return this.RedirectToAction("Details", new {id = customer.Id});
+        }
     }
 }

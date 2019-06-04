@@ -29,13 +29,13 @@ namespace Termoservis.Web.Models.Customer
         /// </exception>
         public CustomerDeviceFormViewModel(string actionName, long customerId, CustomerDevice device)
         {
-            if (actionName == null) throw new ArgumentNullException(nameof(actionName));
-            if (device == null) throw new ArgumentNullException(nameof(device));
             if (customerId <= 0) throw new ArgumentOutOfRangeException(nameof(customerId));
+            if (string.IsNullOrWhiteSpace(actionName))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(actionName));
 
             this.CustomerId = customerId;
             this.ActionName = actionName;
-            this.Device = device;
+            this.Device = device ?? throw new ArgumentNullException(nameof(device));
         }
 
         /// <summary>
