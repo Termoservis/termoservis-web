@@ -2,22 +2,36 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="row">
-    <div class="col-xl-6 pt-4">
-        <div class="card">
-            <div class="card-header bg-light">
-                Stavke <small class="text-muted">Nove stavke vs. prošlogodisnje stavke</small>
-            </div>
-            <div class="card-body">
-                <div id="workItemsOverDayGraph-data-loading-container">
-                    <small>Loading...</small>
-                    <div id="workItemsOverDayGraph-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+    <div class="row">
+        <div class="col-xl-6 pt-4">
+            <div class="card">
+                <div class="card-header bg-light">
+                    Stavke <small class="text-muted">Nove stavke vs. prošlogodisnje stavke (30 dana)</small>
                 </div>
-                <div id="workItemsOverDayGraph" class='pt-1'></div>
+                <div class="card-body">
+                    <div id="workItemsOverDayGraph-data-loading-container">
+                        <small>Loading...</small>
+                        <div id="workItemsOverDayGraph-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+                    </div>
+                    <div id="workItemsOverDayGraph" class='pt-1'></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 pt-4">
+            <div class="card">
+                <div class="card-header bg-light">
+                    Zaposlenik <small class="text-muted">Stavke (30 dana)</small>
+                </div>
+                <div class="card-body">
+                    <div id="workerWorkItemsCountGraph-data-loading-container">
+                        <small>Loading...</small>
+                        <div id="workerWorkItemsCountGraph-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+                    </div>
+                    <div id="workerWorkItemsCountGraph" class='pt-1'></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <div class="row">
     <div class="col-md-3 pt-4">
@@ -65,6 +79,11 @@
                 progressBarId: '#workItemsOverDayGraph-data-loading-progress',
                 progressBar: undefined
             },
+            workerWorkItemsCount: {
+                progressBarContainer: '#workerWorkItemsCountGraph-data-loading-container',
+                progressBarId: '#workerWorkItemsCountGraph-data-loading-progress',
+                progressBar: undefined
+            },
             inNewVersion: {
                 progressBarContainer: '#inNewVersion-data-loading-container',
                 progressBarId: '#inNewVersion-data-loading-progress',
@@ -76,6 +95,11 @@
             loadingProgressBars.workItemsOverDayGraph.progressBar = new Mprogress({
                 template: 3,
                 parent: loadingProgressBars.workItemsOverDayGraph.progressBarId,
+                start: true
+            });
+            loadingProgressBars.workerWorkItemsCount.progressBar = new Mprogress({
+                template: 3,
+                parent: loadingProgressBars.workerWorkItemsCount.progressBarId,
                 start: true
             });
             loadingProgressBars.inNewVersion.progressBar = new Mprogress({
@@ -99,7 +123,7 @@
             });
         });
 
-        google.charts.load('current', { 'packages': ['line'] });
+        google.charts.load('current', { 'packages': ['line', 'bar'] });
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
@@ -128,6 +152,36 @@
                     };
 
                     var chart = new google.charts.Line(document.getElementById('workItemsOverDayGraph'));
+
+                    chart.draw(data, options);
+                }
+            });
+
+            $.ajax({
+                url: '/api/v1/analytics/workerworkitems',
+                success: function (result) {
+                    loadingProgressBars.workerWorkItemsCount.progressBar.end(true);
+                    $(loadingProgressBars.workerWorkItemsCount.progressBarContainer).hide();
+
+                    var dataArray = [
+                        ['Zaposlenik', 'Broj stavki']
+                    ];
+
+                    for (var index = 0; index < result.Items.length; index++) {
+                        var currentItem = result.Items[index];
+                        dataArray.push([
+                            currentItem.WorkerName, currentItem.WorkItemsCount
+                        ]);
+                    }
+
+                    var data = google.visualization.arrayToDataTable(dataArray);
+
+                    var options = {
+                        colors: ['#1e90ff', '#cacaca'],
+                        legend: { position: 'none' }
+                    };
+
+                    var chart = new google.charts.Bar(document.getElementById('workerWorkItemsCountGraph'));
 
                     chart.draw(data, options);
                 }

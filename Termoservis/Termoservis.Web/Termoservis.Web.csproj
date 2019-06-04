@@ -273,6 +273,8 @@
     <Compile Include="Controllers\v1\Select2\Select2Response.cs" />
     <Compile Include="Filters\LocalHostTelemetryFilter.cs" />
     <Compile Include="ModelBinders\DoubleModelBinder.cs" />
+    <Compile Include="Models\Analytics\v1\WorkerWorkItemsCountReport.cs" />
+    <Compile Include="Models\Analytics\v1\WorkerWorkItemsCountReportItem.cs" />
     <Compile Include="Models\Analytics\v1\WorkItemsVsLastYearPerformanceReport.cs" />
     <Compile Include="Models\Analytics\v1\WorkItemsVsLastYearPerformanceReportItem.cs" />
     <Compile Include="ModelBinders\DateTimeModelBinder.cs" />

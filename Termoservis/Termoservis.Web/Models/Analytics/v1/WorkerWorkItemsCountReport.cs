@@ -3,9 +3,9 @@ using System.Collections.Generic;
 namespace Termoservis.Web.Models.Analytics.v1
 {
     /// <summary>
-    /// The workitems vs. last year performance report.
+    /// The worker work items count report.
     /// </summary>
-    public class WorkItemsVsLastYearPerformanceReport
+    public class WorkerWorkItemsCountReport
     {
         /// <summary>
         /// Gets or sets the items.
@@ -13,6 +13,6 @@ namespace Termoservis.Web.Models.Analytics.v1
         /// <value>
         /// The items.
         /// </value>
-        public List<WorkItemsVsLastYearPerformanceReportItem> Items { get; set; }
+        public List<WorkerWorkItemsCountReportItem> Items { get; set; }
     }
 }

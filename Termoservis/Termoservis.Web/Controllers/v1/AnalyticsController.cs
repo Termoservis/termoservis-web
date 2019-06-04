@@ -48,6 +48,48 @@ namespace Termoservis.Web.Controllers.v1
 
 
         //
+        // GET api/v1/analytics/workerworkitems
+        [HttpGet]
+        [ResponseType(typeof(WorkerWorkItemsCountReport))]
+        [Route("workerworkitems")]
+        public async Task<IHttpActionResult> GetWorkerWorkItemsCount()
+        {
+            const int reportDays = 30;
+
+            var report = new WorkerWorkItemsCountReport()
+            {
+                Items = new List<WorkerWorkItemsCountReportItem>()
+            };
+
+            // Current date
+            var today = DateTime.Today;
+            var before = today.Subtract(TimeSpan.FromDays(reportDays));
+
+            // Retrieve work items
+            var workItemsQuery = await this.workItemsRepository
+                .GetAll()
+                .Where(workItem =>
+                    workItem.Date.HasValue &&
+                    workItem.Date.Value >= before &&
+                    workItem.Date.Value <= today)
+                .GroupBy(workItem => workItem.Worker)
+                .OrderBy(group => group.Key.Name)
+                .Select(group => new {Worker = group.Key, Count = group.Count()})
+                .ToListAsync();
+
+            foreach (var workerWorkItems in workItemsQuery)
+            {
+                report.Items.Add(new WorkerWorkItemsCountReportItem
+                {
+                    WorkerName = workerWorkItems.Worker?.Name ?? "Nepoznato",
+                    WorkItemsCount = workerWorkItems.Count
+                });
+            }
+
+            return this.Ok(report);
+        }
+
+        //
         // GET api/v1/analytics/newwivslastyear        
         /// <summary>
         /// Gets the this years work items vs last years work items performance report.

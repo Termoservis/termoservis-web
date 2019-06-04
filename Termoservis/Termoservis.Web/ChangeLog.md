@@ -1,6 +1,7 @@
 ##### v2.4.0 (_2019.06.04_)
 
 - Dodano: Mogucnost uredivanja uredaja
+- Dodano: Analitika broj stavki po zaposleniku zadnjih 30 dana
 - Promjena: Analitika Stavke raspon povecan s 14 na 30 dana
 - Promjena: Kreiranje nove stavke ne prikazuje gumb Obrisi
 - Popravljeno: Uredivanje stavke mice odabir uredaja
