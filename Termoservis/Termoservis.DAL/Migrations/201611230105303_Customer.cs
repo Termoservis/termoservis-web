@@ -15,7 +15,7 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            CreateTable(
+            this.CreateTable(
                 "dbo.Addresses",
                 c => new
                     {
@@ -27,8 +27,8 @@ namespace Termoservis.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Places", t => t.PlaceId, cascadeDelete: true)
                 .Index(t => t.PlaceId);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.Places",
                 c => new
                     {
@@ -40,8 +40,8 @@ namespace Termoservis.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Countries", t => t.CountryId, cascadeDelete: true)
                 .Index(t => t.CountryId);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.Countries",
                 c => new
                     {
@@ -50,8 +50,8 @@ namespace Termoservis.DAL.Migrations
                         SearchKeywords = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.Customers",
                 c => new
                     {
@@ -69,8 +69,8 @@ namespace Termoservis.DAL.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId, cascadeDelete: true)
                 .Index(t => t.AddressId)
                 .Index(t => t.ApplicationUserId);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.TelephoneNumbers",
                 c => new
                     {
@@ -90,21 +90,21 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            DropForeignKey("dbo.TelephoneNumbers", "Customer_Id", "dbo.Customers");
-            DropForeignKey("dbo.Customers", "ApplicationUserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Customers", "AddressId", "dbo.Addresses");
-            DropForeignKey("dbo.Addresses", "PlaceId", "dbo.Places");
-            DropForeignKey("dbo.Places", "CountryId", "dbo.Countries");
-            DropIndex("dbo.TelephoneNumbers", new[] { "Customer_Id" });
-            DropIndex("dbo.Customers", new[] { "ApplicationUserId" });
-            DropIndex("dbo.Customers", new[] { "AddressId" });
-            DropIndex("dbo.Places", new[] { "CountryId" });
-            DropIndex("dbo.Addresses", new[] { "PlaceId" });
-            DropTable("dbo.TelephoneNumbers");
-            DropTable("dbo.Customers");
-            DropTable("dbo.Countries");
-            DropTable("dbo.Places");
-            DropTable("dbo.Addresses");
+            this.DropForeignKey("dbo.TelephoneNumbers", "Customer_Id", "dbo.Customers");
+            this.DropForeignKey("dbo.Customers", "ApplicationUserId", "dbo.AspNetUsers");
+            this.DropForeignKey("dbo.Customers", "AddressId", "dbo.Addresses");
+            this.DropForeignKey("dbo.Addresses", "PlaceId", "dbo.Places");
+            this.DropForeignKey("dbo.Places", "CountryId", "dbo.Countries");
+            this.DropIndex("dbo.TelephoneNumbers", new[] { "Customer_Id" });
+            this.DropIndex("dbo.Customers", new[] { "ApplicationUserId" });
+            this.DropIndex("dbo.Customers", new[] { "AddressId" });
+            this.DropIndex("dbo.Places", new[] { "CountryId" });
+            this.DropIndex("dbo.Addresses", new[] { "PlaceId" });
+            this.DropTable("dbo.TelephoneNumbers");
+            this.DropTable("dbo.Customers");
+            this.DropTable("dbo.Countries");
+            this.DropTable("dbo.Places");
+            this.DropTable("dbo.Addresses");
         }
     }
 }

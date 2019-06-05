@@ -77,7 +77,7 @@ namespace Termoservis.BLL
                 await this.telephoneNumbersRepository.AddAsync(telephoneNumber);
 
             // Endure address had Id
-            var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
+            var address = await this.addressesRepository.EnsureExistsAsync(streetName, placeId);
 
             // Populate model
             customerModel.TelephoneNumbers = telephoneNumbersList.Where(t => !string.IsNullOrWhiteSpace(t.Number)).ToList();
@@ -134,12 +134,12 @@ namespace Termoservis.BLL
 
             // Recalculate telephone numbers search keywords for existing entities
             foreach (var telephoneNumber in telephoneNumbersList.Where(t => t.Id != 0))
-                await telephoneNumbersRepository.EditAsync(
+                await this.telephoneNumbersRepository.EditAsync(
                     telephoneNumber.Id,
                     telephoneNumber);
 
             // Make sure address had Id
-            var address = await addressesRepository.EnsureExistsAsync(streetName, placeId);
+            var address = await this.addressesRepository.EnsureExistsAsync(streetName, placeId);
             
             // Populate customer model
             customerModel.TelephoneNumbers = telephoneNumbersList;
@@ -156,7 +156,7 @@ namespace Termoservis.BLL
         /// <param name="customerModel">The customer model.</param>
         /// <param name="deviceName">Name of the device.</param>
         /// <param name="deviceManufacturer">The device manufacturer.</param>
-        /// <param name="deviceCommisionDate">The device commision date.</param>
+        /// <param name="deviceCommissionDate">The device commision date.</param>
         /// <returns>
         /// Returns the create customer device model.
         /// </returns>
@@ -170,19 +170,19 @@ namespace Termoservis.BLL
             Customer customerModel, 
             string deviceName, 
             string deviceManufacturer,
-            DateTime? deviceCommisionDate)
+            DateTime? deviceCommissionDate)
         {
             if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
             if (string.IsNullOrWhiteSpace(deviceName))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(deviceName));
 
             // Date database fix
-            if (deviceCommisionDate.HasValue)
+            if (deviceCommissionDate.HasValue)
             {
-                if (deviceCommisionDate.Value < SqlDateTime.MinValue)
-                    deviceCommisionDate = SqlDateTime.MinValue.Value;
-                else if (deviceCommisionDate.Value > SqlDateTime.MaxValue)
-                    deviceCommisionDate = SqlDateTime.MaxValue.Value;
+                if (deviceCommissionDate.Value < SqlDateTime.MinValue)
+                    deviceCommissionDate = SqlDateTime.MinValue.Value;
+                else if (deviceCommissionDate.Value > SqlDateTime.MaxValue)
+                    deviceCommissionDate = SqlDateTime.MaxValue.Value;
             }
 
             // Create device assigned to customer
@@ -191,7 +191,7 @@ namespace Termoservis.BLL
             {
                 Name = deviceName,
                 Manufacturer = deviceManufacturer,
-                CommissionDate = deviceCommisionDate
+                CommissionDate = deviceCommissionDate
             };
             customer.CustomerDevices.Add(customerDevice);
 
@@ -199,6 +199,50 @@ namespace Termoservis.BLL
             await this.customersRepository.Save();
 
             // Return create customer device model
+            return customerDevice;
+        }
+
+        /// <summary>
+        /// Edits the customer device.
+        /// </summary>
+        /// <param name="customerModel">The customer model.</param>
+        /// <param name="deviceId">The device identifier.</param>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <param name="deviceManufacturer">The device manufacturer.</param>
+        /// <param name="deviceCommissionDate">The device commission date.</param>
+        /// <returns>Returns the edited customer device.</returns>
+        /// <exception cref="ArgumentNullException">customerModel</exception>
+        /// <exception cref="ArgumentException">Value cannot be null or whitespace. - deviceName</exception>
+        /// <exception cref="ArgumentOutOfRangeException">deviceId</exception>
+        public async Task<CustomerDevice> EditCustomerDeviceAsync(
+            Customer customerModel,
+            long deviceId,
+            string deviceName, 
+            string deviceManufacturer,
+            DateTime? deviceCommissionDate)
+        {
+            if (customerModel == null) throw new ArgumentNullException(nameof(customerModel));
+            if (string.IsNullOrWhiteSpace(deviceName))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(deviceName));
+            if (deviceId <= 0) throw new ArgumentOutOfRangeException(nameof(deviceId));
+
+            // Date database fix
+            if (deviceCommissionDate.HasValue)
+            {
+                if (deviceCommissionDate.Value < SqlDateTime.MinValue)
+                    deviceCommissionDate = SqlDateTime.MinValue.Value;
+                else if (deviceCommissionDate.Value > SqlDateTime.MaxValue)
+                    deviceCommissionDate = SqlDateTime.MaxValue.Value;
+            }
+
+            var customerDevice = this.customerDevicesRepository.Get(deviceId);
+
+            customerDevice.CommissionDate = deviceCommissionDate;
+            customerDevice.Name = deviceName;
+            customerDevice.Manufacturer = deviceManufacturer;
+
+            await this.customerDevicesRepository.Save();
+
             return customerDevice;
         }
     }

@@ -15,12 +15,12 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            DropForeignKey("dbo.WorkItems", "Customer_Id", "dbo.Customers");
-            DropIndex("dbo.WorkItems", new[] { "Customer_Id" });
-            RenameColumn(table: "dbo.WorkItems", name: "Customer_Id", newName: "CustomerId");
-            AlterColumn("dbo.WorkItems", "CustomerId", c => c.Long(nullable: false));
-            CreateIndex("dbo.WorkItems", "CustomerId");
-            AddForeignKey("dbo.WorkItems", "CustomerId", "dbo.Customers", "Id", cascadeDelete: true);
+            this.DropForeignKey("dbo.WorkItems", "Customer_Id", "dbo.Customers");
+            this.DropIndex("dbo.WorkItems", new[] { "Customer_Id" });
+            this.RenameColumn(table: "dbo.WorkItems", name: "Customer_Id", newName: "CustomerId");
+            this.AlterColumn("dbo.WorkItems", "CustomerId", c => c.Long(nullable: false));
+            this.CreateIndex("dbo.WorkItems", "CustomerId");
+            this.AddForeignKey("dbo.WorkItems", "CustomerId", "dbo.Customers", "Id", cascadeDelete: true);
         }
 
         /// <summary>
@@ -28,12 +28,12 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            DropForeignKey("dbo.WorkItems", "CustomerId", "dbo.Customers");
-            DropIndex("dbo.WorkItems", new[] { "CustomerId" });
-            AlterColumn("dbo.WorkItems", "CustomerId", c => c.Long());
-            RenameColumn(table: "dbo.WorkItems", name: "CustomerId", newName: "Customer_Id");
-            CreateIndex("dbo.WorkItems", "Customer_Id");
-            AddForeignKey("dbo.WorkItems", "Customer_Id", "dbo.Customers", "Id");
+            this.DropForeignKey("dbo.WorkItems", "CustomerId", "dbo.Customers");
+            this.DropIndex("dbo.WorkItems", new[] { "CustomerId" });
+            this.AlterColumn("dbo.WorkItems", "CustomerId", c => c.Long());
+            this.RenameColumn(table: "dbo.WorkItems", name: "CustomerId", newName: "Customer_Id");
+            this.CreateIndex("dbo.WorkItems", "Customer_Id");
+            this.AddForeignKey("dbo.WorkItems", "Customer_Id", "dbo.Customers", "Id");
         }
     }
 }

@@ -3,13 +3,15 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using Microsoft.Practices.Unity;
+using Unity;
 using Termoservis.Contracts.Services;
 using Termoservis.DAL;
 using Termoservis.DAL.Repositories;
 using Termoservis.Models;
 using Termoservis.Web.Services;
 using Termoservis.BLL;
+using Unity.AspNet.Mvc;
+using Unity.Injection;
 
 namespace Termoservis.Web
 {
@@ -18,8 +20,10 @@ namespace Termoservis.Web
 	/// </summary>
 	// ReSharper disable once ClassNeverInstantiated.Global
 	public class UnityConfig
-    {
-        #region Unity Container
+    {  
+        /// <summary>
+        /// The container
+        /// </summary>
         private static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() =>
         {
             var container = new UnityContainer();
@@ -34,7 +38,6 @@ namespace Termoservis.Web
         {
             return Container.Value;
         }
-        #endregion
 
         /// <summary>Registers the type mappings with the Unity container.</summary>
         /// <param name="container">The unity container to configure.</param>

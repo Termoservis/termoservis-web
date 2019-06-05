@@ -46,12 +46,28 @@ namespace Termoservis.BLL
         /// <param name="customerModel">The customer model.</param>
         /// <param name="deviceName">Name of the device.</param>
         /// <param name="deviceManufacturer">The device manufacturer.</param>
-        /// <param name="deviceCommisionDate">The device commision date.</param>
+        /// <param name="deviceCommissionDate">The device commission date.</param>
         /// <returns>Returns the create customer device model.</returns>
         Task<CustomerDevice> CreateNewCustomerDeviceAsync(
             Customer customerModel,
             string deviceName,
             string deviceManufacturer,
-            DateTime? deviceCommisionDate);
+            DateTime? deviceCommissionDate);
+
+        /// <summary>
+        /// Edits the customer device.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        /// <param name="deviceId">The device identifier.</param>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <param name="deviceManufacturer">The device manufacturer.</param>
+        /// <param name="deviceCommissionDate">The device commission date.</param>
+        /// <returns>Returns the edited customer device model.</returns>
+        Task<CustomerDevice> EditCustomerDeviceAsync(
+            Customer customer,
+            long deviceId,
+            string deviceName,
+            string deviceManufacturer,
+            DateTime? deviceCommissionDate);
     }
 }

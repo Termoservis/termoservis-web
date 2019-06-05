@@ -85,7 +85,7 @@ namespace Termoservis.Web.Controllers.v1
                 })
                 .ToList();
 
-            return Ok(response);
+            return this.Ok(response);
         }
     }
 }

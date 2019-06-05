@@ -20,7 +20,9 @@ namespace Termoservis.Web.Controllers
     /// </summary>
     /// <seealso cref="Controller" />
     [System.Web.Mvc.Authorize]
+#if !DEBUG
     [RequireHttps]
+#endif
     public class WorkItemsController : Controller
     {
         private readonly ApplicationDbContext context;
@@ -92,7 +94,7 @@ namespace Termoservis.Web.Controllers
             var createdWorkItem = await this.workItemsRepository.AddAsync(workItem);
 
             // Redirect to details
-            return RedirectToAction("Details", "Customers", new {id = createdWorkItem.CustomerId});
+            return this.RedirectToAction("Details", "Customers", new {id = createdWorkItem.CustomerId});
         }
 
         //
@@ -133,7 +135,7 @@ namespace Termoservis.Web.Controllers
             var editedWorkItem = await this.workItemsRepository.EditAsync(workItem.Id, workItem);
 
             // Redirect to details
-            return RedirectToAction("Details", "Customers", new { id = editedWorkItem.CustomerId });
+            return this.RedirectToAction("Details", "Customers", new { id = editedWorkItem.CustomerId });
         }
 
         // 
@@ -153,12 +155,12 @@ namespace Termoservis.Web.Controllers
             // Check if work item exists
             var workItem = this.workItemsRepository.Get(id);
             if (workItem == null)
-                return HttpNotFound("WorkItem with specified identifier was not found.");
+                return this.HttpNotFound("WorkItem with specified identifier was not found.");
 
             // Delete the work item
             await this.workItemsRepository.DeleteAsync(id);
 
-            return RedirectToAction("Details", "Customers", new {id = workItem.CustomerId});
+            return this.RedirectToAction("Details", "Customers", new {id = workItem.CustomerId});
         }
     }
 }

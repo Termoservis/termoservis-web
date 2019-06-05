@@ -7,7 +7,9 @@ namespace Termoservis.Web.Controllers
     /// </summary>
     /// <seealso cref="Controller" />
     [Authorize]
+#if !DEBUG
     [RequireHttps]
+#endif
     public class StatusController : Controller
     {
         //
@@ -17,7 +19,7 @@ namespace Termoservis.Web.Controllers
         /// </summary>
         public ActionResult Releases()
         {
-            return View();
+            return this.View();
         }
     }
 }

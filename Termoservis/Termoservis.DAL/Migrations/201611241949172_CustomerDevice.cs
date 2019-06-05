@@ -15,8 +15,8 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            AddColumn("dbo.CustomerDevices", "Manufacturer", c => c.String());
-            AddColumn("dbo.CustomerDevices", "CommissionDate", c => c.DateTime());
+            this.AddColumn("dbo.CustomerDevices", "Manufacturer", c => c.String());
+            this.AddColumn("dbo.CustomerDevices", "CommissionDate", c => c.DateTime());
         }
 
         /// <summary>
@@ -24,8 +24,8 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            DropColumn("dbo.CustomerDevices", "CommissionDate");
-            DropColumn("dbo.CustomerDevices", "Manufacturer");
+            this.DropColumn("dbo.CustomerDevices", "CommissionDate");
+            this.DropColumn("dbo.CustomerDevices", "Manufacturer");
         }
     }
 }

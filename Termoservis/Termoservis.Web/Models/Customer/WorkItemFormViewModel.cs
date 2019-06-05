@@ -23,6 +23,7 @@ namespace Termoservis.Web.Models.Customer
         /// Initializes a new instance of the <see cref="WorkItemFormViewModel"/> class.
         /// </summary>
         /// <param name="actionName">Name of the action.</param>
+        /// <param name="isCreate">If set to <c>True</c> this view model is to be used for creating work item.</param>
         /// <param name="workItem">The work item.</param>
         /// <param name="customer">The customer.</param>
         /// <exception cref="System.ArgumentNullException">
@@ -30,13 +31,11 @@ namespace Termoservis.Web.Models.Customer
         /// or
         /// workItem
         /// </exception>
-        public WorkItemFormViewModel(string actionName, WorkItem workItem, Termoservis.Models.Customer customer)
+        public WorkItemFormViewModel(string actionName, bool isCreate, WorkItem workItem, Termoservis.Models.Customer customer)
         {
-            if (actionName == null) throw new ArgumentNullException(nameof(actionName));
-            if (workItem == null) throw new ArgumentNullException(nameof(workItem));
-
-            this.ActionName = actionName;
-            this.WorkItem = workItem;
+            this.IsCreate = isCreate;
+            this.ActionName = actionName ?? throw new ArgumentNullException(nameof(actionName));
+            this.WorkItem = workItem ?? throw new ArgumentNullException(nameof(workItem));
             this.AvailableDevices = new MultiSelectList(customer.CustomerDevices, "Id", "Name");
             this.AffectedDevices = workItem.AffectedDevices?.Select(device => device.Id).ToList() ?? new List<long>();
 
@@ -44,6 +43,14 @@ namespace Termoservis.Web.Models.Customer
             if (workItem.Id == 0 && this.AvailableDevices.Count() == 1)
                 this.AffectedDevices.Add(customer.CustomerDevices.First().Id);
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is create.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is create; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsCreate { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the action.

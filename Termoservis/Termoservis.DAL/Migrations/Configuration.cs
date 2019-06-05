@@ -1,3 +1,5 @@
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security.DataProtection;
 using Termoservis.Models;
 
 namespace Termoservis.DAL.Migrations
@@ -26,7 +28,7 @@ namespace Termoservis.DAL.Migrations
 		{
 		    context.Countries.AddOrUpdate(c => c.Id, new Country {Name = "Hrvatska", SearchKeywords = "hrvatska"});
 
-		    //  This method will be called after migrating to the latest version.
+            //  This method will be called after migrating to the latest version.
 
 		    //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
 		    //  to avoid creating duplicate seed data. E.g.

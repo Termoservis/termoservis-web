@@ -11,7 +11,9 @@ namespace Termoservis.Web.Controllers
 	/// </summary>
 	/// <seealso cref="System.Web.Mvc.Controller" />
 	[Authorize]
+#if !DEBUG
     [RequireHttps]
+#endif
     public class ManageController : Controller
 	{
 		private readonly ApplicationSignInManager signInManager;
@@ -56,7 +58,7 @@ namespace Termoservis.Web.Controllers
 		/// </summary>
 		public ActionResult ChangePassword()
 		{
-			return View();
+			return this.View();
 		}
 
 		//
@@ -69,23 +71,24 @@ namespace Termoservis.Web.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
 		{
-			if (!ModelState.IsValid)
+			if (!this.ModelState.IsValid)
 			{
-				return View(model);
+				return this.View(model);
 			}
 			var result =
-				await this.userManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+				await this.userManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 			if (result.Succeeded)
 			{
-				var user = await this.userManager.FindByIdAsync(User.Identity.GetUserId());
+				var user = await this.userManager.FindByIdAsync(this.User.Identity.GetUserId());
 				if (user != null)
 				{
 					await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 				}
-				return RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
+				return this.RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
 			}
-			AddErrors(result);
-			return View(model);
+
+            this.AddErrors(result);
+			return this.View(model);
 		}
 
 		/// <summary>
@@ -96,7 +99,7 @@ namespace Termoservis.Web.Controllers
 		{
 			if (disposing && this.userManager != null)
 			{
-				userManager.Dispose();
+                this.userManager.Dispose();
 			}
 
 			base.Dispose(disposing);
@@ -112,7 +115,7 @@ namespace Termoservis.Web.Controllers
 		{
 			foreach (var error in result.Errors)
 			{
-				ModelState.AddModelError("", error);
+                this.ModelState.AddModelError("", error);
 			}
 		}
 

@@ -25,8 +25,8 @@
                     <div class="row">
                         <div class="col h5">
                             @Html.DisplayNameFor(model => model.Address.StreetAddress)
-                            <button type="button" class="btn btn-secondary btn-sm" style="padding: .05rem .15rem;" data-toggle="modal" data-target="#address-modal">
-                                <svg style="width: 24px; height: 24px; margin-bottom: -6px" viewBox="0 0 24 24">
+                            <button type="button" class="btn btn-outline-secondary" style="padding: .05rem .15rem;" data-toggle="modal" data-target="#address-modal">
+                                <svg style="width: 24px; height: 24px; " viewBox="0 0 24 24">
                                     <path fill="#444" d="M15,19L9,16.89V5L15,7.11M20.5,3C20.44,3 20.39,3 20.34,3L15,5.1L9,3L3.36,4.9C3.15,4.97 3,5.15 3,5.38V20.5A0.5,0.5 0 0,0 3.5,21C3.55,21 3.61,21 3.66,20.97L9,18.9L15,21L20.64,19.1C20.85,19 21,18.85 21,18.62V3.5A0.5,0.5 0 0,0 20.5,3Z" />
                                 </svg>
                             </button>
@@ -116,7 +116,7 @@
             
             <div class="row">
                 <div class="col pb-3">
-                    <a href="@Url.Action("Edit", "Customers", new {id = Model.Id})" class="btn btn-secondary">
+                    <a href="@Url.Action("Edit", "Customers", new {id = Model.Id})" class="btn btn-outline-secondary">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         <span>&nbsp;Uredi korisnika</span>
                     </a>
@@ -135,7 +135,7 @@
                     <div class="row">
                         <div class="col">
                             <table class="table table-hover table-sm">
-                                <thead class="thead-default">
+                                <thead class="bg-light">
                                 <tr>
                                     <th>@Html.DisplayColumnNameFor(Model.CustomerDevices, model => model.Name)</th>
                                     <th>@Html.DisplayColumnNameFor(Model.CustomerDevices, model => model.Manufacturer)</th>
@@ -154,13 +154,13 @@
                                 <tr>
                                     <td colspan="6" style="padding: 0 !important; border: none;">
                                         <div class="accordion-body collapse" id="customerDeviceEdit-new">
-                                            @Html.Partial("_CustomerDeviceDetailsPartial", new CustomerDeviceFormViewModel("CreateCustomerDevice", Model.Id, new CustomerDevice()))
+                                            @Html.Partial("_CustomerDeviceCreateFormPartial", new CustomerDeviceFormViewModel("CreateCustomerDevice", Model.Id, new CustomerDevice()))
                                         </div>
                                     </td>
                                 </tr>
                                 @foreach (var device in Model.CustomerDevices)
                                 {
-                                    <tr>
+                                    <tr data-toggle="collapse" data-target="#customerDeviceEdit-@device.Id" class="accordion-toggle">
                                         <td>@device.Name</td>
                                         <td>@device.Manufacturer</td>
                                         <td>
@@ -168,6 +168,13 @@
                                             {
                                                 @device.CommissionDate.Value.ToString("dd.MM.yyyy")
                                             }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="padding: 0 !important; border: none;">
+                                            <div class="accordion-body collapse" id="customerDeviceEdit-@device.Id" style="background-color: rgb(249, 249, 249)">
+                                                @Html.Partial("_CustomerDeviceUpdateFormPartial", new CustomerDeviceFormViewModel("UpdateCustomerDevice", Model.Id, device))
+                                            </div>
                                         </td>
                                     </tr>
                                 }
@@ -236,5 +243,6 @@
             calendarWeeks: true,
             autoclose: true
         });
+        $(".affected-devices-select").select2();
     });
 </script>

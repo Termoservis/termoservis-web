@@ -1,3 +1,13 @@
+##### v2.4.0 (_2019.06.04_)
+
+- Dodano: Mogucnost uredivanja uredaja
+- Dodano: Analitika broj stavki po zaposleniku zadnjih 30 dana
+- Promjena: Analitika Stavke raspon povecan s 14 na 30 dana
+- Promjena: Kreiranje nove stavke ne prikazuje gumb Obrisi
+- Popravljeno: Uredivanje stavke mice odabir uredaja
+
+----
+
 ##### v2.3.2 (_2018.11.05_)
 
 - Popravljeno: Ažurirani paketi
@@ -27,7 +37,7 @@
 
 ##### v2.2.1 (_2017.02.24_)
 
-- Dodano: Izvjestaj svih projena verzija
+- Dodano: Izvjestaj svih promjena verzija
 - Promjena: Pretraga korisnika sad zahtjeva klik na gumb ili enter na tipkovnici
 - Promjena: Izvjestaj promjena u verziji prikazuje samo najnovije promjene
 - Promjena: Fokusiranje cijene stavke sad oznaci cijelu vrijednost

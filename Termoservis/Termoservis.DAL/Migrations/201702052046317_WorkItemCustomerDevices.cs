@@ -15,9 +15,9 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            AddColumn("dbo.CustomerDevices", "WorkItem_Id", c => c.Long());
-            CreateIndex("dbo.CustomerDevices", "WorkItem_Id");
-            AddForeignKey("dbo.CustomerDevices", "WorkItem_Id", "dbo.WorkItems", "Id");
+            this.AddColumn("dbo.CustomerDevices", "WorkItem_Id", c => c.Long());
+            this.CreateIndex("dbo.CustomerDevices", "WorkItem_Id");
+            this.AddForeignKey("dbo.CustomerDevices", "WorkItem_Id", "dbo.WorkItems", "Id");
         }
 
         /// <summary>
@@ -25,9 +25,9 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            DropForeignKey("dbo.CustomerDevices", "WorkItem_Id", "dbo.WorkItems");
-            DropIndex("dbo.CustomerDevices", new[] { "WorkItem_Id" });
-            DropColumn("dbo.CustomerDevices", "WorkItem_Id");
+            this.DropForeignKey("dbo.CustomerDevices", "WorkItem_Id", "dbo.WorkItems");
+            this.DropIndex("dbo.CustomerDevices", new[] { "WorkItem_Id" });
+            this.DropColumn("dbo.CustomerDevices", "WorkItem_Id");
         }
     }
 }

@@ -15,12 +15,12 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Up()
         {
-            DropForeignKey("dbo.WorkItems", "DeviceId", "dbo.CustomerDevices");
-            DropIndex("dbo.WorkItems", new[] { "DeviceId" });
-            AddColumn("dbo.CustomerDevices", "Customer_Id", c => c.Long());
-            CreateIndex("dbo.CustomerDevices", "Customer_Id");
-            AddForeignKey("dbo.CustomerDevices", "Customer_Id", "dbo.Customers", "Id");
-            DropColumn("dbo.WorkItems", "DeviceId");
+            this.DropForeignKey("dbo.WorkItems", "DeviceId", "dbo.CustomerDevices");
+            this.DropIndex("dbo.WorkItems", new[] { "DeviceId" });
+            this.AddColumn("dbo.CustomerDevices", "Customer_Id", c => c.Long());
+            this.CreateIndex("dbo.CustomerDevices", "Customer_Id");
+            this.AddForeignKey("dbo.CustomerDevices", "Customer_Id", "dbo.Customers", "Id");
+            this.DropColumn("dbo.WorkItems", "DeviceId");
         }
 
         /// <summary>
@@ -28,12 +28,12 @@ namespace Termoservis.DAL.Migrations
         /// </summary>
         public override void Down()
         {
-            AddColumn("dbo.WorkItems", "DeviceId", c => c.Long());
-            DropForeignKey("dbo.CustomerDevices", "Customer_Id", "dbo.Customers");
-            DropIndex("dbo.CustomerDevices", new[] { "Customer_Id" });
-            DropColumn("dbo.CustomerDevices", "Customer_Id");
-            CreateIndex("dbo.WorkItems", "DeviceId");
-            AddForeignKey("dbo.WorkItems", "DeviceId", "dbo.CustomerDevices", "Id");
+            this.AddColumn("dbo.WorkItems", "DeviceId", c => c.Long());
+            this.DropForeignKey("dbo.CustomerDevices", "Customer_Id", "dbo.Customers");
+            this.DropIndex("dbo.CustomerDevices", new[] { "Customer_Id" });
+            this.DropColumn("dbo.CustomerDevices", "Customer_Id");
+            this.CreateIndex("dbo.WorkItems", "DeviceId");
+            this.AddForeignKey("dbo.WorkItems", "DeviceId", "dbo.CustomerDevices", "Id");
         }
     }
 }

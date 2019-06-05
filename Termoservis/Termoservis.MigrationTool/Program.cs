@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,9 +9,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using CsvHelper;
+using DuoVia.FuzzyStrings;
 using Newtonsoft.Json;
 using Termoservis.Common.Extensions;
 using Termoservis.DAL;
+using Termoservis.DAL.Extensions;
 using Termoservis.DAL.Repositories;
 using Termoservis.Models;
 
@@ -66,19 +69,76 @@ namespace Termoservis.MigrationTool
 
         static void Main(string[] args)
         {
-            var content = File.ReadAllText("C:\\Users\\aleks\\Desktop\\TermoservisDb-20170216114503\\Termoservis.json");
-            var data = JsonConvert.DeserializeAnonymousType(content, new
+            Console.WriteLine("Indexing...");
+            var searchDirs = new Dictionary<long, string>();
+
+            var total = new CustomersRepository(new ApplicationDbContext(), null).GetAll().Count();
+
+            var tt = new Stopwatch();
+            tt.Start();
+            const int page = 500;
+            int currentPage = 0;
+            List<Customer> next = null;
+            do
             {
-                Addresses = new List<Address>(),
-                Users = new List<ApplicationUser>(),
-                Countries = new List<Country>(),
-                Customers = new List<Customer>(),
-                CustomerDevices = new List<CustomerDevice>(),
-                Places = new List<Place>(),
-                TelephoneNumbers = new List<TelephoneNumber>(),
-                Workers = new List<Worker>(),
-                WorkItems = new List<WorkItem>()
-            });
+                var customerRepo = new CustomersRepository(new ApplicationDbContext(), null);
+                next = customerRepo.GetAll().AsNoTracking().OrderBy(c => c.Id).Skip(currentPage * page).Take(page).ToList();
+                next.ForEach(c => searchDirs.Add(c.Id, c.SearchKeywords));
+                currentPage++;
+                Console.WriteLine($"{((currentPage * page) / (double)total * 100):0.00}%");
+            } while (next.Count >= page);
+            tt.Stop();
+            var searchDirJson = JsonConvert.SerializeObject(searchDirs);
+            File.WriteAllText("C:\\Users\\aleks\\Desktop\\termoservissearch.json", searchDirJson);
+            Console.WriteLine(" Done in" + tt.Elapsed.ToString());
+            Console.WriteLine();
+
+            var keywords = "";
+            do
+            {
+                Console.WriteLine();
+                Console.Write("Search: ");
+                keywords = Console.ReadLine();
+                var timer = new Stopwatch();
+                timer.Start();
+                var searchableKeywords = keywords.AsSearchable();
+                var searchableKeywordsSplit = searchableKeywords.Split(
+                    new[] {' '},
+                    StringSplitOptions.RemoveEmptyEntries);
+                var searchJson = File.ReadAllText("C:\\Users\\aleks\\Desktop\\termoservissearch.json");
+                var searchDir = JsonConvert.DeserializeObject<Dictionary<long, string>>(searchJson);
+                var orderedCustomers =
+                    searchDir
+                        .Where(c => searchableKeywordsSplit.Any(kw => c.Value.Contains(kw)))
+                        .Select(c =>
+                        {
+                            var score = 0d;
+                            foreach (var kw in searchableKeywordsSplit)
+                            {
+                                var i = c.Value.IndexOf(kw);
+                                if (i < 0)
+                                    continue;
+                                var csplit = c.Value.Split(' ').ToList();
+                                var wmatch = csplit.FirstOrDefault(csm => csm.Contains(kw));
+                                var word = wmatch;//new string(c.Value.Skip(i).TakeWhile(cc => cc != ' ').ToArray());
+                                score += word.FuzzyMatch(kw) - csplit.IndexOf(wmatch) / 10d;
+                            }
+                            //var score = searchableKeywordsSplit.Select(kw => c.Value.FuzzyMatch(kw)).Sum();
+                            
+                            return new
+                            {
+                                Id = c.Key,
+                                Search = c.Value,
+                                Score = score
+                            };
+                        })
+                        .OrderByDescending(c => c.Score)
+                        .Skip(0).Take(10);
+                timer.Stop();
+                foreach (var keyValuePair in orderedCustomers)
+                    Console.WriteLine($@"({keyValuePair.Score:0.00}) {keyValuePair.Id}: {keyValuePair.Search}");
+                Console.WriteLine($"in {timer.Elapsed}");
+            } while (!string.Equals(keywords, "Q", StringComparison.Ordinal));
 
             return;
             

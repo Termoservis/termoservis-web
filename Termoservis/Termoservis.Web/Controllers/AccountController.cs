@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Termoservis.DAL;
+using Termoservis.Models;
 using Termoservis.Web.Models;
 
 namespace Termoservis.Web.Controllers
@@ -13,7 +14,9 @@ namespace Termoservis.Web.Controllers
 	/// </summary>
 	/// <seealso cref="System.Web.Mvc.Controller" />
 	[Authorize]
+#if !DEBUG
     [RequireHttps]
+#endif
     public class AccountController : Controller
     {
         private readonly ApplicationSignInManager signInManager;
@@ -62,7 +65,7 @@ namespace Termoservis.Web.Controllers
         {
 			// Validate model
 			if (!this.ModelState.IsValid)
-				return View(model);
+				return this.View(model);
 
 			// This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -74,7 +77,7 @@ namespace Termoservis.Web.Controllers
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
 	            default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    this.ModelState.AddModelError("", "Invalid login attempt.");
                     return this.View(model);
             }
         }
@@ -102,37 +105,40 @@ namespace Termoservis.Web.Controllers
         public ActionResult Register(RegisterViewModel model)
         {
             // NOTE: Registrations are disabled
+#if !DEBUG
             this.ModelState.AddModelError("", "Registrations are disabled. Contact the administrator for more info.");
             return this.View(model);
+#else
+            if (this.ModelState.IsValid)
+            {
+                // Validate email address
+                if (!model.Email.EndsWith("@termoservis.hr"))
+                {
+                    this.ModelState.AddModelError("", "Unauthorized registration attempt.");
+                    return this.View(model);
+                }
 
-            //if (this.ModelState.IsValid)
-            //{
-            //    // Validate email address
-            //    if (!model.Email.EndsWith("@termoservis.hr"))
-            //    {
-            //        this.ModelState.AddModelError("", "Unauthorized registration attempt.");
-            //        return this.View(model);
-            //    }
+                // Validate password
+                if (model.Password != model.ConfirmPassword)
+                {
+                    this.ModelState.AddModelError("", "Passwords don't match.");
+                    return this.View(model);
+                }
 
-            //    // Validate password
-            //    if (model.Password != model.ConfirmPassword)
-            //    {
-            //        this.ModelState.AddModelError("", "Passwords don't match.");
-            //        return this.View(model);
-            //    }
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
+                var result = this.userManager.Create(user, model.Password);
+                if (result.Succeeded)
+                {
+                    this.signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    return this.RedirectToAction("Index", "Home");
+                }
 
-            //    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-            //    var result = this.userManager.Create(user, model.Password);
-            //    if (result.Succeeded)
-            //    {
-            //        this.signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-            //        return this.RedirectToAction("Index", "Home");
-            //    }
-            //    this.AddErrors(result);
-            //}
+                this.AddErrors(result);
+            }
 
-            //// If we got this far, something failed, redisplay form
-            //return this.View(model);
+            // If we got this far, something failed, redisplay form
+            return this.View(model);
+#endif
         }
 
         //
@@ -174,7 +180,7 @@ namespace Termoservis.Web.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                this.ModelState.AddModelError("", error);
             }
         }
 
@@ -185,11 +191,11 @@ namespace Termoservis.Web.Controllers
 		/// <returns>Redirect to URL.</returns>
 		private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (this.Url.IsLocalUrl(returnUrl))
             {
-                return Redirect(returnUrl);
+                return this.Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home");
         }
 
         #endregion
