@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.Common", "Termo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.BLL", "Termoservis.BLL\Termoservis.BLL.csproj", "{ED967BEA-26F4-4C88-9FC3-418658EFC5AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Termoservis.MigrationTool", "Termoservis.MigrationTool\Termoservis.MigrationTool.csproj", "{BD5800EB-F356-4F3D-B4A6-2C3692BC11D4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8FB71424-5818-4704-8BFC-B7A6FA87B475}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -52,10 +50,6 @@ Global
 		{ED967BEA-26F4-4C88-9FC3-418658EFC5AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED967BEA-26F4-4C88-9FC3-418658EFC5AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED967BEA-26F4-4C88-9FC3-418658EFC5AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD5800EB-F356-4F3D-B4A6-2C3692BC11D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD5800EB-F356-4F3D-B4A6-2C3692BC11D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD5800EB-F356-4F3D-B4A6-2C3692BC11D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD5800EB-F356-4F3D-B4A6-2C3692BC11D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
