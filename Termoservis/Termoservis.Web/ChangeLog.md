@@ -1,3 +1,10 @@
+##### v2.4.1 (_2019.10.02_)
+
+- Dodano: Dodan novi zaposlenik Dino H
+- Promjena: Deaktiviran zaposlenik Marko
+
+----
+
 ##### v2.4.0 (_2019.06.04_)
 
 - Dodano: Mogucnost uredivanja uredaja
