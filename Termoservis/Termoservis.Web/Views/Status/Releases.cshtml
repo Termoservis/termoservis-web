@@ -1,0 +1,60 @@
+﻿@using Termoservis.Web.Helpers
+
+@{
+    ViewBag.Title = "Izdanja";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Breadcrumbs(
+    "Izdanja",
+    Html.ActionLink("Početna", "Index", "Home"))
+
+<div class="row">
+    <div class="col pt-2">
+        <div class="card">
+            <div class="card-header">
+                @ViewBag.Title
+            </div>
+            <div class="card-body">
+                <div id="inNewVersion-data-loading-container">
+                    <small>Loading...</small>
+                    <div id="inNewVersion-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+                </div>
+                <div id="new-in-release-container" style="font-size: 0.9em;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        var loadingProgressBars = {
+            inNewVersion: {
+                progressBarContainer: '#inNewVersion-data-loading-container',
+                progressBarId: '#inNewVersion-data-loading-progress',
+                progressBar: undefined
+            }
+        };
+
+        $(document).ready(function () {
+            loadingProgressBars.inNewVersion.progressBar = new Mprogress({
+                template: 3,
+                parent: loadingProgressBars.inNewVersion.progressBarId,
+                start: true
+            });
+
+            $.ajax({
+                url: '/ChangeLog.md',
+                async: false,
+                success: function (data) {
+                    loadingProgressBars.inNewVersion.progressBar.end(true);
+                    $(loadingProgressBars.inNewVersion.progressBarContainer).hide();
+                    $("#new-in-release-container").html(markdown.toHTML(data));
+                }
+            });
+        });
+    </script>
+}

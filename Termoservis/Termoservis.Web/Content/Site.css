@@ -1,0 +1,40 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.table .clickable-row {
+    cursor: pointer;
+}
+
+.h6, .h5, .h4, .h3, .h2, .h1, h6, h5, h4, h3, h2, h1 {
+    font-weight: normal;
+}
+
+th {
+    font-weight: normal;
+}
+
+.breadcrumb {
+    background-color: transparent !important;
+}
+
+.navbar {
+    border-bottom: 1px solid #DADADA;
+    border-top: 2px solid red;
+}
+

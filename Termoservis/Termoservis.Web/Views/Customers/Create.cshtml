@@ -1,0 +1,19 @@
+﻿@using Termoservis.Web.Helpers
+@model Termoservis.Web.Models.Customer.CustomerFormViewModel
+
+@{
+    ViewBag.Title = "Kreiraj korisnika";
+}
+
+@Html.Breadcrumbs(
+    "Novi korisnik",
+    @Html.ActionLink("Početna", "Index", "Home"),
+    @Html.ActionLink("Korisnici", "Index", "Customers"))
+
+@Html.Header()
+	
+@Html.Partial("_CustomerFormPartial", Model)
+
+@section Scripts {
+    <script src="/bundles/customers/create" type="text/javascript" language="javascript"></script>
+}

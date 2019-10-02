@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+    <div class="row">
+        <div class="col-xl-6 pt-4">
+            <div class="card">
+                <div class="card-header bg-light">
+                    Stavke <small class="text-muted">Nove stavke vs. prošlogodisnje stavke (30 dana)</small>
+                </div>
+                <div class="card-body">
+                    <div id="workItemsOverDayGraph-data-loading-container">
+                        <small>Loading...</small>
+                        <div id="workItemsOverDayGraph-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+                    </div>
+                    <div id="workItemsOverDayGraph" class='pt-1'></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 pt-4">
+            <div class="card">
+                <div class="card-header bg-light">
+                    Zaposlenik <small class="text-muted">Stavke (30 dana)</small>
+                </div>
+                <div class="card-body">
+                    <div id="workerWorkItemsCountGraph-data-loading-container">
+                        <small>Loading...</small>
+                        <div id="workerWorkItemsCountGraph-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+                    </div>
+                    <div id="workerWorkItemsCountGraph" class='pt-1'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-3 pt-4">
+        <div class="card">
+            <div class="card-header bg-light">
+                Backup
+            </div>
+            <div class="card-body">
+                <button class="btn btn-outline-primary" id="download-backup-button">
+                    <i class="fa fa-download"></i>
+                    <span>&nbsp;Preuzmi</span>
+                </button>
+                <div>
+                    <small class="text-muted">s datumom @TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time")).ToString("dd.MM.yyyy HH:mm:ss")</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 pt-4">
+        <div class="card">
+            <div class="card-header bg-light">
+                U novoj verziji
+            </div>
+            <div class="card-body">
+                <div id="inNewVersion-data-loading-container">
+                    <small>Loading...</small>
+                    <div id="inNewVersion-data-loading-progress" style="margin: 10px 0 10px 0; width: 100%; height: 5px;"></div>
+                </div>
+                <div id="new-in-release-container" style="font-size: 0.9em;">
+                </div>
+                <div>
+                    @Html.ActionLink("Pregled prijašnjih verzija...", "Releases", "Status")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var loadingProgressBars = {
+            workItemsOverDayGraph: {
+                progressBarContainer: '#workItemsOverDayGraph-data-loading-container',
+                progressBarId: '#workItemsOverDayGraph-data-loading-progress',
+                progressBar: undefined
+            },
+            workerWorkItemsCount: {
+                progressBarContainer: '#workerWorkItemsCountGraph-data-loading-container',
+                progressBarId: '#workerWorkItemsCountGraph-data-loading-progress',
+                progressBar: undefined
+            },
+            inNewVersion: {
+                progressBarContainer: '#inNewVersion-data-loading-container',
+                progressBarId: '#inNewVersion-data-loading-progress',
+                progressBar: undefined
+            }
+        };
+       
+        $(document).ready(function () {
+            loadingProgressBars.workItemsOverDayGraph.progressBar = new Mprogress({
+                template: 3,
+                parent: loadingProgressBars.workItemsOverDayGraph.progressBarId,
+                start: true
+            });
+            loadingProgressBars.workerWorkItemsCount.progressBar = new Mprogress({
+                template: 3,
+                parent: loadingProgressBars.workerWorkItemsCount.progressBarId,
+                start: true
+            });
+            loadingProgressBars.inNewVersion.progressBar = new Mprogress({
+                template: 3,
+                parent: loadingProgressBars.inNewVersion.progressBarId,
+                start: true
+            });
+
+            $("#download-backup-button").click(function () {
+                $(this).prop('disabled', true);
+                window.location = '/api/v1/management/backup';
+            });
+
+            $.ajax({
+                url: '/ChangeLog.md#' + new Date(),
+                success: function (data) {
+                    loadingProgressBars.inNewVersion.progressBar.end(true);
+                    $(loadingProgressBars.inNewVersion.progressBarContainer).hide();
+                    $("#new-in-release-container").html(markdown.toHTML(data.split("----")[0]));
+                }
+            });
+        });
+
+        google.charts.load('current', { 'packages': ['line', 'bar'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                url: '/api/v1/analytics/newwivslastyear',
+                success: function (result) {
+                    loadingProgressBars.workItemsOverDayGraph.progressBar.end(true);
+                    $(loadingProgressBars.workItemsOverDayGraph.progressBarContainer).hide();
+
+                    var dataArray = [
+                        ['', 'Novo', 'Prijašnje']
+                    ];
+
+                    for (var index = 0; index < result.Items.length; index++) {
+                        var currentItem = result.Items[index];
+                        dataArray.push([
+                            moment(currentItem.Date).format("DD.MM.YY."), currentItem.NewCount, currentItem.OldCount
+                        ]);
+                    }
+
+                    var data = google.visualization.arrayToDataTable(dataArray);
+
+                    var options = {
+                        colors: ['#1e90ff', '#cacaca'],
+                        legend: { position: 'none' }
+                    };
+
+                    var chart = new google.charts.Line(document.getElementById('workItemsOverDayGraph'));
+
+                    chart.draw(data, options);
+                }
+            });
+
+            $.ajax({
+                url: '/api/v1/analytics/workerworkitems',
+                success: function (result) {
+                    loadingProgressBars.workerWorkItemsCount.progressBar.end(true);
+                    $(loadingProgressBars.workerWorkItemsCount.progressBarContainer).hide();
+
+                    var dataArray = [
+                        ['Zaposlenik', 'Broj stavki']
+                    ];
+
+                    for (var index = 0; index < result.Items.length; index++) {
+                        var currentItem = result.Items[index];
+                        dataArray.push([
+                            currentItem.WorkerName, currentItem.WorkItemsCount
+                        ]);
+                    }
+
+                    var data = google.visualization.arrayToDataTable(dataArray);
+
+                    var options = {
+                        colors: ['#1e90ff', '#cacaca'],
+                        legend: { position: 'none' }
+                    };
+
+                    var chart = new google.charts.Bar(document.getElementById('workerWorkItemsCountGraph'));
+
+                    chart.draw(data, options);
+                }
+            });
+        }
+    </script>
+}

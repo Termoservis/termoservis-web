@@ -1,0 +1,248 @@
+﻿@using Termoservis.Models
+@using Termoservis.Web.Helpers
+@using Termoservis.Web.Models.Customer
+@model Termoservis.Models.Customer
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Breadcrumbs(
+    Model.Name,
+    Html.ActionLink("Početna", "Index", "Home"),
+    Html.ActionLink("Korisnici", "Index", "Customers"))
+
+@Html.Header()
+
+    <div class="row">
+        <div class="col pt-3">
+
+            <div class="row">
+                
+                <!--  Address  -->
+                <div class="col-md">
+                    <div class="row">
+                        <div class="col h5">
+                            @Html.DisplayNameFor(model => model.Address.StreetAddress)
+                            <button type="button" class="btn btn-outline-secondary" style="padding: .05rem .15rem;" data-toggle="modal" data-target="#address-modal">
+                                <svg style="width: 24px; height: 24px; " viewBox="0 0 24 24">
+                                    <path fill="#444" d="M15,19L9,16.89V5L15,7.11M20.5,3C20.44,3 20.39,3 20.34,3L15,5.1L9,3L3.36,4.9C3.15,4.97 3,5.15 3,5.38V20.5A0.5,0.5 0 0,0 3.5,21C3.55,21 3.61,21 3.66,20.97L9,18.9L15,21L20.64,19.1C20.85,19 21,18.85 21,18.62V3.5A0.5,0.5 0 0,0 20.5,3Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            @Html.DisplayFor(model => model.Address)
+                        </div>
+                    </div>
+                </div>
+                
+                <!--  Contact info  -->
+                <div class="col-sm">
+                    <div class="row">
+
+                        <!-- Telephone numbers -->
+                        <div class="col">
+                            <div class="row">
+                                <div class="col h5">
+                                    @Html.DisplayNameFor(model => model.TelephoneNumbers)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    @Html.DisplayFor(model => model.TelephoneNumbers, "TelephoneNumbers")
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Email))
+                    {
+                        <div class="row">
+
+                            <!-- Email -->
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col h5">
+                                        @Html.DisplayNameFor(model => model.Email)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        @if (!string.IsNullOrWhiteSpace(Model.Email))
+                                        {
+                                            @Html.DisplayFor(model => model.Email)
+                                        }
+                                        else
+                                        {
+                                            <div class="text-muted small">Nema zapisa</div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <!--  Note  -->
+                <div class="col-sm">
+                    <div class="row">
+                        <div class="col h5">
+                            @Html.DisplayNameFor(model => model.Note)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            @if (!string.IsNullOrWhiteSpace(Model.Note))
+                            {
+                                @Html.DisplayFor(model => model.Note)
+                            }
+                            else
+                            {
+                                <div class="text-sm-left text-muted small">Nema zapisa</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="row">
+                <div class="col pb-3">
+                    <a href="@Url.Action("Edit", "Customers", new {id = Model.Id})" class="btn btn-outline-secondary">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        <span>&nbsp;Uredi korisnika</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <!-- Customer devices -->
+                <div class="col-sm col-md-6 pt-3">
+                    <div class="row">
+                        <div class="col h5 pb-1">
+                            @Html.DisplayNameFor(model => model.CustomerDevices)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-hover table-sm">
+                                <thead class="bg-light">
+                                <tr>
+                                    <th>@Html.DisplayColumnNameFor(Model.CustomerDevices, model => model.Name)</th>
+                                    <th>@Html.DisplayColumnNameFor(Model.CustomerDevices, model => model.Manufacturer)</th>
+                                    <th>@Html.DisplayColumnNameFor(Model.CustomerDevices, model => model.CommissionDate)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="cursor: pointer; color: #1e90ff" colspan="3" data-toggle="collapse" data-target="#customerDeviceEdit-new" class="accordion-toggle">
+                                        <div>
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            <span>Dodaj novi uredaj</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="padding: 0 !important; border: none;">
+                                        <div class="accordion-body collapse" id="customerDeviceEdit-new">
+                                            @Html.Partial("_CustomerDeviceCreateFormPartial", new CustomerDeviceFormViewModel("CreateCustomerDevice", Model.Id, new CustomerDevice()))
+                                        </div>
+                                    </td>
+                                </tr>
+                                @foreach (var device in Model.CustomerDevices)
+                                {
+                                    <tr data-toggle="collapse" data-target="#customerDeviceEdit-@device.Id" class="accordion-toggle">
+                                        <td>@device.Name</td>
+                                        <td>@device.Manufacturer</td>
+                                        <td>
+                                            @if (device.CommissionDate.HasValue)
+                                            {
+                                                @device.CommissionDate.Value.ToString("dd.MM.yyyy")
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="padding: 0 !important; border: none;">
+                                            <div class="accordion-body collapse" id="customerDeviceEdit-@device.Id" style="background-color: rgb(249, 249, 249)">
+                                                @Html.Partial("_CustomerDeviceUpdateFormPartial", new CustomerDeviceFormViewModel("UpdateCustomerDevice", Model.Id, device))
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!--  Work items  -->
+            <div class="row">
+                <div class="col pt-3">
+                    <div class="row">
+                        <div class="col h5 pb-1">
+                            @Html.DisplayNameFor(model => model.WorkItems)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            @Html.DisplayFor(model => model, "WorkItems")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col text-muted small">
+                            Korisnik je stvoren @Html.DisplayFor(model => model.CreationDate) (@Html.DisplayFor(model => model.ApplicationUser.UserName))
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="address-modal" tabindex="-1" role="dialog" aria-labelledby="address-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="address-modal-title">@Model.Name</h4>
+            </div>
+            <div class="modal-body">
+                    <iframe width="770" style="max-width: 100%; border: 0"
+                            height="620"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyANxFs2LiQt22BTYv16dSviRiZSHGLpmCQ&q=@Model.Address.StreetAddress.Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries).Union(Model.Address.PlaceId.HasValue ? Model.Address.Place.Name.Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries).Union(new[]{Model.Address.Place.Country.Name}) : new List<string>()).Aggregate(string.Empty,(c,s) => c + "+" + s)" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function() {
+        $(".customerdevice-edit-datepicker").datepicker({
+            format: "dd.mm.yyyy",
+            language: "hr",
+            calendarWeeks: true,
+            autoclose: true
+        });
+        $(".affected-devices-select").select2();
+    });
+</script>

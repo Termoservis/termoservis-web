@@ -1,0 +1,12 @@
+﻿@model Termoservis.Models.Address
+
+<div>
+    @if (Model.Place != null)
+    {
+        <span>@Model.StreetAddress, @Model.Place.Name</span>
+    }
+    else
+    {
+        <span>@Model.StreetAddress</span>
+    }
+</div>

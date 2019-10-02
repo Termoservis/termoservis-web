@@ -1,0 +1,71 @@
+﻿@using Termoservis.Web.Helpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+	<meta name="description" content="Termoservis" />
+    <title>@ViewBag.Title - Termoservis</title>
+	
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    
+    <!-- iOS icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/Content/images/app-icons/apple-Icon-App-57x57@1x.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/Content/images/app-icons/apple-Icon-App-57x57@2x.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/Content/images/app-icons/apple-Icon-App-72x72@1x.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/Content/images/app-icons/apple-Icon-App-72x72@2x.png" />
+
+    <link href="/bundles/css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/dad499dd89.js" type="text/javascript" language="javascript"></script>
+    <script src="/bundles/standard" type="text/javascript" language="javascript"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    
+    <script type="text/javascript">
+        $(function () {
+            jQuery.validator.methods.date = function (value, element) {
+                var d = value.split(".");
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d[2], d[1], d[0]));
+            };
+        });
+    </script>
+    <script type="text/javascript">
+        var appInsights=window.appInsights||function(config){
+            function r(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s=u.createElement(o),i,f;for(s.src=config.url||"//az416426.vo.msecnd.net/scripts/a/ai.0.js",u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=["Event","Exception","Metric","PageView","Trace"];i.length;)r("track"+i.pop());return r("setAuthenticatedUserContext"),r("clearAuthenticatedUserContext"),config.disableExceptionTracking||(i="onerror",r("_"+i),f=e[i],e[i]=function(config,r,u,e,o){var s=f&&f(config,r,u,e,o);return s!==!0&&t["_"+i](config,r,u,e,o),s}),t
+        }({
+            instrumentationKey:"025d8c00-3106-4d91-a93e-0d292bde81e7"
+        });
+        
+        window.appInsights=appInsights;
+        appInsights.trackPageView();
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+    <div class="container">
+        @Html.ActionLink("TERMOSERVIS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainToggler"
+                aria-controls="navbarMainToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMainToggler">
+            <div class="navbar-nav mr-auto">
+                @Html.MenuLink("Početna", "Index", "Home", new { @class = "nav-item nav-link" }, true)
+                @Html.MenuLink("Korisnici", "Index", "Customers", new { @class = "nav-item nav-link" }, true)
+            </div>
+            <div class="navbar-nav">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+	@RenderBody()
+</div>
+    
+@RenderSection("scripts", required: false)
+</body>
+</html>

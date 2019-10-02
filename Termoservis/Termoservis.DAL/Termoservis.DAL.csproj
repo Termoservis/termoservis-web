@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FADCB9C6-EB0F-4C85-BEC9-81FB022C65BE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Termoservis.DAL</RootNamespace>
+    <AssemblyName>Termoservis.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Termoservis.DAL.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Termoservis.DAL.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="ApplicationSignInManager.cs" />
+    <Compile Include="ApplicationUserManager.cs" />
+    <Compile Include="Extensions\ApplicationDbContextExtensions.cs" />
+    <Compile Include="Extensions\ILocationViewModelExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Migrations\201603201850293_Initial.cs" />
+    <Compile Include="Migrations\201603201850293_Initial.Designer.cs">
+      <DependentUpon>201603201850293_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611230105303_Customer.cs" />
+    <Compile Include="Migrations\201611230105303_Customer.Designer.cs">
+      <DependentUpon>201611230105303_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611232320203_WorkItem.cs" />
+    <Compile Include="Migrations\201611232320203_WorkItem.Designer.cs">
+      <DependentUpon>201611232320203_WorkItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611241949172_CustomerDevice.cs" />
+    <Compile Include="Migrations\201611241949172_CustomerDevice.Designer.cs">
+      <DependentUpon>201611241949172_CustomerDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611250110143_AddressUpdate.cs" />
+    <Compile Include="Migrations\201611250110143_AddressUpdate.Designer.cs">
+      <DependentUpon>201611250110143_AddressUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611282359415_Worker.cs" />
+    <Compile Include="Migrations\201611282359415_Worker.Designer.cs">
+      <DependentUpon>201611282359415_Worker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611290206221_CustomerDeviceInCustomer.cs" />
+    <Compile Include="Migrations\201611290206221_CustomerDeviceInCustomer.Designer.cs">
+      <DependentUpon>201611290206221_CustomerDeviceInCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701071127104_TelephoneNumberNotRequired.cs" />
+    <Compile Include="Migrations\201701071127104_TelephoneNumberNotRequired.Designer.cs">
+      <DependentUpon>201701071127104_TelephoneNumberNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701080303391_WorkItemCustomerNavigationProperty.cs" />
+    <Compile Include="Migrations\201701080303391_WorkItemCustomerNavigationProperty.Designer.cs">
+      <DependentUpon>201701080303391_WorkItemCustomerNavigationProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701081806432_WorkerIsActive.cs" />
+    <Compile Include="Migrations\201701081806432_WorkerIsActive.Designer.cs">
+      <DependentUpon>201701081806432_WorkerIsActive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702052046317_WorkItemCustomerDevices.cs" />
+    <Compile Include="Migrations\201702052046317_WorkItemCustomerDevices.Designer.cs">
+      <DependentUpon>201702052046317_WorkItemCustomerDevices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.cs" />
+    <Compile Include="Migrations\201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.Designer.cs">
+      <DependentUpon>201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703211848413_CustomrDeviceNameRequired.cs" />
+    <Compile Include="Migrations\201703211848413_CustomrDeviceNameRequired.Designer.cs">
+      <DependentUpon>201703211848413_CustomrDeviceNameRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AddressesRepository.cs" />
+    <Compile Include="Repositories\CountriesRepository.cs" />
+    <Compile Include="Repositories\CustomerDevicesRepository.cs" />
+    <Compile Include="Repositories\CustomersRepository.cs" />
+    <Compile Include="Repositories\IAddressesRepository.cs" />
+    <Compile Include="Repositories\ICountriesRepository.cs" />
+    <Compile Include="Repositories\ICustomerDevicesRepository.cs" />
+    <Compile Include="Repositories\ICustomersRepository.cs" />
+    <Compile Include="Repositories\IPlacesRepository.cs" />
+    <Compile Include="Repositories\ITelephoneNumbersRepository.cs" />
+    <Compile Include="Repositories\IWorkItemsRepository.cs" />
+    <Compile Include="Repositories\PlacesesRepository.cs" />
+    <Compile Include="Repositories\TelephoneNumbersRepository.cs" />
+    <Compile Include="Repositories\WorkItemsRepository.cs" />
+    <Compile Include="ViewModels\ILocationViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Termoservis.Common\Termoservis.Common.csproj">
+      <Project>{08a0b513-755b-4ccc-8924-99cc332ec139}</Project>
+      <Name>Termoservis.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Termoservis.Contracts\Termoservis.Contracts.csproj">
+      <Project>{f962c1c5-6c1d-4bfb-9582-c96b5d8fb1d6}</Project>
+      <Name>Termoservis.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Termoservis.Models\Termoservis.Models.csproj">
+      <Project>{226ee745-7c74-4b93-8fad-873b1ae60f03}</Project>
+      <Name>Termoservis.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603201850293_Initial.resx">
+      <DependentUpon>201603201850293_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611230105303_Customer.resx">
+      <DependentUpon>201611230105303_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611232320203_WorkItem.resx">
+      <DependentUpon>201611232320203_WorkItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611241949172_CustomerDevice.resx">
+      <DependentUpon>201611241949172_CustomerDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611250110143_AddressUpdate.resx">
+      <DependentUpon>201611250110143_AddressUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611282359415_Worker.resx">
+      <DependentUpon>201611282359415_Worker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611290206221_CustomerDeviceInCustomer.resx">
+      <DependentUpon>201611290206221_CustomerDeviceInCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701071127104_TelephoneNumberNotRequired.resx">
+      <DependentUpon>201701071127104_TelephoneNumberNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701080303391_WorkItemCustomerNavigationProperty.resx">
+      <DependentUpon>201701080303391_WorkItemCustomerNavigationProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701081806432_WorkerIsActive.resx">
+      <DependentUpon>201701081806432_WorkerIsActive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702052046317_WorkItemCustomerDevices.resx">
+      <DependentUpon>201702052046317_WorkItemCustomerDevices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.resx">
+      <DependentUpon>201702162217560_PriceToDecimalCustomerDeviceHasManyWorkItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703211848413_CustomrDeviceNameRequired.resx">
+      <DependentUpon>201703211848413_CustomrDeviceNameRequired.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Fissoft.EntityFramework.Fts">
+      <Version>1.0.80</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <Version>2.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Identity.Owin">
+      <Version>2.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Security.Cookies">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Security.OAuth">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog">
+      <Version>2.8.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

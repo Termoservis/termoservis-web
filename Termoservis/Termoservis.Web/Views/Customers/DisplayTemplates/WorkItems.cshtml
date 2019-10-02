@@ -1,0 +1,72 @@
+﻿@using Termoservis.Models
+@using Termoservis.Web.Helpers
+@using Termoservis.Web.Models.Customer
+@model Customer
+    
+<div class="form-group row">
+    <div class="col">
+        <table class="table table-hover table-responsive">
+            <thead class="bg-light">
+            <tr>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Date)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Type)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.AffectedDevices)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Worker)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Price)</th>
+                <th>@Html.DisplayColumnNameFor(Model.WorkItems, model => model.Description)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td style="cursor: pointer; color: #1e90ff" colspan="6" data-toggle="collapse" data-target="#workItemEdit-new" class="accordion-toggle">
+                    <div>
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <span>Dodaj novu stavku</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" style="padding: 0 !important; border: none;">
+                    <div class="accordion-body collapse" id="workItemEdit-new">
+                        <div class="row">
+                            @Html.Partial("_WorkItemDetailsPartial", new WorkItemFormViewModel("Create", true, new WorkItem { Customer = Model, CustomerId = Model.Id }, Model))
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            @if (Model.WorkItems.Any())
+            {
+                foreach (var workItem in Model.WorkItems.OrderByDescending(item => item.Date))
+                {
+                    @Html.DisplayFor(model => workItem, "WorkItemTableRow")
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-muted small" colspan="6">Korisnik nema stavki</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function() {
+        $(".workitem-edit-datepicker").datepicker({
+            format: "dd.mm.yyyy",
+            language: "hr",
+            calendarWeeks: true,
+            autoclose: true
+        }).on("hide", function() {
+            var fields = $(this).parents('form:eq(0),body').find('button,input,textarea,select');
+            var index = fields.index(this);
+            if (index > -1 && (index + 1) < fields.length) {
+
+                fields.eq(index + 1).focus().select();
+            }
+            return false;
+            });
+    });
+</script>

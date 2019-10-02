@@ -1,0 +1,14 @@
+﻿@model Termoservis.Models.TelephoneNumber
+
+<div class="form-group row">
+    <div class="col-md-12">
+        @if (char.IsDigit(Model.Number.ElementAt(3)))
+        {
+            @Model.Number.Insert(3,"/").Insert(7,"-")<br/>
+        }
+        else
+        {
+            @Model.Number<br/>
+        }
+    </div>
+</div>

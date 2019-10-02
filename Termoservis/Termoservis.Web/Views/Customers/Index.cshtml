@@ -1,0 +1,99 @@
+﻿@using Termoservis.Web.Helpers
+@model Termoservis.Web.Models.Customer.CustomersSearchResult
+
+@{
+    ViewBag.Title = "Korisnici";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Breadcrumbs(
+    "Korisnici",
+    Html.ActionLink("Početna", "Index", "Home"))
+
+@Html.Header()
+
+<div class="row">
+    <div class="col pb-3">
+        <a href="@Url.Action("Create", "Customers")" class="btn btn-primary">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span>&nbsp;Dodaj korisnika</span>
+        </a>
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col">
+        <div class="input-group">
+            <input class="form-control customers-table-search-input" type="search" aria-describedby="search-status" value="@Model.Keywords" placeholder="Trazi korisnika..." />
+            <span class="input-group-append">
+                <button class="btn btn-secondary" type="button" id="customers-search-button">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </span>
+        </div>
+        @Ajax.ActionLink(
+            "Search",
+            "CustomersSearch",
+            "Customers",
+            new {newPage = 0},
+            new AjaxOptions
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "search-result-content",
+                InsertionMode = InsertionMode.Replace
+            },
+            new {@class = "customers-table-search-submit", hidden = "hidden"})
+    </div>
+</div>
+
+<div class="row">
+    <div class="col" id="search-result-content">
+        @Html.Partial("_CustomersTablePartial", Model)
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        var isSearchInProgress = false;
+        function enableSearchButton() {
+            isSearchInProgress = false;
+            $("#customers-search-button").prop("disabled", false);
+        }
+
+        function disableSearchButton() {
+            isSearchInProgress = true;
+            $("#customers-search-button").prop("disabled", true);
+        }
+
+        $(document).ready(function() {
+            var initialValue;
+
+            function customersTableSearchInputSubmitDebounced() {
+                if (isSearchInProgress)
+                    return;
+
+                disableSearchButton();
+
+                var keywords = $(".customers-table-search-input").val();
+                var submitLink = $(".customers-table-search-submit");
+
+                if (!initialValue)
+                    initialValue = submitLink.attr('href');
+                var link = initialValue + "&keywords=" + encodeURI(keywords);
+                submitLink.attr('href', link);
+
+                // Submit
+                submitLink.click();
+            }
+
+            $(".customers-table-search-input").on("keydown", function (event) {
+                console.log(event.keyCode);
+                if (event.which == 13 || event.keyCode == 13) {
+                    $("#customers-search-button").click();
+                }
+            });
+            $("#customers-search-button").click($.throttle(1000, customersTableSearchInputSubmitDebounced));
+        });
+    </script>
+}
