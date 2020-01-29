@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Mindscape.Raygun4Net.WebApi;
 using Newtonsoft.Json;
 
 namespace Termoservis.Web
@@ -30,6 +31,8 @@ namespace Termoservis.Web
             // Configure WebAPI
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.LocalOnly;
+
+            RaygunWebApiClient.Attach(config);
         }
     }
 }
