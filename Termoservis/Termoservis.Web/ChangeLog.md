@@ -1,3 +1,10 @@
+﻿##### v2.4.2 (_2020.01.29_)
+
+- Popravljeno: Uređivanje stavke s zaposlenikom Dino H
+- Promjena: Manje promjene
+
+----
+
 ##### v2.4.1 (_2019.10.02_)
 
 - Dodano: Dodan novi zaposlenik Dino H
@@ -17,7 +24,7 @@
 
 ##### v2.3.2 (_2018.11.05_)
 
-- Popravljeno: A�urirani paketi
+- Popravljeno: Ažurirani paketi
 
 ----
 
