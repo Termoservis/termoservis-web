@@ -1,5 +1,3 @@
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security.DataProtection;
 using Termoservis.Models;
 
 namespace Termoservis.DAL.Migrations
