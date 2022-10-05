@@ -100,7 +100,8 @@ namespace Termoservis.Web.Models.Customer
             new SelectListItem {Text = "Mario", Value = "4"},
             new SelectListItem {Text = "Dino K", Value = "5", Disabled = true},
             new SelectListItem {Text = "Mladen", Value = "6"},
-            new SelectListItem {Text = "Dino H", Value = "7"}
+            new SelectListItem {Text = "Dino H", Value = "7", Disabled = true},
+            new SelectListItem {Text = "Domagoj", Value = "8", Disabled = true}
         };
     }
 }
