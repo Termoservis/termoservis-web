@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Termoservis d.o.o.")]
 [assembly: AssemblyProduct("Termoservis.Web")]
-[assembly: AssemblyCopyright("Copyright © Termoservis d.o.o. 2016")]
+[assembly: AssemblyCopyright("Copyright © Termoservis d.o.o. 2016-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,4 +30,4 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2.4.2.0")]
+[assembly: AssemblyVersion("2.4.3.0")]

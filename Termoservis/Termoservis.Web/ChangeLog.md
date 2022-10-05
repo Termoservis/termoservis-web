@@ -1,4 +1,11 @@
-﻿##### v2.4.2 (_2020.01.29_)
+﻿##### v2.4.3 (_2022.10.05_)
+
+- Dodano: Zaposlenik Domagoj
+- Promjena: Onemogućen Dino H
+
+----
+
+##### v2.4.2 (_2020.01.29_)
 
 - Popravljeno: Uređivanje stavke s zaposlenikom Dino H
 - Promjena: Manje promjene
