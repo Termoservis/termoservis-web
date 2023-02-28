@@ -1,5 +1,5 @@
-﻿/// <reference path="modernizr-2.8.3.js" />
-/// <reference path="jquery-3.4.1.js" />
+﻿/// <reference path="jquery-3.6.3.js" />
+/// <reference path="modernizr-2.8.3.js" />
 /// <autosync enabled="true" />
 /// <reference path="ai.0.15.0-build58334.js" />
 /// <reference path="bootstrap.min.js" />

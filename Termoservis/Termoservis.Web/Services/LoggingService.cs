@@ -49,7 +49,7 @@ namespace Termoservis.Web.Services
 		private static ILogger ConfigureLogger()
 		{
 			return new LoggerConfiguration()
-				.WriteTo.ColoredConsole()
+				.WriteTo.Console()
 				.CreateLogger();
 		}
 	}
