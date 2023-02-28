@@ -27,7 +27,7 @@
             @Model.Worker.Name
         }
     </td>
-    <td>@Html.DisplayFor(model => model.Price) kn</td>
+    <td>@Html.DisplayFor(model => model.Price)&nbsp;@(Model.Date < new DateTime(2023,1,15) ? "kn" : "eur")</td>
     <td nowrap="nowrap">@Html.DisplayWithBreaksFor(model => model.Description)</td>
 </tr>
 <tr>
