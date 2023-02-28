@@ -16,7 +16,7 @@
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Price)&nbsp;kn
+        @Html.DisplayFor(model => model.Price)&nbsp;@(Model.Date < new DateTime(2023,1,15) ? "kn" : "eur")
     </dd>
 
     <dt>

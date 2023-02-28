@@ -1,4 +1,10 @@
-﻿##### v2.4.3 (_2022.10.05_)
+﻿##### 2.4.4 (_2023.02.28_)
+
+- Promjena: Prikazivanje value EUR umjesto KN od 15.1.2023.
+
+----
+
+##### v2.4.3 (_2022.10.05_)
 
 - Dodano: Zaposlenik Domagoj
 - Promjena: Onemogućen Dino H
